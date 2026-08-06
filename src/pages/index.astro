@@ -2,28 +2,39 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="MetaClean — Remove image and PDF metadata">
+<Layout title="MetaClean — Remove image, PDF and Office document metadata">
 	<main>
 		<nav class="nav" aria-label="Primary navigation">
 			<a class="brand" href="/" aria-label="MetaClean home"><span class="brand-mark">✦</span> MetaClean</a>
 			<div class="nav-links"><a href="#how-it-works">How it works</a><a href="#formats">Supported files</a><a href="#privacy">Privacy</a></div>
-			<a class="nav-cta" href="#cleaner">Clean a file <span>↗</span></a>
+			<div class="nav-actions">
+				<button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+					<span class="theme-icon theme-icon--sun" aria-hidden="true">☀︎</span>
+					<span class="theme-icon theme-icon--moon" aria-hidden="true">☽</span>
+				</button>
+				<a class="nav-cta" href="#cleaner">Clean a file <span>↗</span></a>
+			</div>
 		</nav>
 
 		<section class="hero" id="cleaner">
 			<div class="hero-glow" aria-hidden="true"></div>
 			<p class="eyebrow"><span></span> PRIVATE BY DEFAULT</p>
 			<h1>Remove metadata.<br /><em>Keep what matters.</em></h1>
-			<p class="hero-copy">Inspect private metadata in your images and PDFs, then create a clean copy in your browser. Your file never leaves your device.</p>
+			<p class="hero-copy">Inspect private metadata in your images, PDFs, and Office documents, then create a clean copy in your browser. Your file never leaves your device.</p>
 
 			<div class="cleaner" id="cleaner-card">
-				<div class="cleaner-top"><span class="status-dot"></span><span id="scanner-status">Ready to scan</span><span class="local-note">Processed locally in your browser</span></div>
-				<div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Upload a file">
-					<input id="file-input" name="file" type="file" hidden accept="application/pdf,image/jpeg,image/png,image/webp,image/tiff,image/heic,.pdf,.jpg,.jpeg,.png,.webp,.tif,.tiff,.heic" aria-label="Choose a file to inspect" />
-					<div class="upload-icon">↑</div>
-					<h2>Drop a file to inspect it</h2>
+				<div class="cleaner-top"><span class="status-dot"></span><span id="scanner-status">Ready to scan</span><span class="local-note"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="8" height="6" rx="1"/><path d="M4 5V3.5a2 2 0 0 1 4 0V5"/></svg> Processed locally</span></div>
+				<div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Upload a file to inspect its metadata">
+					<input id="file-input" name="file" type="file" hidden accept="application/pdf,image/jpeg,image/png,image/webp,image/tiff,image/heic,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.presentationml.presentation,.pdf,.jpg,.jpeg,.png,.webp,.tif,.tiff,.heic,.docx,.xlsx,.pptx" aria-label="Choose a file to inspect" />
+					<div class="upload-icon" aria-hidden="true">
+						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13V4M6 7l4-4 4 4"/><path d="M3 14v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1"/></svg>
+					</div>
+					<h2 id="dz-heading">Drop a file to inspect it</h2>
 					<p>or <button class="text-button" id="browse-button">browse your device</button></p>
-					<p class="formats">JPG, PNG, WebP, TIFF, HEIC, PDF · up to 25 MB · processed in your browser</p>
+					<div class="format-chips" aria-label="Supported formats">
+						<span class="chip">JPG</span><span class="chip">PNG</span><span class="chip">WebP</span><span class="chip">TIFF</span><span class="chip">HEIC</span><span class="chip chip--doc">PDF</span><span class="chip chip--doc">DOCX</span><span class="chip chip--doc">XLSX</span><span class="chip chip--doc">PPTX</span>
+					</div>
+					<p class="dz-privacy"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="8" height="6" rx="1"/><path d="M4 5V3.5a2 2 0 0 1 4 0V5"/></svg> Processed locally · never leaves your device · up to 25 MB</p>
 				</div>
 				<div class="file-panel" id="file-panel" hidden>
 					<div class="file-summary"><div class="file-type" id="file-type">JPG</div><div><strong id="file-name">photo.jpg</strong><span id="file-size">2.4 MB</span></div><button class="icon-button" id="reset-button" aria-label="Remove selected file">×</button></div>
@@ -39,14 +50,14 @@ import Layout from '../layouts/Layout.astro';
 					</div>
 				</div>
 			</div>
-			<div class="trust-row"><span>✓ No upload required</span><span>✓ Processed only in this browser tab</span><span>✓ New PDF generated locally</span></div>
+			<div class="trust-row"><span>✓ No upload required</span><span>✓ Processed only in this browser tab</span><span>✓ New file generated locally</span></div>
 		</section>
 
-		<section class="steps" id="how-it-works"><p class="eyebrow"><span></span> HOW IT WORKS</p><h2>Your private cleanup crew.</h2><div class="step-grid"><article><b>01</b><h3>Inspect</h3><p>We read available EXIF, IPTC, XMP, GPS, camera, and document-information fields.</p></article><article><b>02</b><h3>Clean</h3><p>We create a fresh image or PDF locally without the original metadata containers.</p></article><article><b>03</b><h3>Verify</h3><p>We inspect the generated file again before making it available for download.</p></article></div></section>
+		<section class="steps" id="how-it-works"><p class="eyebrow"><span></span> HOW IT WORKS</p><h2>Your private cleanup crew.</h2><div class="step-grid"><article><b>01</b><h3>Inspect</h3><p>We read available EXIF, IPTC, XMP, GPS, camera, document-information, and Office document property fields.</p></article><article><b>02</b><h3>Clean</h3><p>We create a fresh image, PDF, or Office document locally without the original metadata containers.</p></article><article><b>03</b><h3>Verify</h3><p>We inspect the generated file again before making it available for download.</p></article></div></section>
 
 		<section class="privacy-band" id="privacy"><div><p class="eyebrow"><span></span> YOUR FILES, YOUR DEVICE</p><h2>Privacy that doesn’t need a pinky promise.</h2></div><p>MetaClean runs in your browser. We never need to see, store, or process your files on a server. Close this tab and everything is gone.</p><div class="privacy-art" aria-hidden="true"><div class="orb"></div><div class="orbit a"></div><div class="orbit b"></div><div class="lock">⌑</div></div></section>
 
-		<section class="formats" id="formats"><p class="eyebrow"><span></span> SUPPORTED FORMATS</p><h2>Images and PDF documents.</h2><div class="format-grid"><div><strong>JPG</strong><span>Photos</span></div><div><strong>PNG</strong><span>Images</span></div><div><strong>WEBP</strong><span>Images</span></div><div><strong>TIFF</strong><span>Images</span></div><div><strong>HEIC</strong><span>Images</span></div><div><strong>PDF</strong><span>Documents</span></div></div></section>
+		<section class="formats" id="formats"><p class="eyebrow"><span></span> SUPPORTED FORMATS</p><h2>Images, PDFs and Office documents.</h2><div class="format-grid"><div><strong>JPG</strong><span>Photos</span></div><div><strong>PNG</strong><span>Images</span></div><div><strong>WEBP</strong><span>Images</span></div><div><strong>TIFF</strong><span>Images</span></div><div><strong>HEIC</strong><span>Images</span></div><div><strong>PDF</strong><span>Documents</span></div><div><strong>DOCX</strong><span>Word</span></div><div><strong>XLSX</strong><span>Excel</span></div><div><strong>PPTX</strong><span>PowerPoint</span></div></div></section>
 		<footer><a class="brand" href="/"><span class="brand-mark">✦</span> MetaClean</a><p>Less data. More you.</p><span>© 2026 MetaClean</span></footer>
 	</main>
 
@@ -55,46 +66,895 @@ import Layout from '../layouts/Layout.astro';
 		import ExifReader from 'exifreader';
 		import { heicTo } from 'heic-to';
 		import * as UTIF from 'utif';
+		import { unzipSync, zipSync, strToU8, strFromU8 } from 'fflate';
 
-		const input = document.querySelector('#file-input'); const dropzone = document.querySelector('#dropzone'); const browse = document.querySelector('#browse-button'); const panel = document.querySelector('#file-panel'); const results = document.querySelector('#scan-results'); const result = document.querySelector('#clean-result'); const metaList = document.querySelector('#meta-list'); const status = document.querySelector('#scanner-status'); const cleanButton = document.querySelector('#clean-button');
-		let selectedFile; let cleanedBytes; let cleanedType; let selectedKind; let metadata = [];
-		const fields = [['Title', 'getTitle'], ['Author', 'getAuthor'], ['Subject', 'getSubject'], ['Keywords', 'getKeywords'], ['Creator', 'getCreator'], ['Producer', 'getProducer'], ['Creation date', 'getCreationDate'], ['Modification date', 'getModificationDate']];
-		const formats = { jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', tif: 'image/tiff', tiff: 'image/tiff', heic: 'image/heic', heif: 'image/heic', pdf: 'application/pdf' };
-		function formatSize(bytes) { return bytes < 1024 * 1024 ? `${Math.ceil(bytes / 1024)} KB` : `${(bytes / 1024 / 1024).toFixed(1)} MB`; }
+		const input = document.querySelector('#file-input');
+		const dropzone = document.querySelector('#dropzone');
+		const browse = document.querySelector('#browse-button');
+		const panel = document.querySelector('#file-panel');
+		const results = document.querySelector('#scan-results');
+		const result = document.querySelector('#clean-result');
+		const metaList = document.querySelector('#meta-list');
+		const status = document.querySelector('#scanner-status');
+		const cleanButton = document.querySelector('#clean-button');
+
+		let selectedFile, cleanedBytes, cleanedType, selectedKind;
+		let metadata = [];
+
+		// ── MIME / extension helpers ──────────────────────────────────────────────
+		const imageFormats = { jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', tif: 'image/tiff', tiff: 'image/tiff', heic: 'image/heic', heif: 'image/heic' };
+		const officeExts = { docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation' };
+		function formatSize(b) { return b < 1048576 ? `${Math.ceil(b / 1024)} KB` : `${(b / 1048576).toFixed(1)} MB`; }
 		function extension(file) { return (file.name.split('.').pop() || '').toLowerCase(); }
-		function fileKind(file) { return file.type === 'application/pdf' || extension(file) === 'pdf' ? 'pdf' : formats[extension(file)] ? 'image' : undefined; }
-		function valueFor(pdf, method) { try { const value = pdf[method](); return value instanceof Date ? value.toLocaleString() : value; } catch { return undefined; } }
-		function extractPdfMetadata(pdf) { return fields.map(([name, method]) => [name, valueFor(pdf, method), 'Document info']).filter(([, value]) => value !== undefined && value !== ''); }
-		function displayValue(value) { if (value instanceof Date) return value.toLocaleString(); if (Array.isArray(value)) return value.map(displayValue).join(', '); if (value instanceof Uint8Array) return `${value.byteLength} bytes`; if (value && typeof value === 'object') return JSON.stringify(value); return String(value); }
+		function fileKind(file) {
+			const ext = extension(file);
+			if (file.type === 'application/pdf' || ext === 'pdf') return 'pdf';
+			if (officeExts[ext]) return 'office';
+			if (imageFormats[ext]) return 'image';
+			return undefined;
+		}
+		function outputExtension(type) {
+			if (type === 'application/pdf') return 'pdf';
+			if (type === 'image/png') return 'png';
+			if (type === 'image/webp') return 'webp';
+			if (type === 'image/tiff') return 'tiff';
+			if (officeExts[extension({ name: '.' + type.split('.').pop() })]) return type.split('.').pop();
+			const officeExt = Object.entries(officeExts).find(([, mime]) => mime === type);
+			if (officeExt) return officeExt[0];
+			return 'jpg';
+		}
+		function mimeForOffice(file) { return officeExts[extension(file)] || file.type; }
+
+		// ── PDF metadata ─────────────────────────────────────────────────────────
+		const pdfFields = [['Title','getTitle'],['Author','getAuthor'],['Subject','getSubject'],['Keywords','getKeywords'],['Creator','getCreator'],['Producer','getProducer'],['Creation date','getCreationDate'],['Modification date','getModificationDate']];
+		function valueFor(pdf, method) { try { const v = pdf[method](); return v instanceof Date ? v.toLocaleString() : v; } catch { return undefined; } }
+		function extractPdfMetadata(pdf) { return pdfFields.map(([n, m]) => [n, valueFor(pdf, m), 'Document info']).filter(([, v]) => v !== undefined && v !== ''); }
+
+		// ── Image metadata ────────────────────────────────────────────────────────
+		function displayValue(v) { if (v instanceof Date) return v.toLocaleString(); if (Array.isArray(v)) return v.map(displayValue).join(', '); if (v instanceof Uint8Array) return `${v.byteLength} bytes`; if (v && typeof v === 'object') return JSON.stringify(v); return String(v); }
 		const metadataGroups = { exif: 'EXIF', gps: 'GPS', iptc: 'IPTC', xmp: 'XMP', makerNotes: 'Camera notes', photoshop: 'Photoshop', pngText: 'PNG text' };
-		const imageStructureTags = new Set(['ImageWidth', 'ImageLength', 'BitsPerSample', 'Compression', 'PhotometricInterpretation', 'StripOffsets', 'SamplesPerPixel', 'RowsPerStrip', 'StripByteCounts', 'PlanarConfiguration', 'TileWidth', 'TileLength', 'TileOffsets', 'TileByteCounts', 'Predictor', 'ExtraSamples', 'SampleFormat', 'XResolution', 'YResolution', 'XPosition', 'YPosition', 'ResolutionUnit', 'Software']);
-		async function extractImageMetadata(file) { const parsed = await ExifReader.load(file, { expanded: true, includeUnknown: true }); return Object.entries(parsed || {}).filter(([group]) => metadataGroups[group]).flatMap(([group, value]) => Object.entries(value || {}).filter(([name]) => group !== 'exif' || !imageStructureTags.has(name)).map(([name, tag]) => [name, displayValue(tag.description ?? tag.value ?? tag), metadataGroups[group]])); }
-		function renderMetadata() { metaList.replaceChildren(); metadata.forEach(([name, value, group]) => { const item = document.createElement('div'); item.className = 'meta-item'; const content = document.createElement('div'); const label = document.createElement('strong'); const detail = document.createElement('span'); const category = document.createElement('small'); label.textContent = name; detail.textContent = value; category.textContent = group; content.append(label, detail); item.append(content, category); metaList.append(item); }); if (!metadata.length) { const item = document.createElement('div'); item.className = 'meta-item'; item.textContent = 'No removable metadata was found in this file.'; metaList.append(item); } }
-		function setFileDetails(file, type) { document.querySelector('#file-name').textContent = file.name; document.querySelector('#file-size').textContent = formatSize(file.size); document.querySelector('#file-type').textContent = type; document.querySelector('#metadata-count').textContent = metadata.length; document.querySelector('#before-count').textContent = `${metadata.length} field${metadata.length === 1 ? '' : 's'}`; renderMetadata(); dropzone.hidden = true; panel.hidden = false; results.hidden = false; result.hidden = true; }
-		async function handleFile(file) { if (!file) return; if (file.size > 25 * 1024 * 1024) { status.textContent = 'Files must be 25 MB or smaller'; return; } selectedKind = fileKind(file); if (!selectedKind) { status.textContent = 'Choose a JPG, PNG, WebP, TIFF, HEIC, or PDF file'; return; } try { status.textContent = 'Inspecting metadata locally…'; const parsed = selectedKind === 'pdf' ? extractPdfMetadata(await PDFDocument.load(await file.arrayBuffer(), { updateMetadata: false })) : await extractImageMetadata(file); selectedFile = file; cleanedBytes = undefined; metadata = parsed; setFileDetails(file, selectedKind === 'pdf' ? 'PDF' : extension(file).toUpperCase()); status.textContent = 'Scan complete'; } catch { selectedFile = undefined; status.textContent = selectedKind === 'pdf' ? 'Unable to read this PDF. Password-protected PDFs are not supported.' : 'Unable to read metadata from this image.'; } }
-		async function cleanPdf() { const source = await PDFDocument.load(await selectedFile.arrayBuffer(), { updateMetadata: false }); const clean = await PDFDocument.create({ updateMetadata: false }); const pages = await clean.copyPages(source, source.getPageIndices()); pages.forEach((page) => clean.addPage(page)); return { bytes: await clean.save({ updateFieldAppearances: false, useObjectStreams: true }), type: 'application/pdf' }; }
-		async function imageBitmapFor(file) { const type = formats[extension(file)]; if (type === 'image/heic') return heicTo({ blob: file, type: 'bitmap' }); if (type === 'image/tiff') { const bytes = await file.arrayBuffer(); const ifd = UTIF.decode(bytes)[0]; UTIF.decodeImage(bytes, ifd); const rgba = UTIF.toRGBA8(ifd); return createImageBitmap(new ImageData(new Uint8ClampedArray(rgba.buffer, rgba.byteOffset, rgba.byteLength), ifd.width, ifd.height)); } return createImageBitmap(file, { imageOrientation: 'from-image' }); }
+		const imageStructureTags = new Set(['ImageWidth','ImageLength','BitsPerSample','Compression','PhotometricInterpretation','StripOffsets','SamplesPerPixel','RowsPerStrip','StripByteCounts','PlanarConfiguration','TileWidth','TileLength','TileOffsets','TileByteCounts','Predictor','ExtraSamples','SampleFormat','XResolution','YResolution','XPosition','YPosition','ResolutionUnit','Software']);
+		async function extractImageMetadata(file) { const parsed = await ExifReader.load(file, { expanded: true, includeUnknown: true }); return Object.entries(parsed || {}).filter(([g]) => metadataGroups[g]).flatMap(([g, v]) => Object.entries(v || {}).filter(([n]) => g !== 'exif' || !imageStructureTags.has(n)).map(([n, tag]) => [n, displayValue(tag.description ?? tag.value ?? tag), metadataGroups[g]])); }
+
+		// ── Office Open XML (DOCX / XLSX / PPTX) metadata ────────────────────────
+		//
+		// OOXML files are ZIP archives. Metadata lives in three XML parts:
+		//   docProps/core.xml    – Dublin Core / OPC core properties
+		//   docProps/app.xml     – Application-specific extended properties
+		//   docProps/custom.xml  – User-defined custom document properties
+
+		/** Parse an XML string with DOMParser and return the document. */
+		function parseXml(str) {
+			return new DOMParser().parseFromString(str, 'application/xml');
+		}
+
+		/**
+		 * Pull text content from an element by local name, searching across all
+		 * namespace prefixes (getElementsByTagNameNS('*', localName)).
+		 */
+		function xmlText(doc, localName) {
+			const el = doc.getElementsByTagNameNS('*', localName)[0];
+			return el ? el.textContent.trim() : null;
+		}
+
+		/**
+		 * Extract human-readable metadata fields from docProps/core.xml.
+		 * Returns an array of [fieldName, value, group] triples.
+		 */
+		function extractCoreProps(xmlStr) {
+			if (!xmlStr) return [];
+			const doc = parseXml(xmlStr);
+			const fields = [
+				['Title',           'title'],
+				['Subject',         'subject'],
+				['Author',          'creator'],
+				['Keywords',        'keywords'],
+				['Description',     'description'],
+				['Last Modified By','lastModifiedBy'],
+				['Revision',        'revision'],
+				['Category',        'category'],
+				['Content Status',  'contentStatus'],
+				['Creation Date',   'created'],
+				['Modified Date',   'modified'],
+			];
+			return fields
+				.map(([label, localName]) => [label, xmlText(doc, localName), 'Core properties'])
+				.filter(([, v]) => v !== null && v !== '');
+		}
+
+		/**
+		 * Extract human-readable metadata fields from docProps/app.xml.
+		 * Returns an array of [fieldName, value, group] triples.
+		 */
+		function extractAppProps(xmlStr) {
+			if (!xmlStr) return [];
+			const doc = parseXml(xmlStr);
+			const fields = [
+				['Application',      'Application'],
+				['App Version',      'AppVersion'],
+				['Company',          'Company'],
+				['Manager',          'Manager'],
+				['Template',         'Template'],
+				['Total Edit Time',  'TotalTime'],
+				['Presentation Format', 'PresentationFormat'],
+				['Slide Count',      'Slides'],
+				['Note Count',       'Notes'],
+				['Hidden Slides',    'HiddenSlides'],
+				['Sheet Count',      'Sheets'],
+				['Word Count',       'Words'],
+				['Character Count',  'Characters'],
+				['Paragraph Count',  'Paragraphs'],
+				['Line Count',       'Lines'],
+				['Page Count',       'Pages'],
+				['Document Security','DocSecurity'],
+			];
+			return fields
+				.map(([label, localName]) => [label, xmlText(doc, localName), 'App properties'])
+				.filter(([, v]) => v !== null && v !== '' && v !== '0');
+		}
+
+		/**
+		 * Extract custom document properties from docProps/custom.xml.
+		 * Each <property name="…"> element becomes one metadata row.
+		 * The typed value child (vt:lpwstr, vt:i4, vt:bool, vt:date, …) is read
+		 * as plain text regardless of type — sufficient for display.
+		 */
+		function extractCustomProps(xmlStr) {
+			if (!xmlStr) return [];
+			const doc = parseXml(xmlStr);
+			// <property fmtid="…" pid="…" name="MyProp"><vt:lpwstr>value</vt:lpwstr></property>
+			const props = Array.from(doc.getElementsByTagNameNS('*', 'property'));
+			return props.flatMap((el) => {
+				const name = el.getAttribute('name');
+				if (!name) return [];
+				// Value is the text content of the single typed-value child element
+				const valueEl = el.firstElementChild;
+				const value = valueEl ? valueEl.textContent.trim() : '';
+				if (!value) return [];
+				return [[name, value, 'Custom properties']];
+			});
+		}
+
+		/**
+		 * Read an OOXML ZIP from an ArrayBuffer and return extracted metadata.
+		 */
+		function extractOfficeMetadata(buffer) {
+			const zip = unzipSync(new Uint8Array(buffer));
+			const decode = (key) => zip[key] ? strFromU8(zip[key]) : null;
+			return [
+				...extractCoreProps(decode('docProps/core.xml')),
+				...extractAppProps(decode('docProps/app.xml')),
+				...extractCustomProps(decode('docProps/custom.xml')),
+			];
+		}
+
+		/**
+		 * Build a clean docProps/core.xml that has no personal metadata.
+		 * We keep the XML declaration and root element but remove all property
+		 * child elements that carry author / date / revision data.
+		 */
+		function buildCleanCoreXml() {
+			return [
+				'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>',
+				'<cp:coreProperties',
+				'  xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties"',
+				'  xmlns:dc="http://purl.org/dc/elements/1.1/"',
+				'  xmlns:dcterms="http://purl.org/dc/terms/"',
+				'  xmlns:dcmitype="http://purl.org/dc/dcmitype/"',
+				'  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">',
+				'</cp:coreProperties>',
+			].join('\n');
+		}
+
+		/**
+		 * Build a clean docProps/app.xml that has no personal/company metadata.
+		 * We preserve only the minimal structure (no Application, Company, Manager
+		 * or TotalTime fields).
+		 */
+		function buildCleanAppXml() {
+			return [
+				'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>',
+				'<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties"',
+				'            xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">',
+				'</Properties>',
+			].join('\n');
+		}
+
+		/**
+		 * Remove the custom-properties Relationship from _rels/.rels so that
+		 * Office does not error when opening a file whose docProps/custom.xml
+		 * has been deleted.
+		 *
+		 * Strategy: parse the XML with DOMParser, remove the matching
+		 * <Relationship> element, and serialize back with XMLSerializer.
+		 * We fall back to the original string if anything goes wrong.
+		 */
+		function removeCustomXmlFromRels(relsXmlStr) {
+			if (!relsXmlStr) return relsXmlStr;
+			try {
+				const doc = parseXml(relsXmlStr);
+				const CUSTOM_PROPS_TYPE =
+					'http://schemas.openxmlformats.org/officeDocument/2006/relationships/custom-properties';
+				const rels = Array.from(doc.getElementsByTagNameNS('*', 'Relationship'));
+				let changed = false;
+				for (const rel of rels) {
+					if (rel.getAttribute('Type') === CUSTOM_PROPS_TYPE) {
+						rel.parentNode.removeChild(rel);
+						changed = true;
+					}
+				}
+				if (!changed) return relsXmlStr;
+				// Re-serialize; keep the XML declaration if the original had one
+				const serialized = new XMLSerializer().serializeToString(doc);
+				const decl = relsXmlStr.startsWith('<?xml') ? '' : '';
+				return decl + serialized;
+			} catch {
+				return relsXmlStr; // safe fallback — leave rels untouched
+			}
+		}
+
+		/**
+		 * Remove personal metadata from an OOXML file.
+		 * • Replaces docProps/core.xml and docProps/app.xml with clean versions.
+		 * • Deletes docProps/custom.xml entirely (custom properties are fully
+		 *   user-defined and carry no structural role inside the document).
+		 * • Patches _rels/.rels to remove the dangling custom-properties
+		 *   relationship reference so Office doesn't error on open.
+		 * • Re-packs all remaining ZIP entries verbatim.
+		 */
+		async function cleanOfficeFile(file) {
+			const buffer = await file.arrayBuffer();
+			const zip = unzipSync(new Uint8Array(buffer));
+
+			// 1. Overwrite core and app metadata with clean, empty versions.
+			if (zip['docProps/core.xml']) {
+				zip['docProps/core.xml'] = strToU8(buildCleanCoreXml());
+			}
+			if (zip['docProps/app.xml']) {
+				zip['docProps/app.xml'] = strToU8(buildCleanAppXml());
+			}
+
+			// 2. Remove custom properties file entirely — it is safe to delete
+			//    because it carries no content referenced by document body parts.
+			const hasCustom = 'docProps/custom.xml' in zip;
+			if (hasCustom) {
+				delete zip['docProps/custom.xml'];
+			}
+
+			// 3. Patch _rels/.rels to remove the custom-properties Relationship.
+			//    Leaving a <Relationship> pointing at a deleted part causes Word /
+			//    Excel / PowerPoint to report the file as corrupt on open.
+			const relsKey = '_rels/.rels';
+			if (hasCustom && zip[relsKey]) {
+				const patchedRels = removeCustomXmlFromRels(strFromU8(zip[relsKey]));
+				zip[relsKey] = strToU8(patchedRels);
+			}
+
+			// 4. Re-pack everything that remains.
+			const toZip = {};
+			for (const [path, data] of Object.entries(zip)) {
+				toZip[path] = [data, { level: 6 }];
+			}
+
+			const output = zipSync(toZip);
+			const mime = mimeForOffice(file);
+			return { bytes: output, type: mime };
+		}
+
+		// ── Verify clean office file ──────────────────────────────────────────────
+		function verifyCleanOffice(buffer) {
+			return extractOfficeMetadata(buffer.buffer ?? buffer);
+		}
+
+		// ── UI helpers ────────────────────────────────────────────────────────────
+		function renderMetadata() {
+			metaList.replaceChildren();
+			metadata.forEach(([name, value, group]) => {
+				const item = document.createElement('div');
+				item.className = 'meta-item';
+				const content = document.createElement('div');
+				const label = document.createElement('strong');
+				const detail = document.createElement('span');
+				const category = document.createElement('small');
+				label.textContent = name;
+				detail.textContent = value;
+				category.textContent = group;
+				content.append(label, detail);
+				item.append(content, category);
+				metaList.append(item);
+			});
+			if (!metadata.length) {
+				const item = document.createElement('div');
+				item.className = 'meta-item';
+				item.textContent = 'No removable metadata was found in this file.';
+				metaList.append(item);
+			}
+		}
+
+		function setFileDetails(file, typeLabel) {
+			document.querySelector('#file-name').textContent = file.name;
+			document.querySelector('#file-size').textContent = formatSize(file.size);
+			document.querySelector('#file-type').textContent = typeLabel;
+			document.querySelector('#metadata-count').textContent = metadata.length;
+			document.querySelector('#before-count').textContent = `${metadata.length} field${metadata.length === 1 ? '' : 's'}`;
+			renderMetadata();
+			dropzone.hidden = true;
+			panel.hidden = false;
+			results.hidden = false;
+			result.hidden = true;
+		}
+
+		// ── Main file handler ─────────────────────────────────────────────────────
+		async function handleFile(file) {
+			if (!file) return;
+			if (file.size > 25 * 1024 * 1024) { status.textContent = 'Files must be 25 MB or smaller'; return; }
+			selectedKind = fileKind(file);
+			if (!selectedKind) { status.textContent = 'Choose a JPG, PNG, WebP, TIFF, HEIC, PDF, DOCX, XLSX, or PPTX file'; return; }
+			try {
+				status.textContent = 'Inspecting metadata locally…';
+				let parsed;
+				if (selectedKind === 'pdf') {
+					parsed = extractPdfMetadata(await PDFDocument.load(await file.arrayBuffer(), { updateMetadata: false }));
+				} else if (selectedKind === 'office') {
+					parsed = extractOfficeMetadata(await file.arrayBuffer());
+				} else {
+					parsed = await extractImageMetadata(file);
+				}
+				selectedFile = file;
+				cleanedBytes = undefined;
+				metadata = parsed;
+				const label = selectedKind === 'pdf' ? 'PDF' : selectedKind === 'office' ? extension(file).toUpperCase() : extension(file).toUpperCase();
+				setFileDetails(file, label);
+				status.textContent = 'Scan complete';
+			} catch (err) {
+				console.error(err);
+				selectedFile = undefined;
+				if (selectedKind === 'pdf') {
+					status.textContent = 'Unable to read this PDF. Password-protected PDFs are not supported.';
+				} else if (selectedKind === 'office') {
+					status.textContent = 'Unable to read metadata from this Office document.';
+				} else {
+					status.textContent = 'Unable to read metadata from this image.';
+				}
+			}
+		}
+
+		// ── PDF cleaning ──────────────────────────────────────────────────────────
+		async function cleanPdf() {
+			const source = await PDFDocument.load(await selectedFile.arrayBuffer(), { updateMetadata: false });
+			const clean = await PDFDocument.create({ updateMetadata: false });
+			const pages = await clean.copyPages(source, source.getPageIndices());
+			pages.forEach((p) => clean.addPage(p));
+			return { bytes: await clean.save({ updateFieldAppearances: false, useObjectStreams: true }), type: 'application/pdf' };
+		}
+
+		// ── Image cleaning ────────────────────────────────────────────────────────
+		async function imageBitmapFor(file) {
+			const type = imageFormats[extension(file)];
+			if (type === 'image/heic') return heicTo({ blob: file, type: 'bitmap' });
+			if (type === 'image/tiff') {
+				const bytes = await file.arrayBuffer();
+				const ifd = UTIF.decode(bytes)[0];
+				UTIF.decodeImage(bytes, ifd);
+				const rgba = UTIF.toRGBA8(ifd);
+				return createImageBitmap(new ImageData(new Uint8ClampedArray(rgba.buffer, rgba.byteOffset, rgba.byteLength), ifd.width, ifd.height));
+			}
+			return createImageBitmap(file, { imageOrientation: 'from-image' });
+		}
 		function canvasBlob(canvas, type, quality) { return new Promise((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error('Image encoder is unavailable')), type, quality)); }
-		function joinBytes(chunks) { const length = chunks.reduce((total, chunk) => total + chunk.length, 0); const output = new Uint8Array(length); let offset = 0; chunks.forEach((chunk) => { output.set(chunk, offset); offset += chunk.length; }); return output; }
-		function stripJpegMetadata(source) { const bytes = new Uint8Array(source); if (bytes[0] !== 0xff || bytes[1] !== 0xd8) return bytes; const chunks = [bytes.slice(0, 2)]; let offset = 2; while (offset < bytes.length) { const start = offset; if (bytes[offset++] !== 0xff) return joinBytes([...chunks, bytes.slice(start)]); while (bytes[offset] === 0xff) offset += 1; const marker = bytes[offset++]; if (marker === 0xda || marker === 0xd9) return joinBytes([...chunks, bytes.slice(start)]); if (marker >= 0xd0 && marker <= 0xd7) { chunks.push(bytes.slice(start, offset)); continue; } const size = (bytes[offset] << 8) | bytes[offset + 1]; if (size < 2 || offset + size > bytes.length) return bytes; if (![0xe1, 0xe2, 0xed, 0xfe].includes(marker)) chunks.push(bytes.slice(start, offset + size)); offset += size; } return joinBytes(chunks); }
-		function stripChunkMetadata(source, type) { const bytes = new Uint8Array(source); const png = type === 'image/png'; const webp = type === 'image/webp'; if ((!png || String.fromCharCode(...bytes.slice(1, 4)) !== 'PNG') && (!webp || String.fromCharCode(...bytes.slice(0, 4)) !== 'RIFF')) return bytes; const chunks = [bytes.slice(0, png ? 8 : 12)]; let offset = png ? 8 : 12; while (offset + 8 <= bytes.length) { const sizeOffset = png ? offset : offset + 4; const nameOffset = png ? offset + 4 : offset; const size = new DataView(bytes.buffer, bytes.byteOffset + sizeOffset).getUint32(0, !png); const name = String.fromCharCode(...bytes.slice(nameOffset, nameOffset + 4)); const end = offset + 8 + size + (png ? 4 : size % 2); if (end > bytes.length) return bytes; if (!(png ? ['eXIf', 'iCCP', 'tEXt', 'zTXt', 'iTXt'].includes(name) : ['EXIF', 'ICCP', 'XMP '].includes(name))) chunks.push(bytes.slice(offset, end)); offset = end; } const output = joinBytes(chunks); if (webp) new DataView(output.buffer).setUint32(4, output.length - 8, true); return output; }
-		function stripGeneratedMetadata(bytes, type) { return type === 'image/jpeg' ? stripJpegMetadata(bytes) : type === 'image/png' || type === 'image/webp' ? stripChunkMetadata(bytes, type) : bytes; }
-		async function cleanImage() { const sourceType = formats[extension(selectedFile)]; if (sourceType === 'image/tiff') { const source = await selectedFile.arrayBuffer(); const ifd = UTIF.decode(source)[0]; UTIF.decodeImage(source, ifd); const rgba = UTIF.toRGBA8(ifd); return { bytes: new Uint8Array(UTIF.encodeImage(rgba.buffer.slice(rgba.byteOffset, rgba.byteOffset + rgba.byteLength), ifd.width, ifd.height, { t305: [] })), type: 'image/tiff' }; } if (sourceType === 'image/heic') { const blob = await heicTo({ blob: selectedFile, type: 'image/jpeg', quality: 1 }); return { bytes: stripJpegMetadata(await blob.arrayBuffer()), type: 'image/jpeg' }; } const bitmap = await imageBitmapFor(selectedFile); try { const canvas = document.createElement('canvas'); canvas.width = bitmap.width; canvas.height = bitmap.height; canvas.getContext('2d', { alpha: true }).drawImage(bitmap, 0, 0); const blob = await canvasBlob(canvas, sourceType, sourceType === 'image/png' ? undefined : 1); return { bytes: stripGeneratedMetadata(await blob.arrayBuffer(), sourceType), type: sourceType }; } finally { bitmap.close?.(); } }
-		function outputExtension(type) { return type === 'application/pdf' ? 'pdf' : type === 'image/png' ? 'png' : type === 'image/webp' ? 'webp' : type === 'image/tiff' ? 'tiff' : 'jpg'; }
-		async function verifyCleanFile(bytes, type) { if (type === 'application/pdf') return extractPdfMetadata(await PDFDocument.load(bytes, { updateMetadata: false })); return extractImageMetadata(new File([bytes], `clean.${outputExtension(type)}`, { type })); }
-		async function cleanFile() { if (!selectedFile) return; try { cleanButton.disabled = true; cleanButton.textContent = 'Creating clean file…'; status.textContent = 'Removing metadata locally…'; const cleaned = selectedKind === 'pdf' ? await cleanPdf() : await cleanImage(); cleanedBytes = cleaned.bytes; cleanedType = cleaned.type; const remaining = await verifyCleanFile(cleaned.bytes, cleaned.type); document.querySelector('#after-count').textContent = `${remaining.length} field${remaining.length === 1 ? '' : 's'}`; const converted = selectedKind === 'image' && formats[extension(selectedFile)] !== cleaned.type; document.querySelector('#result-copy').textContent = remaining.length === 0 ? `Removed ${metadata.length} metadata field${metadata.length === 1 ? '' : 's'}. The generated ${selectedKind === 'pdf' ? 'PDF' : 'image'} was checked again and has none remaining.${converted ? ' HEIC files are exported as JPG because browsers cannot encode HEIC.' : ''}` : `A clean file was generated, but ${remaining.length} metadata field${remaining.length === 1 ? '' : 's'} remain.`; results.hidden = true; result.hidden = false; status.textContent = remaining.length === 0 ? 'Metadata removed and verified' : 'Metadata cleanup needs review'; } catch { status.textContent = 'Unable to create a clean file'; } finally { cleanButton.disabled = false; cleanButton.innerHTML = 'Remove metadata <span>→</span>'; } }
-		browse.addEventListener('click', () => input.click()); input.addEventListener('change', (event) => handleFile(event.target.files[0])); dropzone.addEventListener('dragover', (event) => { event.preventDefault(); dropzone.classList.add('dragging'); }); dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragging')); dropzone.addEventListener('drop', (event) => { event.preventDefault(); dropzone.classList.remove('dragging'); handleFile(event.dataTransfer.files[0]); }); dropzone.addEventListener('keydown', (event) => { if (event.key === 'Enter' || event.key === ' ') input.click(); });
-		cleanButton.addEventListener('click', cleanFile); document.querySelector('#download-button').addEventListener('click', () => { if (!cleanedBytes) return; const url = URL.createObjectURL(new Blob([cleanedBytes], { type: cleanedType })); const link = document.createElement('a'); link.href = url; link.download = selectedFile.name.replace(/\.[^.]+$/, `-clean.${outputExtension(cleanedType)}`); link.click(); setTimeout(() => URL.revokeObjectURL(url), 0); });
-		function reset() { input.value = ''; selectedFile = undefined; cleanedBytes = undefined; cleanedType = undefined; metadata = []; panel.hidden = true; dropzone.hidden = false; status.textContent = 'Ready to scan'; } document.querySelector('#reset-button').addEventListener('click', reset); document.querySelector('#again-button').addEventListener('click', reset);
+		function joinBytes(chunks) { const length = chunks.reduce((t, c) => t + c.length, 0); const out = new Uint8Array(length); let off = 0; chunks.forEach((c) => { out.set(c, off); off += c.length; }); return out; }
+		function stripJpegMetadata(source) { const bytes = new Uint8Array(source); if (bytes[0] !== 0xff || bytes[1] !== 0xd8) return bytes; const chunks = [bytes.slice(0, 2)]; let offset = 2; while (offset < bytes.length) { const start = offset; if (bytes[offset++] !== 0xff) return joinBytes([...chunks, bytes.slice(start)]); while (bytes[offset] === 0xff) offset++; const marker = bytes[offset++]; if (marker === 0xda || marker === 0xd9) return joinBytes([...chunks, bytes.slice(start)]); if (marker >= 0xd0 && marker <= 0xd7) { chunks.push(bytes.slice(start, offset)); continue; } const size = (bytes[offset] << 8) | bytes[offset + 1]; if (size < 2 || offset + size > bytes.length) return bytes; if (![0xe1, 0xe2, 0xed, 0xfe].includes(marker)) chunks.push(bytes.slice(start, offset + size)); offset += size; } return joinBytes(chunks); }
+		function stripChunkMetadata(source, type) { const bytes = new Uint8Array(source); const png = type === 'image/png'; const webp = type === 'image/webp'; if ((!png || String.fromCharCode(...bytes.slice(1, 4)) !== 'PNG') && (!webp || String.fromCharCode(...bytes.slice(0, 4)) !== 'RIFF')) return bytes; const chunks = [bytes.slice(0, png ? 8 : 12)]; let offset = png ? 8 : 12; while (offset + 8 <= bytes.length) { const sizeOff = png ? offset : offset + 4; const nameOff = png ? offset + 4 : offset; const size = new DataView(bytes.buffer, bytes.byteOffset + sizeOff).getUint32(0, !png); const name = String.fromCharCode(...bytes.slice(nameOff, nameOff + 4)); const end = offset + 8 + size + (png ? 4 : size % 2); if (end > bytes.length) return bytes; if (!(png ? ['eXIf','iCCP','tEXt','zTXt','iTXt'].includes(name) : ['EXIF','ICCP','XMP '].includes(name))) chunks.push(bytes.slice(offset, end)); offset = end; } const out = joinBytes(chunks); if (webp) new DataView(out.buffer).setUint32(4, out.length - 8, true); return out; }
+		function stripGeneratedMetadata(bytes, type) { return type === 'image/jpeg' ? stripJpegMetadata(bytes) : (type === 'image/png' || type === 'image/webp') ? stripChunkMetadata(bytes, type) : bytes; }
+		async function cleanImage() {
+			const sourceType = imageFormats[extension(selectedFile)];
+			if (sourceType === 'image/tiff') {
+				const source = await selectedFile.arrayBuffer();
+				const ifd = UTIF.decode(source)[0];
+				UTIF.decodeImage(source, ifd);
+				const rgba = UTIF.toRGBA8(ifd);
+				return { bytes: new Uint8Array(UTIF.encodeImage(rgba.buffer.slice(rgba.byteOffset, rgba.byteOffset + rgba.byteLength), ifd.width, ifd.height, { t305: [] })), type: 'image/tiff' };
+			}
+			if (sourceType === 'image/heic') {
+				const blob = await heicTo({ blob: selectedFile, type: 'image/jpeg', quality: 1 });
+				return { bytes: stripJpegMetadata(await blob.arrayBuffer()), type: 'image/jpeg' };
+			}
+			const bitmap = await imageBitmapFor(selectedFile);
+			try {
+				const canvas = document.createElement('canvas');
+				canvas.width = bitmap.width; canvas.height = bitmap.height;
+				canvas.getContext('2d', { alpha: true }).drawImage(bitmap, 0, 0);
+				const blob = await canvasBlob(canvas, sourceType, sourceType === 'image/png' ? undefined : 1);
+				return { bytes: stripGeneratedMetadata(await blob.arrayBuffer(), sourceType), type: sourceType };
+			} finally { bitmap.close?.(); }
+		}
+
+		// ── Verification ──────────────────────────────────────────────────────────
+		async function verifyCleanFile(bytes, type) {
+			if (type === 'application/pdf') {
+				return extractPdfMetadata(await PDFDocument.load(bytes, { updateMetadata: false }));
+			}
+			const officeExt = Object.entries(officeExts).find(([, mime]) => mime === type);
+			if (officeExt) {
+				// bytes may already be a Uint8Array from zipSync
+				const buf = bytes instanceof Uint8Array ? bytes.buffer : bytes;
+				return verifyCleanOffice(buf);
+			}
+			const ext = Object.entries(imageFormats).find(([, mime]) => mime === type)?.[0] ?? 'jpg';
+			return extractImageMetadata(new File([bytes], `clean.${ext}`, { type }));
+		}
+
+		// ── Master clean orchestrator ─────────────────────────────────────────────
+		async function cleanFile() {
+			if (!selectedFile) return;
+			try {
+				cleanButton.disabled = true;
+				cleanButton.textContent = 'Creating clean file…';
+				status.textContent = 'Removing metadata locally…';
+				let cleaned;
+				if (selectedKind === 'pdf') {
+					cleaned = await cleanPdf();
+				} else if (selectedKind === 'office') {
+					cleaned = await cleanOfficeFile(selectedFile);
+				} else {
+					cleaned = await cleanImage();
+				}
+				cleanedBytes = cleaned.bytes;
+				cleanedType = cleaned.type;
+				const remaining = await verifyCleanFile(cleaned.bytes, cleaned.type);
+				document.querySelector('#after-count').textContent = `${remaining.length} field${remaining.length === 1 ? '' : 's'}`;
+				const converted = selectedKind === 'image' && imageFormats[extension(selectedFile)] !== cleaned.type;
+				const fileTypeName = selectedKind === 'pdf' ? 'PDF' : selectedKind === 'office' ? extension(selectedFile).toUpperCase() : 'image';
+				document.querySelector('#result-copy').textContent = remaining.length === 0
+					? `Removed ${metadata.length} metadata field${metadata.length === 1 ? '' : 's'}. The generated ${fileTypeName} was checked again and has none remaining.${converted ? ' HEIC files are exported as JPG because browsers cannot encode HEIC.' : ''}`
+					: `A clean file was generated, but ${remaining.length} metadata field${remaining.length === 1 ? '' : 's'} remain.`;
+				results.hidden = true;
+				result.hidden = false;
+				status.textContent = remaining.length === 0 ? 'Metadata removed and verified' : 'Metadata cleanup needs review';
+			} catch (err) {
+				console.error(err);
+				status.textContent = 'Unable to create a clean file';
+			} finally {
+				cleanButton.disabled = false;
+				cleanButton.innerHTML = 'Remove metadata <span>→</span>';
+			}
+		}
+
+		// ── Download ──────────────────────────────────────────────────────────────
+		function getDownloadExtension(type) {
+			if (type === 'application/pdf') return 'pdf';
+			if (type === 'image/png') return 'png';
+			if (type === 'image/webp') return 'webp';
+			if (type === 'image/tiff') return 'tiff';
+			if (type === 'image/jpeg') return 'jpg';
+			const officeMatch = Object.entries(officeExts).find(([, mime]) => mime === type);
+			if (officeMatch) return officeMatch[0];
+			return 'bin';
+		}
+
+		document.querySelector('#download-button').addEventListener('click', () => {
+			if (!cleanedBytes) return;
+			const url = URL.createObjectURL(new Blob([cleanedBytes], { type: cleanedType }));
+			const link = document.createElement('a');
+			link.href = url;
+			link.download = selectedFile.name.replace(/\.[^.]+$/, `-clean.${getDownloadExtension(cleanedType)}`);
+			link.click();
+			setTimeout(() => URL.revokeObjectURL(url), 0);
+		});
+
+		// ── Drag / drop / browse ──────────────────────────────────────────────────
+		const dzHeading = document.querySelector('#dz-heading');
+		const DZ_DEFAULT_TEXT = 'Drop a file to inspect it';
+		const DZ_DRAG_TEXT    = 'Drop your file here';
+
+		// Make the entire dropzone clickable. Guard: if the click originated from
+		// the browse button, it already calls input.click() via its own handler —
+		// stop the event here so we don't open the picker twice.
+		dropzone.addEventListener('click', (e) => {
+			if (e.target === browse || browse.contains(e.target)) return;
+			input.click();
+		});
+
+		browse.addEventListener('click', (e) => {
+			e.stopPropagation(); // prevent bubbling to the dropzone click handler
+			input.click();
+		});
+
+		input.addEventListener('change', (e) => handleFile(e.target.files[0]));
+
+		// Use a counter instead of a boolean so that crossing child element
+		// boundaries (which fire dragleave/dragenter pairs) doesn't flicker the class.
+		let dragDepth = 0;
+
+		dropzone.addEventListener('dragenter', (e) => {
+			e.preventDefault();
+			if (dragDepth === 0) {
+				dropzone.classList.add('dragging');
+				dzHeading.textContent = DZ_DRAG_TEXT;
+			}
+			dragDepth++;
+		});
+
+		dropzone.addEventListener('dragover', (e) => {
+			e.preventDefault(); // required to allow drop
+		});
+
+		dropzone.addEventListener('dragleave', () => {
+			dragDepth--;
+			if (dragDepth === 0) {
+				dropzone.classList.remove('dragging');
+				dzHeading.textContent = DZ_DEFAULT_TEXT;
+			}
+		});
+
+		dropzone.addEventListener('drop', (e) => {
+			e.preventDefault();
+			dragDepth = 0;
+			dropzone.classList.remove('dragging');
+			dzHeading.textContent = DZ_DEFAULT_TEXT;
+			handleFile(e.dataTransfer.files[0]);
+		});
+
+		// Keyboard: Enter or Space activates the file picker (role="button" contract)
+		dropzone.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); } });
+		cleanButton.addEventListener('click', cleanFile);
+
+		// ── Reset ─────────────────────────────────────────────────────────────────
+		function reset() {
+			input.value = '';
+			selectedFile = undefined;
+			cleanedBytes = undefined;
+			cleanedType = undefined;
+			metadata = [];
+			panel.hidden = true;
+			dropzone.hidden = false;
+			status.textContent = 'Ready to scan';
+		}
+		document.querySelector('#reset-button').addEventListener('click', reset);
+		document.querySelector('#again-button').addEventListener('click', reset);
+
+		// ── Dark mode toggle ──────────────────────────────────────────────────────
+		(function () {
+			const html = document.documentElement;
+			const btn  = document.querySelector('#theme-toggle');
+			const KEY  = 'mc-theme';
+
+			// Apply saved or system preference (also handles initial load)
+			function applyTheme(dark) {
+				html.classList.toggle('dark', dark);
+				btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+				try { localStorage.setItem(KEY, dark ? 'dark' : 'light'); } catch {}
+			}
+
+			// Read stored preference; fall back to OS setting
+			const stored = (() => { try { return localStorage.getItem(KEY); } catch { return null; } })();
+			const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+			applyTheme(stored === 'dark' || (stored === null && prefersDark));
+
+			btn.addEventListener('click', () => applyTheme(!html.classList.contains('dark')));
+
+			// Keep in sync if the user changes OS setting while tab is open (only when no saved preference)
+			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+				try { if (!localStorage.getItem(KEY)) applyTheme(e.matches); } catch { applyTheme(e.matches); }
+			});
+		})();
 	</script>
 </Layout>
 
 <style>
- :global(*){box-sizing:border-box}:global(html){scroll-behavior:smooth}:global(body){font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#171717;background:#fff}main{overflow:hidden}.nav{height:64px;max-width:1200px;margin:auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between}.brand{font-weight:650;letter-spacing:-.8px;color:#171717;text-decoration:none;font-size:18px;display:flex;align-items:center;gap:8px}.brand-mark{font-size:20px}.nav-links{display:flex;gap:26px}.nav-links a{font-size:14px;color:#666;text-decoration:none}.nav-cta{font-size:14px;background:#171717;color:#fff;text-decoration:none;padding:9px 13px;border-radius:6px}.nav-cta span{margin-left:7px}.hero{position:relative;text-align:center;padding:18px 24px 61px;border-top:1px solid #f1f1f1;background:radial-gradient(ellipse 44% 20% at 50% 18%,#e7efff 0%,rgba(243,247,255,.6) 35%,transparent 72%)}.hero-glow{position:absolute;width:650px;height:320px;left:50%;top:-45px;transform:translateX(-50%);background:radial-gradient(circle at 25% 50%,#b8f4ea80,transparent 35%),radial-gradient(circle at 70% 45%,#e3c7ff90,transparent 36%),radial-gradient(circle at 50% 80%,#aed5ff70,transparent 38%);filter:blur(24px);pointer-events:none}.hero>*{position:relative}.eyebrow{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.07em;color:#666;margin:0 0 20px;display:flex;justify-content:center;align-items:center;gap:8px}.eyebrow span{width:7px;height:7px;background:#111;border-radius:50%}.hero h1{font-size:clamp(45px,6vw,76px);letter-spacing:-.075em;line-height:.97;font-weight:620;margin:0;text-wrap:balance}.hero h1 em{font-style:normal;background:linear-gradient(90deg,#007cf0,#7928ca 48%,#ff0080);background-clip:text;-webkit-background-clip:text;color:transparent}.hero-copy{max-width:500px;margin:24px auto 37px;font-size:17px;line-height:1.55;color:#666}.cleaner{width:min(100%,650px);margin:0 auto;background:#fff;text-align:left;border:1px solid #e8e8e8;border-radius:14px;box-shadow:0 18px 50px #1b2a4010,0 2px 7px #00000008;overflow:hidden}.cleaner-top{height:47px;border-bottom:1px solid #eee;display:flex;align-items:center;padding:0 18px;font-size:13px;color:#555;gap:8px}.status-dot{width:8px;height:8px;background:#15b97a;border-radius:50%}.local-note{margin-left:auto;font-size:12px;color:#888}.dropzone{margin:15px;border:1px dashed #c9c9c9;border-radius:9px;min-height:270px;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;transition:border-color .2s,background-color .2s}.dropzone.dragging{border-color:#171717;background:#fafafa}.upload-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:50%;background:#171717;color:#fff;font-size:22px;margin-bottom:14px}.dropzone h2,.metadata-head h2,.clean-result h2{margin:0;font-size:20px;letter-spacing:-.55px}.dropzone p{font-size:14px;color:#777;margin:7px}.text-button{border:0;background:none;font:inherit;color:#171717;text-decoration:underline;cursor:pointer;padding:0}.dropzone .formats{font-size:12px;color:#999;margin-top:21px}.file-panel{padding:15px}.file-summary{display:flex;gap:12px;align-items:center;background:#fafafa;border:1px solid #eee;border-radius:8px;padding:10px}.file-type{width:36px;height:36px;display:grid;place-items:center;background:#ebf4ff;color:#0761d1;border-radius:5px;font:10px ui-monospace,monospace}.file-summary strong,.file-summary span{display:block;font-size:13px;overflow-wrap:anywhere}.file-summary span{color:#888;font-size:12px;margin-top:2px}.icon-button{margin-left:auto;border:0;background:transparent;font-size:23px;color:#777;cursor:pointer}.scan-results{padding:27px 3px 2px}.metadata-head{display:flex;justify-content:space-between;align-items:start}.label{font:11px ui-monospace,monospace;letter-spacing:.07em;color:#777;margin:0 0 7px}.metadata-head h2 span{color:#dd3a25}.scan-chip{font-size:11px;color:#008b5b;border:1px solid #bde4d5;background:#f4fffa;border-radius:20px;padding:5px 8px}.meta-list{margin:17px 0 18px;border-top:1px solid #eee}.meta-item{padding:11px 2px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center}.meta-item strong,.meta-item span{display:block;font-size:13px}.meta-item span{color:#777;font-size:12px;margin-top:2px}.meta-item small{font-size:11px;color:#777;background:#f4f4f4;border-radius:12px;padding:4px 7px}.primary-button{border:0;background:#171717;color:#fff;border-radius:999px;font-weight:550;font-size:14px;padding:13px 18px;width:100%;cursor:pointer;transition:transform .15s}.primary-button:hover{transform:translateY(-1px)}.primary-button span{float:right;font-size:17px;line-height:13px}.clean-result{text-align:center;padding:36px 14px 8px}.success-icon{margin:auto auto 15px;width:42px;height:42px;display:grid;place-items:center;border-radius:50%;background:#ddf8ee;color:#078558;font-size:23px}.clean-result h2{font-size:23px}.clean-result>p:not(.label){color:#666;font-size:14px;margin:9px auto 25px}.comparison{display:flex;align-items:center;justify-content:center;gap:25px;border:1px solid #eee;background:#fafafa;border-radius:8px;padding:13px;margin-bottom:17px}.comparison div{display:grid;gap:3px;text-align:left}.comparison span{font-size:11px;color:#777}.comparison strong{font-size:13px;font-variant-numeric:tabular-nums}.comparison .arrow{display:block;color:#999}.comparison .after strong{color:#09865b}.again-button{font-size:13px;border:0;background:none;color:#666;margin:16px 0 5px;cursor:pointer}.trust-row{margin:19px auto 0;display:flex;justify-content:center;gap:20px;font-size:12px;color:#777}.steps{max-width:1080px;margin:auto;padding:132px 28px 120px}.steps>.eyebrow,.formats>.eyebrow{justify-content:flex-start}.steps h2,.formats h2,.privacy-band h2{font-size:42px;letter-spacing:-.055em;line-height:1.05;margin:0 0 55px;text-wrap:balance}.step-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #e7e7e7}.step-grid article{padding:27px 30px 0 0;border-right:1px solid #e7e7e7;min-height:230px}.step-grid article+article{padding-left:30px}.step-grid article:last-child{border-right:0}.step-grid b{font:12px ui-monospace,monospace;color:#999}.step-icon{font-size:25px;margin:31px 0 15px}.step-grid h3{font-size:18px;margin:0 0 8px;letter-spacing:-.4px}.step-grid p{font-size:14px;line-height:1.55;color:#666;max-width:260px;margin:0}.privacy-band{background:#171717;color:#fff;padding:110px max(28px,calc((100% - 1024px)/2));position:relative;min-height:430px;overflow:hidden}.privacy-band .eyebrow{justify-content:flex-start;color:#aaa}.privacy-band .eyebrow span{background:#fff}.privacy-band h2{max-width:520px;margin-bottom:0;font-size:43px}.privacy-band>p{max-width:470px;line-height:1.6;color:#b6b6b6;font-size:15px;margin-top:29px}.privacy-art{position:absolute;right:14%;top:50%;width:260px;height:260px;transform:translateY(-50%)}.orb{position:absolute;inset:55px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#f4f0ff,#a460ff 50%,#4726ab);box-shadow:0 0 90px #7f43ff70}.orbit{position:absolute;border:1px solid #8a75c8;border-radius:50%}.orbit.a{inset:15px;transform:rotate(-27deg) scaleY(.45)}.orbit.b{inset:0;transform:rotate(54deg) scaleY(.45)}.lock{position:absolute;inset:0;display:grid;place-items:center;font-size:43px;color:#fff;z-index:2}.formats{max-width:1080px;padding:120px 28px;margin:auto}.formats h2{margin-bottom:47px}.format-grid{display:grid;grid-template-columns:repeat(6,1fr);border:1px solid #e7e7e7;border-right:0}.format-grid div{min-height:115px;border-right:1px solid #e7e7e7;display:flex;justify-content:center;align-items:center;flex-direction:column;gap:9px}.format-grid strong{font:13px ui-monospace,monospace;color:#444}.format-grid span{font-size:12px;color:#777}footer{max-width:1200px;border-top:1px solid #eee;margin:auto;padding:29px 28px 35px;display:flex;align-items:center;gap:22px;color:#777;font-size:12px}footer p{margin:0}footer>span{margin-left:auto}:is(a,button,[role="button"]):focus-visible{outline:2px solid #0070f3;outline-offset:3px}@media(prefers-reduced-motion:reduce){:global(html){scroll-behavior:auto}.dropzone,.primary-button{transition:none}}@media(max-width:700px){.nav-links{display:none}.nav{padding:0 18px}.hero{padding:18px 17px 45px}.hero h1{font-size:47px}.hero-copy{font-size:16px}.local-note{display:none}.trust-row{gap:8px;flex-wrap:wrap;padding:0 18px}.steps,.formats{padding:80px 24px}.steps h2,.formats h2,.privacy-band h2{font-size:35px}.step-grid{grid-template-columns:1fr}.step-grid article,.step-grid article+article{padding:24px 0;border-right:0;border-bottom:1px solid #e7e7e7;min-height:auto}.privacy-band{padding:75px 24px;min-height:500px}.privacy-art{right:-32px;bottom:-48px;top:auto;transform:none;opacity:.65}.format-grid{grid-template-columns:repeat(3,1fr)}.format-grid div{border-bottom:1px solid #e7e7e7}footer{flex-wrap:wrap}.meta-item{gap:7px}.comparison{gap:13px}}
+/* ── Design tokens ─────────────────────────────────────────────────────────── */
+:root {
+  --fg: #171717;
+  --fg-muted: #666;
+  --fg-subtle: #999;
+  --border: #e8e8e8;
+  --border-light: #eee;
+  --border-section: #e7e7e7;
+  --surface: #fff;
+  --surface-2: #fafafa;
+  --surface-3: #f4f4f4;
+  --nav-link: #666;
+  --hero-border: #f1f1f1;
+  --cleaner-shadow: 0 18px 50px #1b2a4010, 0 2px 7px #00000008;
+  --file-type-bg: #ebf4ff;
+  --file-type-fg: #0761d1;
+  --scan-chip-fg: #008b5b;
+  --scan-chip-border: #bde4d5;
+  --scan-chip-bg: #f4fffa;
+  --success-bg: #ddf8ee;
+  --success-fg: #078558;
+  --after-strong: #09865b;
+  --toggle-bg: #f0f0f0;
+  --toggle-fg: #444;
+  --toggle-hover-bg: #e2e2e2;
+}
 
-/* A page-wide atmosphere, with a brighter concentrated glow behind the hero. */
-:global(body) { background: radial-gradient(ellipse 50% 18% at 50% 6%, #ddecff 0%, rgba(232, 243, 255, .7) 33%, transparent 72%), radial-gradient(ellipse 45% 14% at 12% 45%, rgba(211, 255, 245, .35), transparent 73%), radial-gradient(ellipse 50% 15% at 86% 72%, rgba(237, 219, 255, .36), transparent 75%), #fff; background-attachment: fixed; }
-.hero { padding-top: 12px; background: transparent; }
-.hero > .hero-glow { position: absolute; top: -42px; opacity: 1; }
-@media (max-width: 700px) { .hero { padding-top: 12px; } .hero > .hero-glow { top: -64px; } }
+:global(html.dark) {
+  --fg: #f0f0f0;
+  --fg-muted: #a0a0a0;
+  --fg-subtle: #666;
+  --border: #2a2d35;
+  --border-light: #252830;
+  --border-section: #2a2d35;
+  --surface: #13161e;
+  --surface-2: #181b24;
+  --surface-3: #1e2130;
+  --nav-link: #a0a0a0;
+  --hero-border: #1e2130;
+  --cleaner-shadow: 0 18px 50px #00000040, 0 2px 7px #00000020;
+  --file-type-bg: #0f2040;
+  --file-type-fg: #5ba3ff;
+  --scan-chip-fg: #4cd9a0;
+  --scan-chip-border: #1a3d2e;
+  --scan-chip-bg: #0a1f17;
+  --success-bg: #0a2418;
+  --success-fg: #4cd9a0;
+  --after-strong: #4cd9a0;
+  --toggle-bg: #1e2130;
+  --toggle-fg: #c0c8e0;
+  --toggle-hover-bg: #252a3a;
+}
+
+/* ── Global resets ─────────────────────────────────────────────────────────── */
+:global(*) { box-sizing: border-box; }
+:global(html) { scroll-behavior: smooth; }
+:global(body) {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--fg);
+  transition: background-color .3s, color .3s;
+}
+::selection { background: #171717; color: #fff; }
+
+/* ── Nav ───────────────────────────────────────────────────────────────────── */
+main { overflow: visible; }
+.nav { height: 64px; max-width: 1200px; margin: auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; }
+.brand { font-weight: 650; letter-spacing: -.8px; color: var(--fg); text-decoration: none; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+.brand-mark { font-size: 20px; }
+.nav-links { display: flex; gap: 26px; }
+.nav-links a { font-size: 14px; color: var(--nav-link); text-decoration: none; }
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+.nav-cta { font-size: 14px; background: var(--fg); color: var(--surface); text-decoration: none; padding: 9px 13px; border-radius: 6px; transition: opacity .15s; }
+.nav-cta span { margin-left: 7px; }
+
+/* ── Theme toggle ──────────────────────────────────────────────────────────── */
+.theme-toggle {
+  width: 36px; height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--toggle-bg);
+  color: var(--toggle-fg);
+  cursor: pointer;
+  display: grid; place-items: center;
+  font-size: 17px;
+  transition: background .2s, border-color .2s, transform .15s;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+.theme-toggle:hover { background: var(--toggle-hover-bg); transform: scale(1.07); }
+.theme-icon { position: absolute; transition: opacity .25s, transform .25s; line-height: 1; }
+.theme-icon--sun  { opacity: 1; transform: rotate(0deg) scale(1); }
+.theme-icon--moon { opacity: 0; transform: rotate(-90deg) scale(.6); }
+:global(html.dark) .theme-icon--sun  { opacity: 0; transform: rotate(90deg) scale(.6); }
+:global(html.dark) .theme-icon--moon { opacity: 1; transform: rotate(0deg) scale(1); }
+
+/* ── Hero ──────────────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  text-align: center;
+  padding: 12px 24px 61px;
+  border-top: 1px solid var(--hero-border);
+  background:
+    radial-gradient(ellipse 80% 40% at 50% -30%, #ddecff 0%, rgba(232,243,255,.5) 40%, transparent 70%),
+    radial-gradient(ellipse 50% 20% at 12% 100%, rgba(211,255,245,.25), transparent 70%),
+    radial-gradient(ellipse 50% 20% at 88% 100%, rgba(237,219,255,.25), transparent 70%);
+}
+:global(html.dark) .hero {
+  background:
+    radial-gradient(ellipse 80% 40% at 50% -30%, #0d1f3a 0%, rgba(13,20,38,.6) 40%, transparent 70%),
+    radial-gradient(ellipse 50% 20% at 12% 100%, rgba(0,40,30,.25), transparent 70%),
+    radial-gradient(ellipse 50% 20% at 88% 100%, rgba(30,10,50,.25), transparent 70%);
+}
+.hero-glow { position: absolute; width: 650px; height: 320px; left: 50%; top: -120px; transform: translateX(-50%); background: radial-gradient(circle at 25% 50%, #b8f4ea55, transparent 30%), radial-gradient(circle at 70% 45%, #e3c7ff60, transparent 30%), radial-gradient(circle at 50% 75%, #aed5ff50, transparent 32%); filter: blur(32px); pointer-events: none; opacity: 0.7; }
+.hero > * { position: relative; }
+.hero > .hero-glow { position: absolute; }
+.eyebrow { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .07em; color: var(--fg-muted); margin: 0 0 20px; display: flex; justify-content: center; align-items: center; gap: 8px; }
+.eyebrow span { width: 7px; height: 7px; background: var(--fg); border-radius: 50%; }
+.hero h1 { font-size: clamp(45px, 6vw, 76px); letter-spacing: -.075em; line-height: .97; font-weight: 620; margin: 0; text-wrap: balance; color: var(--fg); }
+.hero h1 em { font-style: normal; background: linear-gradient(90deg, #007cf0, #7928ca 48%, #ff0080); background-clip: text; -webkit-background-clip: text; color: transparent; }
+.hero-copy { max-width: 500px; margin: 24px auto 10px; font-size: 17px; line-height: 1.55; color: var(--fg-muted); }
+
+/* ── Cleaner card ──────────────────────────────────────────────────────────── */
+.cleaner { width: min(100%, 650px); margin: 0 auto; background: var(--surface); text-align: left; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--cleaner-shadow); overflow: hidden; }
+.cleaner-top { height: 42px; border-bottom: 1px solid var(--border-light); display: flex; align-items: center; padding: 0 16px; font-size: 12.5px; color: var(--fg-muted); gap: 7px; }
+.status-dot { width: 7px; height: 7px; background: #15b97a; border-radius: 50%; flex-shrink: 0;
+  box-shadow: 0 0 0 2px color-mix(in srgb, #15b97a 20%, transparent); }
+.local-note { margin-left: auto; font-size: 11.5px; color: var(--fg-subtle); display: flex; align-items: center; gap: 4px; }
+
+/* Dropzone */
+.dropzone {
+  margin: 12px;
+  border: 1.5px dashed var(--border);
+  border-radius: 10px;
+  min-height: 230px;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  text-align: center;
+  padding: 24px 20px 18px;
+  cursor: pointer;
+  transition: border-color .2s, background-color .2s, box-shadow .2s;
+  position: relative;
+}
+.dropzone:hover {
+  border-color: var(--fg-muted);
+  background: var(--surface-2);
+}
+.dropzone:focus-visible {
+  outline: none;
+  border-color: #0070f3;
+  box-shadow: 0 0 0 3px rgba(0,112,243,.15);
+}
+.dropzone.dragging {
+  border-color: var(--fg);
+  border-style: solid;
+  background: var(--surface-2);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--fg) 8%, transparent);
+}
+
+/* Upload icon */
+.upload-icon {
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: var(--surface-2);
+  color: var(--fg-muted);
+  margin-bottom: 20px;
+  transition: border-color .2s, color .2s, transform .2s;
+}
+.dropzone:hover .upload-icon {
+  border-color: var(--fg-muted);
+  color: var(--fg);
+  transform: translateY(-2px);
+}
+.dropzone.dragging .upload-icon {
+  border-color: var(--fg);
+  color: var(--fg);
+  transform: translateY(-3px) scale(1.05);
+}
+
+.dropzone h2 { margin: 0; font-size: 17px; letter-spacing: -.4px; color: var(--fg); font-weight: 580; }
+.metadata-head h2 { margin: 0; font-size: 20px; letter-spacing: -.55px; color: var(--fg); }
+.clean-result h2 { margin: 0; font-size: 23px; letter-spacing: -.55px; color: var(--fg); }
+.dropzone p { font-size: 13.5px; color: var(--fg-muted); margin: 10px 0 0; }
+.text-button { border: 0; background: none; font: inherit; color: var(--fg); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; padding: 0; }
+
+/* Format chips */
+.format-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; margin-top: 22px; }
+.chip {
+  font: 10.5px ui-monospace, monospace;
+  letter-spacing: .03em;
+  color: var(--fg-muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border-light);
+  border-radius: 5px;
+  padding: 3px 7px;
+  transition: border-color .15s, color .15s;
+}
+.chip--doc { color: var(--file-type-fg); background: var(--file-type-bg); border-color: transparent; }
+.dropzone:hover .chip { border-color: var(--border); }
+
+/* Privacy note inside dropzone */
+.dz-privacy {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 11px; color: var(--fg-subtle);
+  margin: 18px 0 0 !important;
+  opacity: .8;
+}
+
+/* ── File panel ────────────────────────────────────────────────────────────── */
+.file-panel { padding: 15px; }
+.file-summary { display: flex; gap: 12px; align-items: center; background: var(--surface-2); border: 1px solid var(--border-light); border-radius: 8px; padding: 10px; }
+.file-type { width: 36px; height: 36px; display: grid; place-items: center; background: var(--file-type-bg); color: var(--file-type-fg); border-radius: 5px; font: 10px ui-monospace, monospace; }
+.file-summary strong, .file-summary span { display: block; font-size: 13px; overflow-wrap: anywhere; color: var(--fg); }
+.file-summary span { color: var(--fg-muted); font-size: 12px; margin-top: 2px; }
+.icon-button { margin-left: auto; border: 0; background: transparent; font-size: 23px; color: var(--fg-muted); cursor: pointer; }
+.scan-results { padding: 27px 3px 2px; }
+.metadata-head { display: flex; justify-content: space-between; align-items: start; }
+.label { font: 11px ui-monospace, monospace; letter-spacing: .07em; color: var(--fg-muted); margin: 0 0 7px; }
+.metadata-head h2 span { color: #dd3a25; }
+.scan-chip { font-size: 11px; color: var(--scan-chip-fg); border: 1px solid var(--scan-chip-border); background: var(--scan-chip-bg); border-radius: 20px; padding: 5px 8px; }
+.meta-list { margin: 17px 0 18px; border-top: 1px solid var(--border-light); }
+.meta-item { padding: 11px 2px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; }
+.meta-item strong, .meta-item span { display: block; font-size: 13px; color: var(--fg); }
+.meta-item span { color: var(--fg-muted); font-size: 12px; margin-top: 2px; }
+.meta-item small { font-size: 11px; color: var(--fg-muted); background: var(--surface-3); border-radius: 12px; padding: 4px 7px; }
+.primary-button { border: 0; background: var(--fg); color: var(--surface); border-radius: 999px; font-weight: 550; font-size: 14px; padding: 13px 18px; width: 100%; cursor: pointer; transition: transform .15s, opacity .15s; }
+.primary-button:hover { transform: translateY(-1px); }
+.primary-button span { float: right; font-size: 17px; line-height: 13px; }
+
+/* ── Clean result ──────────────────────────────────────────────────────────── */
+.clean-result { text-align: center; padding: 36px 14px 8px; }
+.success-icon { margin: auto auto 15px; width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: var(--success-bg); color: var(--success-fg); font-size: 23px; }
+.clean-result h2 { font-size: 23px; }
+.clean-result > p:not(.label) { color: var(--fg-muted); font-size: 14px; margin: 9px auto 25px; }
+.comparison { display: flex; align-items: center; justify-content: center; gap: 25px; border: 1px solid var(--border-light); background: var(--surface-2); border-radius: 8px; padding: 13px; margin-bottom: 17px; }
+.comparison div { display: grid; gap: 3px; text-align: left; }
+.comparison span { font-size: 11px; color: var(--fg-muted); }
+.comparison strong { font-size: 13px; font-variant-numeric: tabular-nums; color: var(--fg); }
+.comparison .arrow { display: block; color: var(--fg-subtle); }
+.comparison .after strong { color: var(--after-strong); }
+.again-button { font-size: 13px; border: 0; background: none; color: var(--fg-muted); margin: 16px 0 5px; cursor: pointer; }
+.trust-row { margin: 19px auto 0; display: flex; justify-content: center; gap: 20px; font-size: 12px; color: var(--fg-muted); }
+
+/* ── Steps ─────────────────────────────────────────────────────────────────── */
+.steps { max-width: 1080px; margin: auto; padding: 132px 28px 120px; }
+.steps > .eyebrow, .formats > .eyebrow { justify-content: flex-start; }
+.steps h2, .formats h2, .privacy-band h2 { font-size: 42px; letter-spacing: -.055em; line-height: 1.05; margin: 0 0 55px; text-wrap: balance; color: var(--fg); }
+.step-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border-section); }
+.step-grid article { padding: 27px 30px 0 0; border-right: 1px solid var(--border-section); min-height: 230px; }
+.step-grid article + article { padding-left: 30px; }
+.step-grid article:last-child { border-right: 0; }
+.step-grid b { font: 12px ui-monospace, monospace; color: var(--fg-subtle); }
+.step-icon { font-size: 25px; margin: 31px 0 15px; }
+.step-grid h3 { font-size: 18px; margin: 0 0 8px; letter-spacing: -.4px; color: var(--fg); }
+.step-grid p { font-size: 14px; line-height: 1.55; color: var(--fg-muted); max-width: 260px; margin: 0; }
+
+/* ── Privacy band ──────────────────────────────────────────────────────────── */
+.privacy-band { background: #171717; color: #fff; padding: 110px max(28px, calc((100% - 1024px)/2)); position: relative; min-height: 430px; overflow: hidden; }
+:global(html.dark) .privacy-band { background: #0a0c11; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.privacy-band .eyebrow { justify-content: flex-start; color: #aaa; }
+.privacy-band .eyebrow span { background: #fff; }
+.privacy-band h2 { max-width: 520px; margin-bottom: 0; font-size: 43px; color: #fff; }
+.privacy-band > p { max-width: 470px; line-height: 1.6; color: #b6b6b6; font-size: 15px; margin-top: 29px; }
+.privacy-art { position: absolute; right: 14%; top: 50%; width: 260px; height: 260px; transform: translateY(-50%); }
+.orb { position: absolute; inset: 55px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #f4f0ff, #a460ff 50%, #4726ab); box-shadow: 0 0 90px #7f43ff70; }
+.orbit { position: absolute; border: 1px solid #8a75c8; border-radius: 50%; }
+.orbit.a { inset: 15px; transform: rotate(-27deg) scaleY(.45); }
+.orbit.b { inset: 0; transform: rotate(54deg) scaleY(.45); }
+.lock { position: absolute; inset: 0; display: grid; place-items: center; font-size: 43px; color: #fff; z-index: 2; }
+
+/* ── Formats ───────────────────────────────────────────────────────────────── */
+.formats { max-width: 1080px; padding: 120px 28px; margin: auto; }
+.formats h2 { margin-bottom: 47px; }
+.format-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); border: 1px solid var(--border-section); border-right: 0; }
+.format-grid div { min-height: 115px; border-right: 1px solid var(--border-section); display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 9px; }
+.format-grid strong { font: 13px ui-monospace, monospace; color: var(--fg); }
+.format-grid span { font-size: 12px; color: var(--fg-muted); }
+
+/* ── Footer ────────────────────────────────────────────────────────────────── */
+footer { max-width: 1200px; border-top: 1px solid var(--border-light); margin: auto; padding: 29px 28px 35px; display: flex; align-items: center; gap: 22px; color: var(--fg-muted); font-size: 12px; }
+footer p { margin: 0; }
+footer > span { margin-left: auto; }
+
+/* ── Focus ─────────────────────────────────────────────────────────────────── */
+:is(a, button, [role="button"]):focus-visible { outline: 2px solid #0070f3; outline-offset: 3px; }
+
+/* ── Reduced motion ────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  :global(html) { scroll-behavior: auto; }
+  .dropzone, .primary-button, .theme-toggle, .theme-icon, .upload-icon, .chip { transition: none; }
+}
+
+/* ── Mobile ────────────────────────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .nav-links { display: none; }
+  .nav { padding: 0 18px; }
+  .hero { padding: 18px 17px 45px; }
+  .hero h1 { font-size: 47px; }
+  .hero-copy { font-size: 16px; }
+  .local-note { display: none; }
+  .trust-row { gap: 8px; flex-wrap: wrap; padding: 0 18px; }
+  .steps, .formats { padding: 80px 24px; }
+  .steps h2, .formats h2, .privacy-band h2 { font-size: 35px; }
+  .step-grid { grid-template-columns: 1fr; }
+  .step-grid article, .step-grid article + article { padding: 24px 0; border-right: 0; border-bottom: 1px solid var(--border-section); min-height: auto; }
+  .privacy-band { padding: 75px 24px; min-height: 500px; }
+  .privacy-art { right: -32px; bottom: -48px; top: auto; transform: none; opacity: .65; }
+  .format-grid { grid-template-columns: repeat(3, 1fr); }
+  .format-grid div { border-bottom: 1px solid var(--border-section); }
+  footer { flex-wrap: wrap; }
+  .meta-item { gap: 7px; }
+  .comparison { gap: 13px; }
+  .hero > .hero-glow { top: -64px; }
+}
 </style>
