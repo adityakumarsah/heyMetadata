@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="MetaClean — Remove image, PDF and Office document metadata">
+<Layout title="MetaClean — Remove image, audio, PDF and Office document metadata">
 	<main>
 		<nav class="nav" aria-label="Primary navigation">
 			<a class="brand" href="/" aria-label="MetaClean home"><span class="brand-mark">✦</span> MetaClean</a>
@@ -20,26 +20,26 @@ import Layout from '../layouts/Layout.astro';
 			<div class="hero-glow" aria-hidden="true"></div>
 			<p class="eyebrow"><span></span> PRIVATE BY DEFAULT</p>
 			<h1>Remove metadata.<br /><em>Keep what matters.</em></h1>
-			<p class="hero-copy">Inspect private metadata in your images, PDFs, and Office documents, then create a clean copy in your browser. Your file never leaves your device.</p>
+			<p class="hero-copy">Inspect private metadata in your images, audio, PDFs, and Office documents, then create a clean copy in your browser. Your file never leaves your device.</p>
 
 			<div class="cleaner" id="cleaner-card">
 				<div class="cleaner-top"><span class="status-dot"></span><span id="scanner-status">Ready to scan</span><span class="local-note"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="8" height="6" rx="1"/><path d="M4 5V3.5a2 2 0 0 1 4 0V5"/></svg> Processed locally</span></div>
 				<div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Upload a file to inspect its metadata">
-					<input id="file-input" name="file" type="file" hidden accept="application/pdf,image/jpeg,image/png,image/webp,image/tiff,image/heic,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.presentationml.presentation,.pdf,.jpg,.jpeg,.png,.webp,.tif,.tiff,.heic,.docx,.xlsx,.pptx" aria-label="Choose a file to inspect" />
+					<input id="file-input" name="file" type="file" hidden accept="application/pdf,image/jpeg,image/png,image/webp,image/tiff,image/heic,audio/mpeg,audio/wav,audio/mp4,audio/x-m4a,audio/flac,audio/ogg,audio/x-flac,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.presentationml.presentation,.pdf,.jpg,.jpeg,.png,.webp,.tif,.tiff,.heic,.mp3,.wav,.m4a,.flac,.ogg,.docx,.xlsx,.pptx" aria-label="Choose a file to inspect" />
 					<div class="upload-icon" aria-hidden="true">
 						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13V4M6 7l4-4 4 4"/><path d="M3 14v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1"/></svg>
 					</div>
 					<h2 id="dz-heading">Drop a file to inspect it</h2>
 					<p>or <button class="text-button" id="browse-button">browse your device</button></p>
 					<div class="format-chips" aria-label="Supported formats">
-						<span class="chip">JPG</span><span class="chip">PNG</span><span class="chip">WebP</span><span class="chip">TIFF</span><span class="chip">HEIC</span><span class="chip chip--doc">PDF</span><span class="chip chip--doc">DOCX</span><span class="chip chip--doc">XLSX</span><span class="chip chip--doc">PPTX</span>
+						<span class="chip">JPG</span><span class="chip">PNG</span><span class="chip">WebP</span><span class="chip">TIFF</span><span class="chip">HEIC</span><span class="chip chip--audio">MP3</span><span class="chip chip--audio">WAV</span><span class="chip chip--audio">M4A</span><span class="chip chip--audio">FLAC</span><span class="chip chip--audio">OGG</span><span class="chip chip--doc">PDF</span><span class="chip chip--doc">DOCX</span><span class="chip chip--doc">XLSX</span><span class="chip chip--doc">PPTX</span>
 					</div>
-					<p class="dz-privacy"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="8" height="6" rx="1"/><path d="M4 5V3.5a2 2 0 0 1 4 0V5"/></svg> Processed locally · never leaves your device · up to 25 MB</p>
+					<p class="dz-privacy"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="8" height="6" rx="1"/><path d="M4 5V3.5a2 2 0 0 1 4 0V5"/></svg> Processed locally · never leaves your device · up to 250 MB</p>
 				</div>
 				<div class="file-panel" id="file-panel" hidden>
 					<div class="file-summary"><div class="file-type" id="file-type">JPG</div><div><strong id="file-name">photo.jpg</strong><span id="file-size">2.4 MB</span></div><button class="icon-button" id="reset-button" aria-label="Remove selected file">×</button></div>
 					<div class="scan-results" id="scan-results">
-						<div class="metadata-head"><div><p class="label">DOCUMENT INFORMATION</p><h2><span id="metadata-count">0</span> metadata fields found</h2></div><span class="scan-chip">Scanned locally</span></div>
+						<div class="metadata-head"><div><p class="label" id="meta-label">FILE INFORMATION</p><h2><span id="metadata-count">0</span> metadata fields found</h2></div><span class="scan-chip">Scanned locally</span></div>
 						<div class="meta-list" id="meta-list"></div>
 						<button class="primary-button" id="clean-button">Remove metadata <span>→</span></button>
 					</div>
@@ -57,7 +57,7 @@ import Layout from '../layouts/Layout.astro';
 
 		<section class="privacy-band" id="privacy"><div><p class="eyebrow"><span></span> YOUR FILES, YOUR DEVICE</p><h2>Privacy that doesn’t need a pinky promise.</h2></div><p>MetaClean runs in your browser. We never need to see, store, or process your files on a server. Close this tab and everything is gone.</p><div class="privacy-art" aria-hidden="true"><div class="orb"></div><div class="orbit a"></div><div class="orbit b"></div><div class="lock">⌑</div></div></section>
 
-		<section class="formats" id="formats"><p class="eyebrow"><span></span> SUPPORTED FORMATS</p><h2>Images, PDFs and Office documents.</h2><div class="format-grid"><div><strong>JPG</strong><span>Photos</span></div><div><strong>PNG</strong><span>Images</span></div><div><strong>WEBP</strong><span>Images</span></div><div><strong>TIFF</strong><span>Images</span></div><div><strong>HEIC</strong><span>Images</span></div><div><strong>PDF</strong><span>Documents</span></div><div><strong>DOCX</strong><span>Word</span></div><div><strong>XLSX</strong><span>Excel</span></div><div><strong>PPTX</strong><span>PowerPoint</span></div></div></section>
+		<section class="formats" id="formats"><p class="eyebrow"><span></span> SUPPORTED FORMATS</p><h2>Images, audio, PDFs &amp; more.</h2><div class="format-grid"><div><strong>JPG</strong><span>Photos</span></div><div><strong>PNG</strong><span>Images</span></div><div><strong>WEBP</strong><span>Images</span></div><div><strong>TIFF</strong><span>Images</span></div><div><strong>HEIC</strong><span>Images</span></div><div><strong>MP3</strong><span>Audio</span></div><div><strong>WAV</strong><span>Audio</span></div><div><strong>M4A</strong><span>Audio</span></div><div><strong>FLAC</strong><span>Audio</span></div><div><strong>OGG</strong><span>Audio</span></div><div><strong>PDF</strong><span>Documents</span></div><div><strong>DOCX</strong><span>Word</span></div><div><strong>XLSX</strong><span>Excel</span></div><div><strong>PPTX</strong><span>PowerPoint</span></div></div></section>
 		<footer><a class="brand" href="/"><span class="brand-mark">✦</span> MetaClean</a><p>Less data. More you.</p><span>© 2026 MetaClean</span></footer>
 	</main>
 
@@ -67,6 +67,7 @@ import Layout from '../layouts/Layout.astro';
 		import { heicTo } from 'heic-to';
 		import * as UTIF from 'utif';
 		import { unzipSync, zipSync, strToU8, strFromU8 } from 'fflate';
+		import { parseBlob } from 'music-metadata';
 
 		const input = document.querySelector('#file-input');
 		const dropzone = document.querySelector('#dropzone');
@@ -83,6 +84,8 @@ import Layout from '../layouts/Layout.astro';
 
 		// ── MIME / extension helpers ──────────────────────────────────────────────
 		const imageFormats = { jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', tif: 'image/tiff', tiff: 'image/tiff', heic: 'image/heic', heif: 'image/heic' };
+		const audioFormats = { mp3: 'audio/mpeg', wav: 'audio/wav', m4a: 'audio/mp4', flac: 'audio/flac', ogg: 'audio/ogg' };
+		const audioMimeToExt = { 'audio/mpeg': 'mp3', 'audio/wav': 'wav', 'audio/mp4': 'm4a', 'audio/flac': 'flac', 'audio/ogg': 'ogg' };
 		const officeExts = { docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation' };
 		function formatSize(b) { return b < 1048576 ? `${Math.ceil(b / 1024)} KB` : `${(b / 1048576).toFixed(1)} MB`; }
 		function extension(file) { return (file.name.split('.').pop() || '').toLowerCase(); }
@@ -91,6 +94,9 @@ import Layout from '../layouts/Layout.astro';
 			if (file.type === 'application/pdf' || ext === 'pdf') return 'pdf';
 			if (officeExts[ext]) return 'office';
 			if (imageFormats[ext]) return 'image';
+			if (audioFormats[ext]) return 'audio';
+			// Also match by MIME for audio (some OS set audio/* types)
+			if (file.type && audioMimeToExt[file.type]) return 'audio';
 			return undefined;
 		}
 		function outputExtension(type) {
@@ -350,6 +356,8 @@ import Layout from '../layouts/Layout.astro';
 		function renderMetadata() {
 			metaList.replaceChildren();
 			metadata.forEach(([name, value, group]) => {
+				// Album artwork gets a dedicated visual row rendered by renderAlbumArt
+				if (name === 'Album artwork') return;
 				const item = document.createElement('div');
 				item.className = 'meta-item';
 				const content = document.createElement('div');
@@ -378,6 +386,14 @@ import Layout from '../layouts/Layout.astro';
 			document.querySelector('#metadata-count').textContent = metadata.length;
 			document.querySelector('#before-count').textContent = `${metadata.length} field${metadata.length === 1 ? '' : 's'}`;
 			renderMetadata();
+			// For audio: render embedded album art thumbnail if present
+			if (selectedKind === 'audio') {
+				// We stored picture in common during extractAudioMetadata; re-parse just to get the blob
+				// music-metadata is already imported; parseBlob is cheap for covers since we reuse the File
+				parseBlob(file, { skipCovers: false, duration: false }).then(parsed => {
+					if (parsed.common.picture?.[0]) renderAlbumArt(parsed.common.picture[0]);
+				}).catch(() => {});
+			}
 			dropzone.hidden = true;
 			panel.hidden = false;
 			results.hidden = false;
@@ -387,9 +403,9 @@ import Layout from '../layouts/Layout.astro';
 		// ── Main file handler ─────────────────────────────────────────────────────
 		async function handleFile(file) {
 			if (!file) return;
-			if (file.size > 25 * 1024 * 1024) { status.textContent = 'Files must be 25 MB or smaller'; return; }
+			if (file.size > 250 * 1024 * 1024) { status.textContent = 'Files must be 250 MB or smaller'; return; }
 			selectedKind = fileKind(file);
-			if (!selectedKind) { status.textContent = 'Choose a JPG, PNG, WebP, TIFF, HEIC, PDF, DOCX, XLSX, or PPTX file'; return; }
+			if (!selectedKind) { status.textContent = 'Choose a JPG, PNG, WebP, TIFF, HEIC, MP3, WAV, M4A, FLAC, OGG, PDF, DOCX, XLSX, or PPTX file'; return; }
 			try {
 				status.textContent = 'Inspecting metadata locally…';
 				let parsed;
@@ -397,13 +413,20 @@ import Layout from '../layouts/Layout.astro';
 					parsed = extractPdfMetadata(await PDFDocument.load(await file.arrayBuffer(), { updateMetadata: false }));
 				} else if (selectedKind === 'office') {
 					parsed = extractOfficeMetadata(await file.arrayBuffer());
+				} else if (selectedKind === 'audio') {
+					parsed = await extractAudioMetadata(file);
 				} else {
 					parsed = await extractImageMetadata(file);
 				}
 				selectedFile = file;
 				cleanedBytes = undefined;
 				metadata = parsed;
-				const label = selectedKind === 'pdf' ? 'PDF' : selectedKind === 'office' ? extension(file).toUpperCase() : extension(file).toUpperCase();
+				const label = extension(file).toUpperCase();
+				// Update the label text in the metadata head
+				const metaLabelEl = document.querySelector('#meta-label');
+				if (metaLabelEl) {
+					metaLabelEl.textContent = selectedKind === 'audio' ? 'AUDIO INFORMATION' : selectedKind === 'pdf' ? 'DOCUMENT INFORMATION' : selectedKind === 'office' ? 'DOCUMENT INFORMATION' : 'IMAGE INFORMATION';
+				}
 				setFileDetails(file, label);
 				status.textContent = 'Scan complete';
 			} catch (err) {
@@ -413,10 +436,168 @@ import Layout from '../layouts/Layout.astro';
 					status.textContent = 'Unable to read this PDF. Password-protected PDFs are not supported.';
 				} else if (selectedKind === 'office') {
 					status.textContent = 'Unable to read metadata from this Office document.';
+				} else if (selectedKind === 'audio') {
+					status.textContent = 'Unable to read metadata from this audio file.';
 				} else {
 					status.textContent = 'Unable to read metadata from this image.';
 				}
 			}
+		}
+
+		// ── Audio metadata (music-metadata) ────────────────────────────────────────────
+		/**
+		 * Readable label mapping for music-metadata common fields.
+		 * We surface the most privacy-sensitive / user-visible fields first.
+		 */
+		const audioFieldMap = [
+			['title',          'Title'],
+			['artist',         'Artist'],
+			['albumartist',    'Album artist'],
+			['album',          'Album'],
+			['year',           'Year'],
+			['date',           'Date'],
+			['genre',          'Genre'],
+			['comment',        'Comment'],
+			['composer',       'Composer'],
+			['lyricist',       'Lyricist'],
+			['track',          'Track'],
+			['disk',           'Disk'],
+			['copyright',      'Copyright'],
+			['encodedby',      'Encoded by'],
+			['encodersettings','Encoder settings'],
+			['language',       'Language'],
+			['grouping',       'Grouping'],
+			['originalyear',   'Original year'],
+			['originaldate',   'Original date'],
+			['originalartist', 'Original artist'],
+			['originalalbum',  'Original album'],
+			['label',          'Label'],
+			['website',        'Website'],
+			['description',    'Description'],
+			['isrc',           'ISRC'],
+			['barcode',        'Barcode'],
+			['mood',           'Mood'],
+			['bpm',            'BPM'],
+			['key',            'Key'],
+			['replaygain_track_gain', 'ReplayGain track'],
+			['replaygain_album_gain', 'ReplayGain album'],
+		];
+
+		/** Format a raw value from music-metadata into a display string. */
+		function audioValueDisplay(v) {
+			if (v === null || v === undefined) return null;
+			if (typeof v === 'object' && 'no' in v) return v.no !== null ? String(v.no) + (v.of ? ` / ${v.of}` : '') : null;
+			if (Array.isArray(v)) return v.join(', ');
+			return String(v);
+		}
+
+		/** Render album art into the meta list (decorative row). */
+		let albumArtObjectUrl = null;
+		function renderAlbumArt(picture) {
+			if (!picture || !picture.data) return;
+			if (albumArtObjectUrl) URL.revokeObjectURL(albumArtObjectUrl);
+			const blob = new Blob([picture.data], { type: picture.format || 'image/jpeg' });
+			albumArtObjectUrl = URL.createObjectURL(blob);
+			const item = document.createElement('div');
+			item.className = 'meta-item meta-item--art';
+			item.innerHTML = `<div><img src="${albumArtObjectUrl}" alt="Album art" class="album-art-thumb" /><strong>Album artwork</strong></div><small>Embedded image</small>`;
+			metaList.prepend(item);
+		}
+
+		/** Extract metadata from an audio file using music-metadata. */
+		const AUDIO_GROUP = 'Audio tags';
+		async function extractAudioMetadata(file) {
+			// Clean up previous album art object URL
+			if (albumArtObjectUrl) { URL.revokeObjectURL(albumArtObjectUrl); albumArtObjectUrl = null; }
+			const parsed = await parseBlob(file, { skipCovers: false, duration: false });
+			const { common, native } = parsed;
+			const rows = [];
+			for (const [key, label] of audioFieldMap) {
+				const val = audioValueDisplay(common[key]);
+				if (val !== null && val !== '' && val !== 'undefined') rows.push([label, val, AUDIO_GROUP]);
+			}
+			// Surface any native tag keys not covered by common (e.g. custom ID3 frames)
+			const knownKeys = new Set(audioFieldMap.map(([k]) => k));
+			for (const [tagType, tags] of Object.entries(native || {})) {
+				for (const tag of tags) {
+					// Skip known common fields (already surfaced), binary covers, and duplicates
+					if (tag.id === 'APIC' || tag.id === 'PIC' || tag.id === 'covr' || tag.id === 'METADATA_BLOCK_PICTURE') continue;
+					if (knownKeys.has(tag.id.toLowerCase())) continue;
+					const val = typeof tag.value === 'string' ? tag.value : typeof tag.value === 'number' ? String(tag.value) : null;
+					if (!val || val.trim() === '') continue;
+					rows.push([tag.id, val, tagType.toUpperCase()]);
+				}
+			}
+			// Store album art separately for rendering (not in the rows count)
+			const picture = common.picture?.[0];
+			if (picture) rows.push(['Album artwork', `Embedded (${picture.format || 'image'})`, AUDIO_GROUP]);
+			return rows;
+		}
+
+		// ── FFmpeg.wasm lazy loader ────────────────────────────────────────────
+		let _ffmpeg = null;
+		async function getFFmpeg() {
+			if (_ffmpeg) return _ffmpeg;
+			const { FFmpeg } = await import('https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.15/dist/esm/index.js');
+			const { toBlobURL } = await import('https://cdn.jsdelivr.net/npm/@ffmpeg/util@0.12.2/dist/esm/index.js');
+			const BASE = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/esm';
+			_ffmpeg = new FFmpeg();
+			await _ffmpeg.load({
+				coreURL: await toBlobURL(`${BASE}/ffmpeg-core.js`, 'text/javascript'),
+				wasmURL: await toBlobURL(`${BASE}/ffmpeg-core.wasm`, 'application/wasm'),
+			});
+			return _ffmpeg;
+		}
+
+		// ── Audio cleaning (FFmpeg – stream copy, no re-encode) ────────────────────
+		/**
+		 * Strip all metadata from an audio file using FFmpeg's stream copy mode.
+		 * The audio bitstream is passed through unchanged — no re-encoding occurs.
+		 * Flags used:
+		 *   -map_metadata -1        → discard all global / stream metadata
+		 *   -c copy                 → stream copy (no re-encoding)
+		 *   -fflags +bitexact       → suppress FFmpeg's own encoder tag
+		 *   -flags:a +bitexact      → (audio-stream level bitexact)
+		 *   -vn                     → drop attached picture streams (album art)
+		 */
+		async function cleanAudio() {
+			const ext = extension(selectedFile);
+			const mime = audioFormats[ext] || selectedFile.type;
+			const inName  = `in.${ext}`;
+			const outName = `out.${ext}`;
+
+			status.textContent = 'Loading audio processor…';
+			const ffmpeg = await getFFmpeg();
+
+			// Write the source file into FFmpeg's virtual FS in one chunk
+			status.textContent = 'Stripping audio metadata…';
+			const srcBuf = await selectedFile.arrayBuffer();
+			await ffmpeg.writeFile(inName, new Uint8Array(srcBuf));
+
+			// Run the strip command (stream copy — no transcoding)
+			await ffmpeg.exec([
+				'-i', inName,
+				'-map_metadata', '-1',
+				'-c', 'copy',
+				'-vn',                      // drop embedded images (album art)
+				'-fflags', '+bitexact',
+				'-flags:a', '+bitexact',
+				outName,
+			]);
+
+			const outData = await ffmpeg.readFile(outName);
+			// Clean up virtual FS to free memory
+			try { await ffmpeg.deleteFile(inName); } catch {}
+			try { await ffmpeg.deleteFile(outName); } catch {}
+
+			return { bytes: outData instanceof Uint8Array ? outData : new Uint8Array(outData), type: mime };
+		}
+
+		// ── Audio verification ────────────────────────────────────────────────────
+		async function verifyCleanAudio(bytes, mime) {
+			const ext = audioMimeToExt[mime] || 'mp3';
+			const f = new File([bytes], `clean.${ext}`, { type: mime });
+			return extractAudioMetadata(f);
 		}
 
 		// ── PDF cleaning ──────────────────────────────────────────────────────────
@@ -480,6 +661,9 @@ import Layout from '../layouts/Layout.astro';
 				const buf = bytes instanceof Uint8Array ? bytes.buffer : bytes;
 				return verifyCleanOffice(buf);
 			}
+			if (audioMimeToExt[type]) {
+				return verifyCleanAudio(bytes, type);
+			}
 			const ext = Object.entries(imageFormats).find(([, mime]) => mime === type)?.[0] ?? 'jpg';
 			return extractImageMetadata(new File([bytes], `clean.${ext}`, { type }));
 		}
@@ -496,6 +680,8 @@ import Layout from '../layouts/Layout.astro';
 					cleaned = await cleanPdf();
 				} else if (selectedKind === 'office') {
 					cleaned = await cleanOfficeFile(selectedFile);
+				} else if (selectedKind === 'audio') {
+					cleaned = await cleanAudio();
 				} else {
 					cleaned = await cleanImage();
 				}
@@ -504,7 +690,7 @@ import Layout from '../layouts/Layout.astro';
 				const remaining = await verifyCleanFile(cleaned.bytes, cleaned.type);
 				document.querySelector('#after-count').textContent = `${remaining.length} field${remaining.length === 1 ? '' : 's'}`;
 				const converted = selectedKind === 'image' && imageFormats[extension(selectedFile)] !== cleaned.type;
-				const fileTypeName = selectedKind === 'pdf' ? 'PDF' : selectedKind === 'office' ? extension(selectedFile).toUpperCase() : 'image';
+				const fileTypeName = selectedKind === 'pdf' ? 'PDF' : selectedKind === 'audio' ? extension(selectedFile).toUpperCase() : selectedKind === 'office' ? extension(selectedFile).toUpperCase() : 'image';
 				document.querySelector('#result-copy').textContent = remaining.length === 0
 					? `Removed ${metadata.length} metadata field${metadata.length === 1 ? '' : 's'}. The generated ${fileTypeName} was checked again and has none remaining.${converted ? ' HEIC files are exported as JPG because browsers cannot encode HEIC.' : ''}`
 					: `A clean file was generated, but ${remaining.length} metadata field${remaining.length === 1 ? '' : 's'} remain.`;
@@ -609,6 +795,8 @@ import Layout from '../layouts/Layout.astro';
 			panel.hidden = true;
 			dropzone.hidden = false;
 			status.textContent = 'Ready to scan';
+			// Release album art URL if any
+			if (albumArtObjectUrl) { URL.revokeObjectURL(albumArtObjectUrl); albumArtObjectUrl = null; }
 		}
 		document.querySelector('#reset-button').addEventListener('click', reset);
 		document.querySelector('#again-button').addEventListener('click', reset);
@@ -667,6 +855,8 @@ import Layout from '../layouts/Layout.astro';
   --toggle-bg: #f0f0f0;
   --toggle-fg: #444;
   --toggle-hover-bg: #e2e2e2;
+  --audio-chip-bg: #fff5e6;
+  --audio-chip-fg: #a05a00;
 }
 
 :global(html.dark) {
@@ -693,6 +883,8 @@ import Layout from '../layouts/Layout.astro';
   --toggle-bg: #1e2130;
   --toggle-fg: #c0c8e0;
   --toggle-hover-bg: #252a3a;
+  --audio-chip-bg: #2a1c00;
+  --audio-chip-fg: #ffb347;
 }
 
 /* ── Global resets ─────────────────────────────────────────────────────────── */
@@ -841,6 +1033,7 @@ main { overflow: visible; }
   transition: border-color .15s, color .15s;
 }
 .chip--doc { color: var(--file-type-fg); background: var(--file-type-bg); border-color: transparent; }
+.chip--audio { color: var(--audio-chip-fg); background: var(--audio-chip-bg); border-color: transparent; }
 .dropzone:hover .chip { border-color: var(--border); }
 
 /* Privacy note inside dropzone */
@@ -868,6 +1061,8 @@ main { overflow: visible; }
 .meta-item strong, .meta-item span { display: block; font-size: 13px; color: var(--fg); }
 .meta-item span { color: var(--fg-muted); font-size: 12px; margin-top: 2px; }
 .meta-item small { font-size: 11px; color: var(--fg-muted); background: var(--surface-3); border-radius: 12px; padding: 4px 7px; }
+.meta-item--art > div { display: flex; align-items: center; gap: 10px; }
+.album-art-thumb { width: 40px; height: 40px; border-radius: 5px; object-fit: cover; flex-shrink: 0; border: 1px solid var(--border-light); }
 .primary-button { border: 0; background: var(--fg); color: var(--surface); border-radius: 999px; font-weight: 550; font-size: 14px; padding: 13px 18px; width: 100%; cursor: pointer; transition: transform .15s, opacity .15s; }
 .primary-button:hover { transform: translateY(-1px); }
 .primary-button span { float: right; font-size: 17px; line-height: 13px; }
@@ -900,12 +1095,12 @@ main { overflow: visible; }
 .step-grid p { font-size: 14px; line-height: 1.55; color: var(--fg-muted); max-width: 260px; margin: 0; }
 
 /* ── Privacy band ──────────────────────────────────────────────────────────── */
-.privacy-band { background: #171717; color: #fff; padding: 110px max(28px, calc((100% - 1024px)/2)); position: relative; min-height: 430px; overflow: hidden; }
-:global(html.dark) .privacy-band { background: #0a0c11; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.privacy-band .eyebrow { justify-content: flex-start; color: #aaa; }
-.privacy-band .eyebrow span { background: #fff; }
-.privacy-band h2 { max-width: 520px; margin-bottom: 0; font-size: 43px; color: #fff; }
-.privacy-band > p { max-width: 470px; line-height: 1.6; color: #b6b6b6; font-size: 15px; margin-top: 29px; }
+.privacy-band { background: var(--surface-2); color: var(--fg); padding: 110px max(28px, calc((100% - 1024px)/2)); position: relative; min-height: 430px; overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+:global(html.dark) .privacy-band { background: var(--surface); }
+.privacy-band .eyebrow { justify-content: flex-start; color: var(--fg-muted); }
+.privacy-band .eyebrow span { background: var(--fg); }
+.privacy-band h2 { max-width: 520px; margin-bottom: 0; font-size: 43px; color: var(--fg); }
+.privacy-band > p { max-width: 470px; line-height: 1.6; color: var(--fg-muted); font-size: 15px; margin-top: 29px; }
 .privacy-art { position: absolute; right: 14%; top: 50%; width: 260px; height: 260px; transform: translateY(-50%); }
 .orb { position: absolute; inset: 55px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #f4f0ff, #a460ff 50%, #4726ab); box-shadow: 0 0 90px #7f43ff70; }
 .orbit { position: absolute; border: 1px solid #8a75c8; border-radius: 50%; }

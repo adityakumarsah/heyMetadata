@@ -16,6 +16,7 @@
     "exifreader": "^4.41.3",
     "fflate": "^0.8.3",
     "heic-to": "^1.5.2",
+    "music-metadata": "^11.14.0",
     "pdf-lib": "^1.17.1",
     "utif": "^3.1.0"
   },
