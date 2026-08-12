@@ -1,0 +1,327 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="404 — Page Not Found | MetaClean"
+  description="The page you are looking for does not exist or has been moved. Return to MetaClean to remove EXIF data and metadata from your files."
+  canonicalUrl="https://removemetadata.com/404"
+>
+  <meta slot="head" name="robots" content="noindex, follow" />
+
+  <main>
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="/" aria-label="MetaClean home"><span class="brand-mark">✦</span> MetaClean</a>
+      <div class="nav-links">
+        <a href="/#how-it-works">How it works</a>
+        <a href="/#formats">Supported files</a>
+        <a href="/#privacy">Privacy</a>
+        <a href="/about">About Us</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <span class="theme-icon theme-icon--sun" aria-hidden="true">☀︎</span>
+          <span class="theme-icon theme-icon--moon" aria-hidden="true">☽</span>
+        </button>
+        <a class="nav-cta" href="/#cleaner">Clean a file <span>↗</span></a>
+      </div>
+    </nav>
+
+    <div class="error-container">
+      <div class="hero-glow" aria-hidden="true"></div>
+
+      <span class="error-code">404</span>
+      <h1 class="error-title">Page Not Found</h1>
+      <p class="error-message">
+        The page you are looking for doesn't exist, may have been moved, or the URL was mistyped.
+      </p>
+
+      <div class="error-actions">
+        <a href="/" class="btn-primary">Back to Metadata Remover ↗</a>
+        <a href="/contact" class="btn-secondary">Contact Support</a>
+      </div>
+
+      <div class="quick-nav-card">
+        <h3>Popular Destinations</h3>
+        <div class="nav-grid">
+          <a href="/#cleaner" class="nav-card">
+            <span class="card-icon">⚡</span>
+            <div>
+              <strong>Metadata Cleaner</strong>
+              <span>Remove EXIF data from files</span>
+            </div>
+          </a>
+          <a href="/about" class="nav-card">
+            <span class="card-icon">🛡️</span>
+            <div>
+              <strong>About MetaClean</strong>
+              <span>Our privacy-first mission</span>
+            </div>
+          </a>
+          <a href="/privacy" class="nav-card">
+            <span class="card-icon">🔒</span>
+            <div>
+              <strong>Privacy Policy</strong>
+              <span>100% browser-based security</span>
+            </div>
+          </a>
+          <a href="/contact" class="nav-card">
+            <span class="card-icon">✉️</span>
+            <div>
+              <strong>Contact Us</strong>
+              <span>Get support or report bugs</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <a class="brand" href="/" aria-label="MetaClean home"><span class="brand-mark">✦</span> MetaClean</a>
+      <p>Free Online Metadata Remover — Remove EXIF Data Privately</p>
+      <div class="footer-links">
+        <a href="/about">About Us</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms &amp; Conditions</a>
+        <a href="/contact">Contact Us</a>
+      </div>
+      <span>© 2026 MetaClean</span>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      const html = document.documentElement;
+      const btn  = document.querySelector('#theme-toggle');
+      const KEY  = 'mc-theme';
+      if (!btn) return;
+      function applyTheme(dark) {
+        html.classList.toggle('dark', dark);
+        btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+        try { localStorage.setItem(KEY, dark ? 'dark' : 'light'); } catch {}
+      }
+      const stored = (() => { try { return localStorage.getItem(KEY); } catch { return null; } })();
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(stored === 'dark' || (stored === null && prefersDark));
+      btn.addEventListener('click', () => applyTheme(!html.classList.contains('dark')));
+    })();
+  </script>
+</Layout>
+
+<style>
+:root {
+  --fg: #171717;
+  --fg-muted: #666;
+  --fg-subtle: #999;
+  --border: #e8e8e8;
+  --border-light: #eee;
+  --surface: #fff;
+  --surface-2: #fafafa;
+  --nav-link: #666;
+  --toggle-bg: #f0f0f0;
+  --toggle-fg: #444;
+  --toggle-hover-bg: #e2e2e2;
+}
+
+:global(html.dark) {
+  --fg: #f0f0f0;
+  --fg-muted: #a0a0a0;
+  --fg-subtle: #666;
+  --border: #2a2d35;
+  --border-light: #252830;
+  --surface: #13161e;
+  --surface-2: #181b24;
+  --nav-link: #a0a0a0;
+  --toggle-bg: #1e2130;
+  --toggle-fg: #c0c8e0;
+  --toggle-hover-bg: #252a3a;
+}
+
+:global(*) { box-sizing: border-box; }
+:global(html) { scroll-behavior: smooth; }
+:global(body) {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--fg);
+  transition: background-color .3s, color .3s;
+}
+
+main { overflow: visible; }
+.nav { height: 64px; max-width: 1200px; margin: auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; }
+.brand { font-weight: 650; letter-spacing: -.8px; color: var(--fg); text-decoration: none; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+.brand-mark { font-size: 20px; }
+.nav-links { display: flex; gap: 26px; }
+.nav-links a { font-size: 14px; color: var(--nav-link); text-decoration: none; }
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+.nav-cta { font-size: 14px; background: var(--fg); color: var(--surface); text-decoration: none; padding: 9px 13px; border-radius: 6px; transition: opacity .15s; }
+.nav-cta span { margin-left: 7px; }
+
+.theme-toggle {
+  width: 36px; height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--toggle-bg);
+  color: var(--toggle-fg);
+  cursor: pointer;
+  display: grid; place-items: center;
+  font-size: 17px;
+  transition: background .2s, border-color .2s, transform .15s;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+.theme-toggle:hover { background: var(--toggle-hover-bg); transform: scale(1.07); }
+.theme-icon { position: absolute; transition: opacity .25s, transform .25s; line-height: 1; }
+.theme-icon--sun  { opacity: 1; transform: rotate(0deg) scale(1); }
+.theme-icon--moon { opacity: 0; transform: rotate(-90deg) scale(.6); }
+:global(html.dark) .theme-icon--sun  { opacity: 0; transform: rotate(90deg) scale(.6); }
+:global(html.dark) .theme-icon--moon { opacity: 1; transform: rotate(0deg) scale(1); }
+
+.error-container {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 80px 28px 100px;
+  text-align: center;
+}
+
+.hero-glow {
+  position: absolute;
+  width: 500px;
+  height: 250px;
+  left: 50%;
+  top: 40px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle at 50% 50%, rgba(0, 112, 240, 0.15), transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.error-code {
+  display: inline-block;
+  font-size: clamp(80px, 12vw, 130px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -.06em;
+  background: linear-gradient(135deg, var(--fg) 30%, var(--fg-muted));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+
+.error-title {
+  font-size: clamp(28px, 4vw, 42px);
+  letter-spacing: -.03em;
+  font-weight: 650;
+  margin: 0 0 16px;
+  color: var(--fg);
+}
+
+.error-message {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--fg-muted);
+  max-width: 520px;
+  margin: 0 auto 36px;
+}
+
+.error-actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 64px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: var(--fg);
+  color: var(--surface);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 550;
+  padding: 12px 24px;
+  border-radius: 8px;
+  transition: opacity .15s;
+}
+.btn-primary:hover {
+  opacity: .9;
+}
+
+.btn-secondary {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 550;
+  padding: 12px 24px;
+  border-radius: 8px;
+  transition: border-color .15s;
+}
+.btn-secondary:hover {
+  border-color: var(--fg-subtle);
+}
+
+.quick-nav-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  text-align: left;
+}
+.quick-nav-card h3 {
+  font-size: 18px;
+  margin: 0 0 20px;
+  color: var(--fg);
+}
+
+.nav-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.nav-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  text-decoration: none;
+  transition: border-color .15s, transform .15s;
+}
+.nav-card:hover {
+  border-color: var(--fg-subtle);
+  transform: translateY(-2px);
+}
+.card-icon {
+  font-size: 22px;
+}
+.nav-card strong {
+  display: block;
+  font-size: 14.5px;
+  color: var(--fg);
+  margin-bottom: 2px;
+}
+.nav-card span {
+  font-size: 13px;
+  color: var(--fg-muted);
+}
+
+footer { max-width: 1200px; border-top: 1px solid var(--border-light); margin: auto; padding: 29px 28px 35px; display: flex; align-items: center; gap: 22px; color: var(--fg-muted); font-size: 12px; }
+footer p { margin: 0; }
+.footer-links { display: flex; gap: 16px; align-items: center; }
+.footer-links a { color: var(--fg-muted); text-decoration: none; transition: color .15s; }
+.footer-links a:hover { color: var(--fg); text-decoration: underline; }
+footer > span { margin-left: auto; }
+
+@media (max-width: 700px) {
+  .nav-links { display: none; }
+  .nav { padding: 0 18px; }
+  .error-container { padding: 50px 18px 70px; }
+  footer { flex-wrap: wrap; gap: 14px; }
+  .footer-links { flex-wrap: wrap; gap: 12px; width: 100%; }
+  footer > span { margin-left: 0; }
+}
+</style>
