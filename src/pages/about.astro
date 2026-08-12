@@ -1,0 +1,438 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://removemetadata.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "About Us",
+      "item": "https://removemetadata.com/about"
+    }
+  ]
+};
+
+const aboutSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "About MetaClean",
+  "url": "https://removemetadata.com/about",
+  "description": "Learn about MetaClean's mission to provide 100% private, client-side metadata and EXIF data removal for images, videos, audio, and documents."
+};
+---
+
+<Layout
+  title="About Us — MetaClean | Free Online Metadata Remover"
+  description="Learn about MetaClean's mission to provide 100% private, client-side metadata and EXIF data removal for images, videos, audio, and documents. Your files never leave your browser."
+  keywords="about metaclean, metadata remover, EXIF data remover, online metadata stripper, private photo metadata remover, browser based metadata remover"
+  canonicalUrl="https://removemetadata.com/about"
+>
+  <main>
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="/" aria-label="MetaClean home"><span class="brand-mark">✦</span> MetaClean</a>
+      <div class="nav-links">
+        <a href="/#how-it-works">How it works</a>
+        <a href="/#formats">Supported files</a>
+        <a href="/#privacy">Privacy</a>
+        <a href="/about" class="active">About Us</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <span class="theme-icon theme-icon--sun" aria-hidden="true">☀︎</span>
+          <span class="theme-icon theme-icon--moon" aria-hidden="true">☽</span>
+        </button>
+        <a class="nav-cta" href="/#cleaner">Clean a file <span>↗</span></a>
+      </div>
+    </nav>
+
+    <article class="page-container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">About Us</span>
+      </nav>
+
+      <header class="page-header">
+        <p class="eyebrow"><span></span> ABOUT METACLEAN</p>
+        <h1>Protecting Digital Privacy Through Client-Side Technology</h1>
+        <p class="lead">
+          MetaClean was built with a single, uncompromising principle: your private files and personal data should never leave your device.
+        </p>
+      </header>
+
+      <section class="content-section">
+        <h2>Our Mission</h2>
+        <p>
+          Every digital file you create contains hidden information—metadata. Photos store exact GPS coordinates, camera model, shutter speed, and timestamp. PDFs and Office documents hold author names, corporate usernames, and revision histories. Audio and video files carry hardware encoding tags and embedded identifiers.
+        </p>
+        <p>
+          Sharing files online without removing metadata can unintentionally reveal your location, home address, work environment, or personal identity to public forums, social networks, and data harvesters.
+        </p>
+        <p>
+          MetaClean provides a free, fast, and accessible tool to strip sensitive metadata from your images, documents, videos, and audio files—giving you total control over what information you share.
+        </p>
+      </section>
+
+      <section class="content-grid">
+        <div class="card">
+          <div class="card-icon">🛡️</div>
+          <h3>100% Browser-Based</h3>
+          <p>
+            Unlike conventional online tools that force you to upload files to a remote cloud server, MetaClean runs entirely in your browser using modern JavaScript and WebAssembly (WASM). Your original files stay strictly on your device.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <h3>Zero Server Storage</h3>
+          <p>
+            Because we never receive your files, there are no databases, no server logs, no cloud storage buckets, and zero risk of data leaks or server breaches. Once you close the tab, all memory is freed immediately.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">📁</div>
+          <h3>Multi-Format Support</h3>
+          <p>
+            MetaClean handles a broad range of file formats: JPG, PNG, WebP, TIFF, HEIC, MP4, MOV, MKV, AVI, WebM, MP3, WAV, FLAC, PDF, DOCX, XLSX, and PPTX.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">💎</div>
+          <h3>No Quality Loss</h3>
+          <p>
+            For video and audio files, MetaClean uses stream-copy processing. The media tracks are passed through unchanged without re-encoding, preserving 100% of the original audio/video quality.
+          </p>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <h2>What Metadata Does MetaClean Strip?</h2>
+        <div class="list-container">
+          <div class="list-block">
+            <h4>Photo &amp; Image Metadata</h4>
+            <ul>
+              <li><strong>EXIF Data:</strong> Camera make/model, ISO, aperture, shutter speed, lens info, and capture timestamp.</li>
+              <li><strong>GPS Location:</strong> Latitude, longitude, altitude, and geotagged map location.</li>
+              <li><strong>IPTC &amp; XMP:</strong> Copyright details, creator tags, ratings, and embedded keywords.</li>
+            </ul>
+          </div>
+
+          <div class="list-block">
+            <h4>Document &amp; Media Metadata</h4>
+            <ul>
+              <li><strong>PDF &amp; Office Files:</strong> Author, organization, creation date, modification history, and editing software.</li>
+              <li><strong>Audio Tags:</strong> ID3v1, ID3v2, Vorbis comments, FLAC metadata tags, and artist info.</li>
+              <li><strong>Video Container Metadata:</strong> QuickTime/MP4 user metadata, encoder tags, and creation dates.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-banner">
+        <h2>Ready to Clean Your Files?</h2>
+        <p>No registration, no software installation, and no file size fees. Clean your files privately in seconds.</p>
+        <a class="cta-button" href="/#cleaner">Start Removing Metadata ↗</a>
+      </section>
+    </article>
+
+    <footer>
+      <a class="brand" href="/" aria-label="MetaClean home"><span class="brand-mark">✦</span> MetaClean</a>
+      <p>Free Online Metadata Remover — Remove EXIF Data Privately</p>
+      <div class="footer-links">
+        <a href="/about">About Us</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms &amp; Conditions</a>
+        <a href="/contact">Contact Us</a>
+      </div>
+      <span>© 2026 MetaClean</span>
+    </footer>
+  </main>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)}></script>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(aboutSchema)}></script>
+
+  <script>
+    (function () {
+      const html = document.documentElement;
+      const btn  = document.querySelector('#theme-toggle');
+      const KEY  = 'mc-theme';
+      if (!btn) return;
+      function applyTheme(dark) {
+        html.classList.toggle('dark', dark);
+        btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+        try { localStorage.setItem(KEY, dark ? 'dark' : 'light'); } catch {}
+      }
+      const stored = (() => { try { return localStorage.getItem(KEY); } catch { return null; } })();
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(stored === 'dark' || (stored === null && prefersDark));
+      btn.addEventListener('click', () => applyTheme(!html.classList.contains('dark')));
+    })();
+  </script>
+</Layout>
+
+<style>
+:root {
+  --fg: #171717;
+  --fg-muted: #666;
+  --fg-subtle: #999;
+  --border: #e8e8e8;
+  --border-light: #eee;
+  --border-section: #e7e7e7;
+  --surface: #fff;
+  --surface-2: #fafafa;
+  --surface-3: #f4f4f4;
+  --nav-link: #666;
+  --toggle-bg: #f0f0f0;
+  --toggle-fg: #444;
+  --toggle-hover-bg: #e2e2e2;
+}
+
+:global(html.dark) {
+  --fg: #f0f0f0;
+  --fg-muted: #a0a0a0;
+  --fg-subtle: #666;
+  --border: #2a2d35;
+  --border-light: #252830;
+  --border-section: #2a2d35;
+  --surface: #13161e;
+  --surface-2: #181b24;
+  --surface-3: #1e2130;
+  --nav-link: #a0a0a0;
+  --toggle-bg: #1e2130;
+  --toggle-fg: #c0c8e0;
+  --toggle-hover-bg: #252a3a;
+}
+
+:global(*) { box-sizing: border-box; }
+:global(html) { scroll-behavior: smooth; }
+:global(body) {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--fg);
+  transition: background-color .3s, color .3s;
+}
+
+main { overflow: visible; }
+.nav { height: 64px; max-width: 1200px; margin: auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; }
+.brand { font-weight: 650; letter-spacing: -.8px; color: var(--fg); text-decoration: none; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+.brand-mark { font-size: 20px; }
+.nav-links { display: flex; gap: 26px; }
+.nav-links a { font-size: 14px; color: var(--nav-link); text-decoration: none; }
+.nav-links a.active { color: var(--fg); font-weight: 600; }
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+.nav-cta { font-size: 14px; background: var(--fg); color: var(--surface); text-decoration: none; padding: 9px 13px; border-radius: 6px; transition: opacity .15s; }
+.nav-cta span { margin-left: 7px; }
+
+.theme-toggle {
+  width: 36px; height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--toggle-bg);
+  color: var(--toggle-fg);
+  cursor: pointer;
+  display: grid; place-items: center;
+  font-size: 17px;
+  transition: background .2s, border-color .2s, transform .15s;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+.theme-toggle:hover { background: var(--toggle-hover-bg); transform: scale(1.07); }
+.theme-icon { position: absolute; transition: opacity .25s, transform .25s; line-height: 1; }
+.theme-icon--sun  { opacity: 1; transform: rotate(0deg) scale(1); }
+.theme-icon--moon { opacity: 0; transform: rotate(-90deg) scale(.6); }
+:global(html.dark) .theme-icon--sun  { opacity: 0; transform: rotate(90deg) scale(.6); }
+:global(html.dark) .theme-icon--moon { opacity: 1; transform: rotate(0deg) scale(1); }
+
+.page-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 28px 90px;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--fg-subtle);
+  margin-bottom: 24px;
+}
+.breadcrumbs a {
+  color: var(--fg-muted);
+  text-decoration: none;
+}
+.breadcrumbs a:hover {
+  color: var(--fg);
+}
+
+.page-header {
+  margin-bottom: 48px;
+}
+.eyebrow {
+  font: 12px ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .07em;
+  color: var(--fg-muted);
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.eyebrow span {
+  width: 7px;
+  height: 7px;
+  background: var(--fg);
+  border-radius: 50%;
+}
+.page-header h1 {
+  font-size: clamp(32px, 4.5vw, 48px);
+  letter-spacing: -.04em;
+  line-height: 1.1;
+  font-weight: 620;
+  margin: 0 0 16px;
+  color: var(--fg);
+}
+.lead {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--fg-muted);
+  margin: 0;
+}
+
+.content-section {
+  margin-bottom: 48px;
+}
+.content-section h2 {
+  font-size: 26px;
+  letter-spacing: -.02em;
+  margin: 0 0 16px;
+  color: var(--fg);
+}
+.content-section p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--fg-muted);
+  margin: 0 0 16px;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-bottom: 56px;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  transition: border-color .2s;
+}
+.card:hover {
+  border-color: var(--fg-subtle);
+}
+.card-icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+.card h3 {
+  font-size: 18px;
+  margin: 0 0 8px;
+  color: var(--fg);
+}
+.card p {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--fg-muted);
+  margin: 0;
+}
+
+.list-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+.list-block {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+.list-block h4 {
+  font-size: 17px;
+  margin: 0 0 14px;
+  color: var(--fg);
+}
+.list-block ul {
+  margin: 0;
+  padding-left: 20px;
+}
+.list-block li {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--fg-muted);
+  margin-bottom: 8px;
+}
+.list-block li strong {
+  color: var(--fg);
+}
+
+.cta-banner {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 40px 32px;
+  text-align: center;
+  margin-top: 56px;
+}
+.cta-banner h2 {
+  font-size: 26px;
+  margin: 0 0 10px;
+  color: var(--fg);
+}
+.cta-banner p {
+  font-size: 15.5px;
+  color: var(--fg-muted);
+  margin: 0 0 22px;
+}
+.cta-button {
+  display: inline-block;
+  background: var(--fg);
+  color: var(--surface);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 550;
+  padding: 12px 24px;
+  border-radius: 8px;
+  transition: opacity .15s;
+}
+.cta-button:hover {
+  opacity: .9;
+}
+
+footer { max-width: 1200px; border-top: 1px solid var(--border-light); margin: auto; padding: 29px 28px 35px; display: flex; align-items: center; gap: 22px; color: var(--fg-muted); font-size: 12px; }
+footer p { margin: 0; }
+.footer-links { display: flex; gap: 16px; align-items: center; }
+.footer-links a { color: var(--fg-muted); text-decoration: none; transition: color .15s; }
+.footer-links a:hover { color: var(--fg); text-decoration: underline; }
+footer > span { margin-left: auto; }
+
+@media (max-width: 700px) {
+  .nav-links { display: none; }
+  .nav { padding: 0 18px; }
+  .page-container { padding: 24px 18px 60px; }
+  .list-container { grid-template-columns: 1fr; }
+  footer { flex-wrap: wrap; gap: 14px; }
+  .footer-links { flex-wrap: wrap; gap: 12px; width: 100%; }
+  footer > span { margin-left: 0; }
+}
+</style>

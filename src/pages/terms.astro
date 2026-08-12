@@ -1,0 +1,333 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://removemetadata.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Terms & Conditions",
+      "item": "https://removemetadata.com/terms"
+    }
+  ]
+};
+---
+
+<Layout
+  title="Terms & Conditions — MetaClean | Usage Terms"
+  description="Terms and conditions for using MetaClean. Read our usage guidelines, disclaimers, and service policies for online browser-based metadata removal."
+  keywords="metaclean terms and conditions, metadata remover terms of service, online exif remover terms, metaclean usage policy"
+  canonicalUrl="https://removemetadata.com/terms"
+>
+  <main>
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="/" aria-label="MetaClean home"><span class="brand-mark">✦</span> MetaClean</a>
+      <div class="nav-links">
+        <a href="/#how-it-works">How it works</a>
+        <a href="/#formats">Supported files</a>
+        <a href="/#privacy">Privacy</a>
+        <a href="/about">About Us</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <span class="theme-icon theme-icon--sun" aria-hidden="true">☀︎</span>
+          <span class="theme-icon theme-icon--moon" aria-hidden="true">☽</span>
+        </button>
+        <a class="nav-cta" href="/#cleaner">Clean a file <span>↗</span></a>
+      </div>
+    </nav>
+
+    <article class="page-container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Terms &amp; Conditions</span>
+      </nav>
+
+      <header class="page-header">
+        <p class="eyebrow"><span></span> SERVICE TERMS</p>
+        <h1>Terms &amp; Conditions</h1>
+        <p class="lead">
+          Last updated: August 12, 2026. Please read these Terms and Conditions carefully before using the MetaClean web application.
+        </p>
+      </header>
+
+      <section class="content-section">
+        <h2>1. Acceptance of Terms</h2>
+        <p>
+          By accessing or using MetaClean (accessible at <code>removemetadata.com</code>), you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, you must not use our website or services.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>2. Description of Service</h2>
+        <p>
+          MetaClean provides a web-based, client-side utility designed to view and strip metadata (such as EXIF, IPTC, XMP, audio tags, document properties, and video user metadata) from digital files. The service operates locally within your web browser without uploading files to remote servers.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>3. Acceptable Use Policy</h2>
+        <p>You agree to use MetaClean solely for lawful purposes. You agree not to:</p>
+        <ul>
+          <li>Attempt to reverse-engineer, decompile, or tamper with the web application scripts to compromise security or user safety.</li>
+          <li>Use the service in any manner that violates copyright laws, privacy regulations, or third-party intellectual property rights.</li>
+          <li>Use automated scripts or bots to overload or disrupt the web application infrastructure.</li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>4. User Responsibilities &amp; Verification</h2>
+        <p>
+          While MetaClean is engineered to thoroughly strip metadata fields, users remain responsible for inspecting and verifying cleaned files prior to publishing or distributing sensitive documents. We recommend using MetaClean's built-in metadata scanner to confirm that intended EXIF or location tags have been removed.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>5. Intellectual Property Rights</h2>
+        <p>
+          All intellectual property rights in the MetaClean application—including code, design, branding, logo mark, and visual interface—are owned by MetaClean. You retain full ownership of any files you process using the application.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>6. Disclaimer of Warranties</h2>
+        <p>
+          MetaClean is provided on an <strong>"AS IS"</strong> and <strong>"AS AVAILABLE"</strong> basis without warranties of any kind, whether express or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, or non-infringement.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>7. Limitation of Liability</h2>
+        <p>
+          To the maximum extent permitted by applicable law, MetaClean and its operators shall not be liable for any direct, indirect, incidental, consequential, or special damages arising out of or in connection with your use or inability to use the service.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>8. Contact Information</h2>
+        <p>
+          If you have any questions regarding these Terms &amp; Conditions, please visit our <a href="/contact">Contact Page</a> or reach out via email at <strong>support@removemetadata.com</strong>.
+        </p>
+      </section>
+    </article>
+
+    <footer>
+      <a class="brand" href="/" aria-label="MetaClean home"><span class="brand-mark">✦</span> MetaClean</a>
+      <p>Free Online Metadata Remover — Remove EXIF Data Privately</p>
+      <div class="footer-links">
+        <a href="/about">About Us</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms &amp; Conditions</a>
+        <a href="/contact">Contact Us</a>
+      </div>
+      <span>© 2026 MetaClean</span>
+    </footer>
+  </main>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)}></script>
+
+  <script>
+    (function () {
+      const html = document.documentElement;
+      const btn  = document.querySelector('#theme-toggle');
+      const KEY  = 'mc-theme';
+      if (!btn) return;
+      function applyTheme(dark) {
+        html.classList.toggle('dark', dark);
+        btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+        try { localStorage.setItem(KEY, dark ? 'dark' : 'light'); } catch {}
+      }
+      const stored = (() => { try { return localStorage.getItem(KEY); } catch { return null; } })();
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(stored === 'dark' || (stored === null && prefersDark));
+      btn.addEventListener('click', () => applyTheme(!html.classList.contains('dark')));
+    })();
+  </script>
+</Layout>
+
+<style>
+:root {
+  --fg: #171717;
+  --fg-muted: #666;
+  --fg-subtle: #999;
+  --border: #e8e8e8;
+  --border-light: #eee;
+  --surface: #fff;
+  --surface-2: #fafafa;
+  --nav-link: #666;
+  --toggle-bg: #f0f0f0;
+  --toggle-fg: #444;
+  --toggle-hover-bg: #e2e2e2;
+}
+
+:global(html.dark) {
+  --fg: #f0f0f0;
+  --fg-muted: #a0a0a0;
+  --fg-subtle: #666;
+  --border: #2a2d35;
+  --border-light: #252830;
+  --surface: #13161e;
+  --surface-2: #181b24;
+  --nav-link: #a0a0a0;
+  --toggle-bg: #1e2130;
+  --toggle-fg: #c0c8e0;
+  --toggle-hover-bg: #252a3a;
+}
+
+:global(*) { box-sizing: border-box; }
+:global(html) { scroll-behavior: smooth; }
+:global(body) {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--fg);
+  transition: background-color .3s, color .3s;
+}
+
+main { overflow: visible; }
+.nav { height: 64px; max-width: 1200px; margin: auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; }
+.brand { font-weight: 650; letter-spacing: -.8px; color: var(--fg); text-decoration: none; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+.brand-mark { font-size: 20px; }
+.nav-links { display: flex; gap: 26px; }
+.nav-links a { font-size: 14px; color: var(--nav-link); text-decoration: none; }
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+.nav-cta { font-size: 14px; background: var(--fg); color: var(--surface); text-decoration: none; padding: 9px 13px; border-radius: 6px; transition: opacity .15s; }
+.nav-cta span { margin-left: 7px; }
+
+.theme-toggle {
+  width: 36px; height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--toggle-bg);
+  color: var(--toggle-fg);
+  cursor: pointer;
+  display: grid; place-items: center;
+  font-size: 17px;
+  transition: background .2s, border-color .2s, transform .15s;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+.theme-toggle:hover { background: var(--toggle-hover-bg); transform: scale(1.07); }
+.theme-icon { position: absolute; transition: opacity .25s, transform .25s; line-height: 1; }
+.theme-icon--sun  { opacity: 1; transform: rotate(0deg) scale(1); }
+.theme-icon--moon { opacity: 0; transform: rotate(-90deg) scale(.6); }
+:global(html.dark) .theme-icon--sun  { opacity: 0; transform: rotate(90deg) scale(.6); }
+:global(html.dark) .theme-icon--moon { opacity: 1; transform: rotate(0deg) scale(1); }
+
+.page-container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 28px 90px;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--fg-subtle);
+  margin-bottom: 24px;
+}
+.breadcrumbs a {
+  color: var(--fg-muted);
+  text-decoration: none;
+}
+.breadcrumbs a:hover {
+  color: var(--fg);
+}
+
+.page-header {
+  margin-bottom: 40px;
+}
+.eyebrow {
+  font: 12px ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .07em;
+  color: var(--fg-muted);
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.eyebrow span {
+  width: 7px;
+  height: 7px;
+  background: var(--fg);
+  border-radius: 50%;
+}
+.page-header h1 {
+  font-size: clamp(32px, 4.5vw, 48px);
+  letter-spacing: -.04em;
+  line-height: 1.1;
+  font-weight: 620;
+  margin: 0 0 16px;
+  color: var(--fg);
+}
+.lead {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--fg-muted);
+  margin: 0;
+}
+
+.content-section {
+  margin-bottom: 40px;
+}
+.content-section h2 {
+  font-size: 22px;
+  letter-spacing: -.02em;
+  margin: 0 0 14px;
+  color: var(--fg);
+}
+.content-section p {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--fg-muted);
+  margin: 0 0 14px;
+}
+.content-section code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13.5px;
+  background: var(--surface-2);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+.content-section a {
+  color: var(--fg);
+  text-decoration: underline;
+}
+.content-section ul {
+  margin: 0;
+  padding-left: 20px;
+}
+.content-section li {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--fg-muted);
+  margin-bottom: 8px;
+}
+
+footer { max-width: 1200px; border-top: 1px solid var(--border-light); margin: auto; padding: 29px 28px 35px; display: flex; align-items: center; gap: 22px; color: var(--fg-muted); font-size: 12px; }
+footer p { margin: 0; }
+.footer-links { display: flex; gap: 16px; align-items: center; }
+.footer-links a { color: var(--fg-muted); text-decoration: none; transition: color .15s; }
+.footer-links a:hover { color: var(--fg); text-decoration: underline; }
+footer > span { margin-left: auto; }
+
+@media (max-width: 700px) {
+  .nav-links { display: none; }
+  .nav { padding: 0 18px; }
+  .page-container { padding: 24px 18px 60px; }
+  footer { flex-wrap: wrap; gap: 14px; }
+  .footer-links { flex-wrap: wrap; gap: 12px; width: 100%; }
+  footer > span { margin-left: 0; }
+}
+</style>

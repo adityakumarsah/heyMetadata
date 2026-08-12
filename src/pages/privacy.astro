@@ -1,0 +1,366 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://removemetadata.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Privacy Policy",
+      "item": "https://removemetadata.com/privacy"
+    }
+  ]
+};
+---
+
+<Layout
+  title="Privacy Policy — MetaClean | 100% Client-Side Privacy"
+  description="MetaClean Privacy Policy. We do not collect, store, or upload your files. All metadata and EXIF removal operations happen locally inside your web browser."
+  keywords="metaclean privacy policy, client side metadata removal, private exif remover, no upload file privacy, browser based file processing privacy"
+  canonicalUrl="https://removemetadata.com/privacy"
+>
+  <main>
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="/" aria-label="MetaClean home"><span class="brand-mark">✦</span> MetaClean</a>
+      <div class="nav-links">
+        <a href="/#how-it-works">How it works</a>
+        <a href="/#formats">Supported files</a>
+        <a href="/#privacy">Privacy</a>
+        <a href="/about">About Us</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <span class="theme-icon theme-icon--sun" aria-hidden="true">☀︎</span>
+          <span class="theme-icon theme-icon--moon" aria-hidden="true">☽</span>
+        </button>
+        <a class="nav-cta" href="/#cleaner">Clean a file <span>↗</span></a>
+      </div>
+    </nav>
+
+    <article class="page-container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Privacy Policy</span>
+      </nav>
+
+      <header class="page-header">
+        <p class="eyebrow"><span></span> PRIVACY GUARANTEE</p>
+        <h1>Privacy Policy</h1>
+        <p class="lead">
+          Last updated: August 12, 2026. MetaClean is designed from the ground up so that your files never leave your computer or mobile device.
+        </p>
+      </header>
+
+      <section class="policy-card">
+        <div class="highlight-badge">🔒 Zero Server Storage Guarantee</div>
+        <p>
+          MetaClean processes 100% of your images, videos, audio files, and documents locally in your browser memory using JavaScript and WebAssembly. We do not operate remote file uploading servers, file caching systems, or backend document processors.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>1. How Local Processing Works</h2>
+        <p>
+          When you drag and drop a file or click "Browse files" on MetaClean, your web browser accesses the file directly through the standard HTML5 File API. The binary data is read, analyzed, and stripped of metadata entirely inside your web browser tab.
+        </p>
+        <p>
+          At no point during the scanning, viewing, or metadata removal process is any portion of your file sent over the internet to MetaClean or any third party.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>2. Data We Do NOT Collect</h2>
+        <ul class="policy-list">
+          <li><strong>No File Data:</strong> We never upload, copy, store, or view your photos, documents, or media files.</li>
+          <li><strong>No Personal Identifiers:</strong> We do not ask for your name, email address, phone number, or account registration.</li>
+          <li><strong>No Location Data:</strong> We do not record or track your geographic location coordinates.</li>
+          <li><strong>No File Metadata Logs:</strong> The EXIF parameters, GPS coordinates, author names, or file tags stripped by MetaClean are never transmitted or saved.</li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>3. Local Browser Storage</h2>
+        <p>
+          MetaClean uses your browser's standard <code>localStorage</code> mechanism solely to store your display theme preference (light mode or dark mode under the key <code>mc-theme</code>). No tracking tokens, session IDs, or personal preference profiles are saved.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>4. Analytics &amp; Cookies</h2>
+        <p>
+          We maintain a strictly privacy-first web environment. MetaClean does not use invasive third-party tracking cookies, user profiling scripts, or cross-site tracking beacons.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>5. Compliance with Global Privacy Regulations (GDPR &amp; CCPA)</h2>
+        <p>
+          Because MetaClean collects zero personal data and zero file content, we adhere to the core principles of the European Union General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA) by design:
+        </p>
+        <ul>
+          <li><strong>Data Minimization:</strong> Zero collection of personal data.</li>
+          <li><strong>Storage Limitation:</strong> Zero storage of user files or personal records.</li>
+          <li><strong>Privacy by Default:</strong> Full client-side processing without opt-in requirements.</li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>6. Contact Us Regarding Privacy</h2>
+        <p>
+          If you have questions, feedback, or concerns regarding our privacy architecture, please contact us via our <a href="/contact">Contact Page</a> or send an email to <strong>privacy@removemetadata.com</strong>.
+        </p>
+      </section>
+    </article>
+
+    <footer>
+      <a class="brand" href="/" aria-label="MetaClean home"><span class="brand-mark">✦</span> MetaClean</a>
+      <p>Free Online Metadata Remover — Remove EXIF Data Privately</p>
+      <div class="footer-links">
+        <a href="/about">About Us</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms &amp; Conditions</a>
+        <a href="/contact">Contact Us</a>
+      </div>
+      <span>© 2026 MetaClean</span>
+    </footer>
+  </main>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)}></script>
+
+  <script>
+    (function () {
+      const html = document.documentElement;
+      const btn  = document.querySelector('#theme-toggle');
+      const KEY  = 'mc-theme';
+      if (!btn) return;
+      function applyTheme(dark) {
+        html.classList.toggle('dark', dark);
+        btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+        try { localStorage.setItem(KEY, dark ? 'dark' : 'light'); } catch {}
+      }
+      const stored = (() => { try { return localStorage.getItem(KEY); } catch { return null; } })();
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(stored === 'dark' || (stored === null && prefersDark));
+      btn.addEventListener('click', () => applyTheme(!html.classList.contains('dark')));
+    })();
+  </script>
+</Layout>
+
+<style>
+:root {
+  --fg: #171717;
+  --fg-muted: #666;
+  --fg-subtle: #999;
+  --border: #e8e8e8;
+  --border-light: #eee;
+  --surface: #fff;
+  --surface-2: #fafafa;
+  --nav-link: #666;
+  --toggle-bg: #f0f0f0;
+  --toggle-fg: #444;
+  --toggle-hover-bg: #e2e2e2;
+}
+
+:global(html.dark) {
+  --fg: #f0f0f0;
+  --fg-muted: #a0a0a0;
+  --fg-subtle: #666;
+  --border: #2a2d35;
+  --border-light: #252830;
+  --surface: #13161e;
+  --surface-2: #181b24;
+  --nav-link: #a0a0a0;
+  --toggle-bg: #1e2130;
+  --toggle-fg: #c0c8e0;
+  --toggle-hover-bg: #252a3a;
+}
+
+:global(*) { box-sizing: border-box; }
+:global(html) { scroll-behavior: smooth; }
+:global(body) {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--fg);
+  transition: background-color .3s, color .3s;
+}
+
+main { overflow: visible; }
+.nav { height: 64px; max-width: 1200px; margin: auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; }
+.brand { font-weight: 650; letter-spacing: -.8px; color: var(--fg); text-decoration: none; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+.brand-mark { font-size: 20px; }
+.nav-links { display: flex; gap: 26px; }
+.nav-links a { font-size: 14px; color: var(--nav-link); text-decoration: none; }
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+.nav-cta { font-size: 14px; background: var(--fg); color: var(--surface); text-decoration: none; padding: 9px 13px; border-radius: 6px; transition: opacity .15s; }
+.nav-cta span { margin-left: 7px; }
+
+.theme-toggle {
+  width: 36px; height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--toggle-bg);
+  color: var(--toggle-fg);
+  cursor: pointer;
+  display: grid; place-items: center;
+  font-size: 17px;
+  transition: background .2s, border-color .2s, transform .15s;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+.theme-toggle:hover { background: var(--toggle-hover-bg); transform: scale(1.07); }
+.theme-icon { position: absolute; transition: opacity .25s, transform .25s; line-height: 1; }
+.theme-icon--sun  { opacity: 1; transform: rotate(0deg) scale(1); }
+.theme-icon--moon { opacity: 0; transform: rotate(-90deg) scale(.6); }
+:global(html.dark) .theme-icon--sun  { opacity: 0; transform: rotate(90deg) scale(.6); }
+:global(html.dark) .theme-icon--moon { opacity: 1; transform: rotate(0deg) scale(1); }
+
+.page-container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 28px 90px;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--fg-subtle);
+  margin-bottom: 24px;
+}
+.breadcrumbs a {
+  color: var(--fg-muted);
+  text-decoration: none;
+}
+.breadcrumbs a:hover {
+  color: var(--fg);
+}
+
+.page-header {
+  margin-bottom: 36px;
+}
+.eyebrow {
+  font: 12px ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .07em;
+  color: var(--fg-muted);
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.eyebrow span {
+  width: 7px;
+  height: 7px;
+  background: var(--fg);
+  border-radius: 50%;
+}
+.page-header h1 {
+  font-size: clamp(32px, 4.5vw, 48px);
+  letter-spacing: -.04em;
+  line-height: 1.1;
+  font-weight: 620;
+  margin: 0 0 16px;
+  color: var(--fg);
+}
+.lead {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--fg-muted);
+  margin: 0;
+}
+
+.policy-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 40px;
+}
+.highlight-badge {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #078558;
+  background: #ddf8ee;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+:global(html.dark) .highlight-badge {
+  background: #0a2418;
+  color: #4cd9a0;
+}
+.policy-card p {
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--fg);
+  margin: 0;
+}
+
+.content-section {
+  margin-bottom: 40px;
+}
+.content-section h2 {
+  font-size: 22px;
+  letter-spacing: -.02em;
+  margin: 0 0 14px;
+  color: var(--fg);
+}
+.content-section p {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--fg-muted);
+  margin: 0 0 14px;
+}
+.content-section code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13.5px;
+  background: var(--surface-2);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+.content-section a {
+  color: var(--fg);
+  text-decoration: underline;
+}
+
+.policy-list {
+  margin: 0;
+  padding-left: 20px;
+}
+.policy-list li {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--fg-muted);
+  margin-bottom: 10px;
+}
+.policy-list li strong {
+  color: var(--fg);
+}
+
+footer { max-width: 1200px; border-top: 1px solid var(--border-light); margin: auto; padding: 29px 28px 35px; display: flex; align-items: center; gap: 22px; color: var(--fg-muted); font-size: 12px; }
+footer p { margin: 0; }
+.footer-links { display: flex; gap: 16px; align-items: center; }
+.footer-links a { color: var(--fg-muted); text-decoration: none; transition: color .15s; }
+.footer-links a:hover { color: var(--fg); text-decoration: underline; }
+footer > span { margin-left: auto; }
+
+@media (max-width: 700px) {
+  .nav-links { display: none; }
+  .nav { padding: 0 18px; }
+  .page-container { padding: 24px 18px 60px; }
+  footer { flex-wrap: wrap; gap: 14px; }
+  .footer-links { flex-wrap: wrap; gap: 12px; width: 100%; }
+  footer > span { margin-left: 0; }
+}
+</style>

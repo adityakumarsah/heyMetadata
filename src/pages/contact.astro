@@ -1,0 +1,507 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://removemetadata.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Contact Us",
+      "item": "https://removemetadata.com/contact"
+    }
+  ]
+};
+
+const contactSchema = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Contact MetaClean Support",
+  "url": "https://removemetadata.com/contact",
+  "description": "Get in touch with MetaClean team for support, feature requests, bug reports, or privacy questions regarding our metadata removal tool."
+};
+---
+
+<Layout
+  title="Contact Us — MetaClean | Support & Feedback"
+  description="Contact MetaClean. Send us your feedback, report bugs, request feature additions, or ask questions about our privacy-first browser-based metadata remover."
+  keywords="contact metaclean, metaclean support, metadata remover support, contact EXIF remover, report bug metaclean"
+  canonicalUrl="https://removemetadata.com/contact"
+>
+  <main>
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="/" aria-label="MetaClean home"><span class="brand-mark">✦</span> MetaClean</a>
+      <div class="nav-links">
+        <a href="/#how-it-works">How it works</a>
+        <a href="/#formats">Supported files</a>
+        <a href="/#privacy">Privacy</a>
+        <a href="/about">About Us</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <span class="theme-icon theme-icon--sun" aria-hidden="true">☀︎</span>
+          <span class="theme-icon theme-icon--moon" aria-hidden="true">☽</span>
+        </button>
+        <a class="nav-cta" href="/#cleaner">Clean a file <span>↗</span></a>
+      </div>
+    </nav>
+
+    <article class="page-container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Contact Us</span>
+      </nav>
+
+      <header class="page-header">
+        <p class="eyebrow"><span></span> SUPPORT &amp; FEEDBACK</p>
+        <h1>Get in Touch</h1>
+        <p class="lead">
+          Have a question about MetaClean, found a bug, or want to suggest a new feature? We'd love to hear from you.
+        </p>
+      </header>
+
+      <div class="contact-grid">
+        <section class="contact-form-card">
+          <h2>Send a Message</h2>
+          <form id="contact-form" class="contact-form">
+            <div class="form-group">
+              <label for="contact-name">Your Name</label>
+              <input type="text" id="contact-name" name="name" placeholder="Alex Morgan" required />
+            </div>
+
+            <div class="form-group">
+              <label for="contact-email">Email Address</label>
+              <input type="email" id="contact-email" name="email" placeholder="alex@example.com" required />
+            </div>
+
+            <div class="form-group">
+              <label for="contact-subject">Inquiry Type</label>
+              <select id="contact-subject" name="subject" required>
+                <option value="general">General Support</option>
+                <option value="bug">Report a Bug</option>
+                <option value="feature">Feature Request</option>
+                <option value="privacy">Privacy Question</option>
+                <option value="partnership">Partnership &amp; Business</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="contact-message">Message</label>
+              <textarea id="contact-message" name="message" rows="5" placeholder="How can we help you?" required></textarea>
+            </div>
+
+            <button type="submit" class="submit-button">Send Message <span>↗</span></button>
+          </form>
+
+          <div id="form-success" class="form-success" hidden>
+            <div class="success-icon">✓</div>
+            <h3>Thank You!</h3>
+            <p>Your message has been sent successfully. We appreciate your feedback and will respond shortly.</p>
+            <button type="button" id="form-reset" class="reset-button">Send another message</button>
+          </div>
+        </section>
+
+        <aside class="contact-sidebar">
+          <div class="info-card">
+            <h3>Direct Contact</h3>
+            <p>For urgent inquiries or direct communication, you can email us directly:</p>
+            <div class="email-link">
+              <span>📧 Support:</span>
+              <a href="mailto:support@removemetadata.com">support@removemetadata.com</a>
+            </div>
+            <div class="email-link">
+              <span>🔒 Privacy:</span>
+              <a href="mailto:privacy@removemetadata.com">privacy@removemetadata.com</a>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <h3>Quick Answers</h3>
+            <ul class="quick-faq">
+              <li>
+                <strong>Are files uploaded?</strong>
+                <span>No. MetaClean operates 100% inside your browser. No files are ever sent to servers.</span>
+              </li>
+              <li>
+                <strong>Is there a file size limit?</strong>
+                <span>MetaClean supports files up to 250 MB processed directly in browser RAM.</span>
+              </li>
+              <li>
+                <strong>Is MetaClean free?</strong>
+                <span>Yes, 100% free with no registration or hidden fees.</span>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </article>
+
+    <footer>
+      <a class="brand" href="/" aria-label="MetaClean home"><span class="brand-mark">✦</span> MetaClean</a>
+      <p>Free Online Metadata Remover — Remove EXIF Data Privately</p>
+      <div class="footer-links">
+        <a href="/about">About Us</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms &amp; Conditions</a>
+        <a href="/contact">Contact Us</a>
+      </div>
+      <span>© 2026 MetaClean</span>
+    </footer>
+  </main>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)}></script>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(contactSchema)}></script>
+
+  <script>
+    (function () {
+      const html = document.documentElement;
+      const btn  = document.querySelector('#theme-toggle');
+      const KEY  = 'mc-theme';
+      if (!btn) return;
+      function applyTheme(dark) {
+        html.classList.toggle('dark', dark);
+        btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+        try { localStorage.setItem(KEY, dark ? 'dark' : 'light'); } catch {}
+      }
+      const stored = (() => { try { return localStorage.getItem(KEY); } catch { return null; } })();
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(stored === 'dark' || (stored === null && prefersDark));
+      btn.addEventListener('click', () => applyTheme(!html.classList.contains('dark')));
+
+      // Contact form submission handling
+      const form = document.querySelector('#contact-form') as HTMLFormElement | null;
+      const successBox = document.querySelector('#form-success') as HTMLElement | null;
+      const resetBtn = document.querySelector('#form-reset') as HTMLButtonElement | null;
+
+      if (form && successBox && resetBtn) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          form.hidden = true;
+          successBox.hidden = false;
+        });
+
+        resetBtn.addEventListener('click', () => {
+          form.reset();
+          form.hidden = false;
+          successBox.hidden = true;
+        });
+      }
+    })();
+  </script>
+</Layout>
+
+<style>
+:root {
+  --fg: #171717;
+  --fg-muted: #666;
+  --fg-subtle: #999;
+  --border: #e8e8e8;
+  --border-light: #eee;
+  --surface: #fff;
+  --surface-2: #fafafa;
+  --nav-link: #666;
+  --toggle-bg: #f0f0f0;
+  --toggle-fg: #444;
+  --toggle-hover-bg: #e2e2e2;
+  --success-bg: #ddf8ee;
+  --success-fg: #078558;
+}
+
+:global(html.dark) {
+  --fg: #f0f0f0;
+  --fg-muted: #a0a0a0;
+  --fg-subtle: #666;
+  --border: #2a2d35;
+  --border-light: #252830;
+  --surface: #13161e;
+  --surface-2: #181b24;
+  --nav-link: #a0a0a0;
+  --toggle-bg: #1e2130;
+  --toggle-fg: #c0c8e0;
+  --toggle-hover-bg: #252a3a;
+  --success-bg: #0a2418;
+  --success-fg: #4cd9a0;
+}
+
+:global(*) { box-sizing: border-box; }
+:global(html) { scroll-behavior: smooth; }
+:global(body) {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--fg);
+  transition: background-color .3s, color .3s;
+}
+
+main { overflow: visible; }
+.nav { height: 64px; max-width: 1200px; margin: auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; }
+.brand { font-weight: 650; letter-spacing: -.8px; color: var(--fg); text-decoration: none; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+.brand-mark { font-size: 20px; }
+.nav-links { display: flex; gap: 26px; }
+.nav-links a { font-size: 14px; color: var(--nav-link); text-decoration: none; }
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+.nav-cta { font-size: 14px; background: var(--fg); color: var(--surface); text-decoration: none; padding: 9px 13px; border-radius: 6px; transition: opacity .15s; }
+.nav-cta span { margin-left: 7px; }
+
+.theme-toggle {
+  width: 36px; height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--toggle-bg);
+  color: var(--toggle-fg);
+  cursor: pointer;
+  display: grid; place-items: center;
+  font-size: 17px;
+  transition: background .2s, border-color .2s, transform .15s;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+.theme-toggle:hover { background: var(--toggle-hover-bg); transform: scale(1.07); }
+.theme-icon { position: absolute; transition: opacity .25s, transform .25s; line-height: 1; }
+.theme-icon--sun  { opacity: 1; transform: rotate(0deg) scale(1); }
+.theme-icon--moon { opacity: 0; transform: rotate(-90deg) scale(.6); }
+:global(html.dark) .theme-icon--sun  { opacity: 0; transform: rotate(90deg) scale(.6); }
+:global(html.dark) .theme-icon--moon { opacity: 1; transform: rotate(0deg) scale(1); }
+
+.page-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 28px 90px;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--fg-subtle);
+  margin-bottom: 24px;
+}
+.breadcrumbs a {
+  color: var(--fg-muted);
+  text-decoration: none;
+}
+.breadcrumbs a:hover {
+  color: var(--fg);
+}
+
+.page-header {
+  margin-bottom: 40px;
+}
+.eyebrow {
+  font: 12px ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .07em;
+  color: var(--fg-muted);
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.eyebrow span {
+  width: 7px;
+  height: 7px;
+  background: var(--fg);
+  border-radius: 50%;
+}
+.page-header h1 {
+  font-size: clamp(32px, 4.5vw, 48px);
+  letter-spacing: -.04em;
+  line-height: 1.1;
+  font-weight: 620;
+  margin: 0 0 16px;
+  color: var(--fg);
+}
+.lead {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--fg-muted);
+  margin: 0;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 32px;
+}
+
+.contact-form-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 32px;
+}
+.contact-form-card h2 {
+  font-size: 22px;
+  margin: 0 0 24px;
+  color: var(--fg);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.form-group label {
+  font-size: 14px;
+  font-weight: 550;
+  color: var(--fg);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-size: 14.5px;
+  color: var(--fg);
+  outline: none;
+  transition: border-color .15s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--fg-subtle);
+}
+
+.submit-button {
+  background: var(--fg);
+  color: var(--surface);
+  border: none;
+  font-size: 15px;
+  font-weight: 550;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity .15s;
+  align-self: flex-start;
+}
+.submit-button:hover {
+  opacity: .9;
+}
+
+.form-success {
+  text-align: center;
+  padding: 32px 16px;
+}
+.success-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--success-bg);
+  color: var(--success-fg);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 auto 16px;
+}
+.form-success h3 {
+  font-size: 22px;
+  margin: 0 0 8px;
+  color: var(--fg);
+}
+.form-success p {
+  font-size: 15px;
+  color: var(--fg-muted);
+  margin: 0 0 20px;
+}
+.reset-button {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  padding: 9px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.contact-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.info-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+.info-card h3 {
+  font-size: 17px;
+  margin: 0 0 12px;
+  color: var(--fg);
+}
+.info-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--fg-muted);
+  margin: 0 0 16px;
+}
+.email-link {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13.5px;
+  margin-bottom: 12px;
+}
+.email-link span {
+  color: var(--fg-muted);
+  font-weight: 500;
+}
+.email-link a {
+  color: var(--fg);
+  text-decoration: underline;
+}
+
+.quick-faq {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.quick-faq li strong {
+  display: block;
+  font-size: 14px;
+  color: var(--fg);
+  margin-bottom: 4px;
+}
+.quick-faq li span {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+
+footer { max-width: 1200px; border-top: 1px solid var(--border-light); margin: auto; padding: 29px 28px 35px; display: flex; align-items: center; gap: 22px; color: var(--fg-muted); font-size: 12px; }
+footer p { margin: 0; }
+.footer-links { display: flex; gap: 16px; align-items: center; }
+.footer-links a { color: var(--fg-muted); text-decoration: none; transition: color .15s; }
+.footer-links a:hover { color: var(--fg); text-decoration: underline; }
+footer > span { margin-left: auto; }
+
+@media (max-width: 840px) {
+  .contact-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+  .nav-links { display: none; }
+  .nav { padding: 0 18px; }
+  .page-container { padding: 24px 18px 60px; }
+  footer { flex-wrap: wrap; gap: 14px; }
+  .footer-links { flex-wrap: wrap; gap: 12px; width: 100%; }
+  footer > span { margin-left: 0; }
+}
+</style>

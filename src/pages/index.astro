@@ -53,13 +53,13 @@ const faqSchema = {
 	<main>
 		<nav class="nav" aria-label="Primary navigation">
 			<a class="brand" href="/" aria-label="MetaClean home"><span class="brand-mark">✦</span> MetaClean</a>
-			<div class="nav-links"><a href="#how-it-works">How it works</a><a href="#formats">Supported files</a><a href="#privacy">Privacy</a></div>
+			<div class="nav-links"><a href="/#how-it-works">How it works</a><a href="/#formats">Supported files</a><a href="/#privacy">Privacy</a><a href="/about">About Us</a></div>
 			<div class="nav-actions">
 				<button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
 					<span class="theme-icon theme-icon--sun" aria-hidden="true">☀︎</span>
 					<span class="theme-icon theme-icon--moon" aria-hidden="true">☽</span>
 				</button>
-				<a class="nav-cta" href="#cleaner">Clean a file <span>↗</span></a>
+				<a class="nav-cta" href="/#cleaner">Clean a file <span>↗</span></a>
 			</div>
 		</nav>
 
@@ -160,7 +160,7 @@ const faqSchema = {
 
 	<script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)}></script>
 
-		<footer><a class="brand" href="/" aria-label="MetaClean home"><span class="brand-mark">✦</span> MetaClean</a><p>Free Online Metadata Remover — Remove EXIF Data Privately</p><span>© 2026 MetaClean</span></footer>
+		<footer><a class="brand" href="/" aria-label="MetaClean home"><span class="brand-mark">✦</span> MetaClean</a><p>Free Online Metadata Remover — Remove EXIF Data Privately</p><div class="footer-links"><a href="/about">About Us</a><a href="/privacy">Privacy Policy</a><a href="/terms">Terms &amp; Conditions</a><a href="/contact">Contact Us</a></div><span>© 2026 MetaClean</span></footer>
 	</main>
 
 	<script>
@@ -1565,6 +1565,9 @@ main { overflow: visible; }
 /* ── Footer ────────────────────────────────────────────────────────────────── */
 footer { max-width: 1200px; border-top: 1px solid var(--border-light); margin: auto; padding: 29px 28px 35px; display: flex; align-items: center; gap: 22px; color: var(--fg-muted); font-size: 12px; }
 footer p { margin: 0; }
+.footer-links { display: flex; gap: 16px; align-items: center; }
+.footer-links a { color: var(--fg-muted); text-decoration: none; transition: color .15s; }
+.footer-links a:hover { color: var(--fg); text-decoration: underline; }
 footer > span { margin-left: auto; }
 
 /* ── Focus ─────────────────────────────────────────────────────────────────── */
@@ -1602,7 +1605,9 @@ footer > span { margin-left: auto; }
   .seo-info-card { padding: 22px 20px; }
   .faq-item summary { font-size: 15.5px; padding: 16px 18px; }
   .faq-answer { padding: 0 18px 18px; }
-  footer { flex-wrap: wrap; }
+  footer { flex-wrap: wrap; gap: 14px; }
+  .footer-links { flex-wrap: wrap; gap: 12px; width: 100%; }
+  footer > span { margin-left: 0; }
   .meta-item { gap: 7px; }
   .comparison { gap: 13px; }
   .hero > .hero-glow { top: -64px; }

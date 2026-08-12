@@ -1,0 +1,40 @@
+---
+interface Props {
+  activePath?: string;
+}
+
+const { activePath = Astro.url.pathname } = Astro.props;
+
+const navItems = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About Us' },
+  { href: '/privacy', label: 'Privacy Policy' },
+  { href: '/terms', label: 'Terms & Conditions' },
+  { href: '/contact', label: 'Contact Us' },
+];
+---
+
+<header class="site-header">
+  <nav class="nav" aria-label="Primary navigation">
+    <a class="brand" href="/" aria-label="MetaClean home">
+      <span class="brand-mark">✦</span> MetaClean
+    </a>
+    <div class="nav-links">
+      {navItems.map((item) => {
+        const isActive = activePath === item.href || (item.href !== '/' && activePath.startsWith(item.href));
+        return (
+          <a href={item.href} class={isActive ? 'active' : ''} aria-current={isActive ? 'page' : undefined}>
+            {item.label}
+          </a>
+        );
+      })}
+    </div>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <span class="theme-icon theme-icon--sun" aria-hidden="true">☀︎</span>
+        <span class="theme-icon theme-icon--moon" aria-hidden="true">☽</span>
+      </button>
+      <a class="nav-cta" href="/#cleaner">Clean a file <span>↗</span></a>
+    </div>
+  </nav>
+</header>
