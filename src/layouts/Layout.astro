@@ -1,6 +1,98 @@
 ---
-interface Props { title?: string }
-const { title = 'MetaClean' } = Astro.props;
+interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+  ogType?: string;
+  twitterCard?: string;
+}
+
+const {
+  title = 'Metadata Remover — Remove EXIF Data from Images, Videos & PDFs Online | MetaClean',
+  description = 'Free online metadata remover tool. Remove EXIF data from images, strip metadata from videos and PDFs. Works in your browser — your files never leave your device. Supports JPG, PNG, WebP, MP4, MOV, PDF and more.',
+  keywords = 'metadata remover, image metadata remover, metadata remover video, pdf metadata remover, photo metadata remover, remove EXIF data, online EXIF remover, exif data viewer, exif remover, exif metadata, metadata, exif, remove metadata online, strip metadata, privacy tool',
+  canonicalUrl = 'https://removemetadata.com',
+  ogImage = 'https://removemetadata.com/og-image.jpg',
+  ogType = 'website',
+  twitterCard = 'summary_large_image',
+} = Astro.props;
 ---
-<!doctype html><html lang="en"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width" /><meta name="theme-color" content="#ffffff" /><meta name="description" content="Inspect and remove metadata from images and PDFs in your browser." /><link rel="icon" href="/favicon.ico" /><title>{title}</title><script is:inline>try{const t=localStorage.getItem('mc-theme');if(t!=='light')document.documentElement.classList.add('dark')}catch{}</script></head><body><a class="skip-link" href="#cleaner">Skip to file cleaner</a><slot /></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#ffffff" />
+
+  <!-- Primary SEO Meta Tags -->
+  <title>{title}</title>
+  <meta name="title" content={title} />
+  <meta name="description" content={description} />
+  <meta name="keywords" content={keywords} />
+  <meta name="author" content="MetaClean" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href={canonicalUrl} />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content={ogType} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="MetaClean — Free Online Metadata Remover Tool" />
+  <meta property="og:site_name" content="MetaClean" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content={twitterCard} />
+  <meta name="twitter:url" content={canonicalUrl} />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+  <meta name="twitter:image:alt" content="MetaClean — Free Online Metadata Remover Tool" />
+
+  <!-- Favicons -->
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "MetaClean — Metadata Remover",
+    "url": "https://removemetadata.com",
+    "description": "Free online metadata remover tool. Remove EXIF data from images, strip metadata from videos, audio, and PDFs entirely in your browser. Your files never leave your device.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any (Web Browser)",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Remove EXIF data from images",
+      "Strip metadata from videos",
+      "Remove PDF metadata",
+      "View EXIF data",
+      "Supports JPG, PNG, WebP, TIFF, HEIC, MP3, WAV, MP4, MOV, MKV, PDF, DOCX, XLSX, PPTX",
+      "100% browser-based — no upload required",
+      "Privacy-first — files never leave your device"
+    ],
+    "creator": {
+      "@type": "Organization",
+      "name": "MetaClean"
+    }
+  })} />
+
+  <script is:inline>try{const t=localStorage.getItem('mc-theme');if(t!=='light')document.documentElement.classList.add('dark')}catch{}</script>
+</head>
+<body>
+  <a class="skip-link" href="#cleaner">Skip to file cleaner</a>
+  <slot />
+</body>
+</html>
 <style is:global>html,body{margin:0;min-width:320px}button,input{font:inherit}::selection{background:#171717;color:#fff}.skip-link{position:fixed;z-index:10;left:12px;top:-50px;background:#171717;color:#fff;padding:9px 12px;border-radius:6px}.skip-link:focus{top:12px}body{background:#fff;transition:background-color .3s}html.dark body{background:#0d0f14}</style>

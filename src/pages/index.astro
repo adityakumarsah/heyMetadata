@@ -1,8 +1,55 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const faqSchema = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	"mainEntity": [
+		{
+			"@type": "Question",
+			"name": "What is EXIF data?",
+			"acceptedAnswer": {
+				"@type": "Answer",
+				"text": "EXIF (Exchangeable Image File Format) is metadata embedded in digital image files that stores technical information about the photo. It can include details such as the camera make and model, shutter speed, aperture, ISO, date and time the photo was taken, and, on devices with location services enabled, GPS coordinates. MetaClean's built-in EXIF data viewer lets you see the metadata embedded in your image before removing it."
+			}
+		},
+		{
+			"@type": "Question",
+			"name": "How does MetaClean remove metadata?",
+			"acceptedAnswer": {
+				"@type": "Answer",
+				"text": "Drop or select a file, and MetaClean scans it for available metadata such as EXIF, IPTC, XMP, GPS information, document properties, and audio tags. When you click “Remove metadata,” a cleaned copy is generated directly in your browser. MetaClean then re-scans the processed file to verify that the metadata fields it can remove have been stripped before providing the cleaned file for download."
+			}
+		},
+		{
+			"@type": "Question",
+			"name": "Is MetaClean really free?",
+			"acceptedAnswer": {
+				"@type": "Answer",
+				"text": "Yes. MetaClean is completely free with no sign-up, no watermarks, and no file limits beyond the 250 MB browser processing cap. There are no premium tiers or hidden fees."
+			}
+		},
+		{
+			"@type": "Question",
+			"name": "Are my files uploaded to a server?",
+			"acceptedAnswer": {
+				"@type": "Answer",
+				"text": "No. MetaClean runs entirely in your browser tab. Your files are never uploaded, stored, or transmitted. All processing happens locally on your device using JavaScript and WebAssembly."
+			}
+		},
+		{
+			"@type": "Question",
+			"name": "Does removing metadata affect file quality?",
+			"acceptedAnswer": {
+				"@type": "Answer",
+				"text": "For images, a canvas re-draw is used so there may be minor quality differences at the pixel level. For video and audio, MetaClean uses stream-copy mode — the media bitstream is passed through unchanged with no re-encoding, so quality is preserved exactly."
+			}
+		}
+	]
+};
 ---
 
-<Layout title="MetaClean — Remove image, audio, video, PDF and Office document metadata">
+<Layout title="Metadata Remover — Remove EXIF Data from Images, Videos & PDFs Online Free" description="Free online metadata remover. Remove EXIF data from photos, strip metadata from videos and PDFs instantly in your browser. No upload needed — 100% private image metadata remover, photo metadata remover, and PDF metadata remover." keywords="metadata remover, image metadata remover, metadata remover video, pdf metadata remover, photo metadata remover, remove EXIF data, online EXIF remover, exif data viewer, exif remover, exif metadata, metadata, exif">
 	<main>
 		<nav class="nav" aria-label="Primary navigation">
 			<a class="brand" href="/" aria-label="MetaClean home"><span class="brand-mark">✦</span> MetaClean</a>
@@ -18,9 +65,9 @@ import Layout from '../layouts/Layout.astro';
 
 		<section class="hero" id="cleaner">
 			<div class="hero-glow" aria-hidden="true"></div>
-			<p class="eyebrow"><span></span> PRIVATE BY DEFAULT</p>
-			<h1>Remove metadata.<br /><em>Keep what matters.</em></h1>
-			<p class="hero-copy">Inspect private metadata in your images, audio, videos, PDFs, and Office documents, then create a clean copy in your browser. Your file never leaves your device.</p>
+			<p class="eyebrow"><span></span> FREE ONLINE METADATA REMOVER</p>
+			<h1>Remove Metadata.<br /><em>Protect Your Privacy.</em></h1>
+			<p class="hero-copy">The easiest <strong>metadata remover</strong> to inspect and strip EXIF data from your images, videos, PDFs, and audio files. Works entirely in your browser — your file never leaves your device.</p>
 
 			<div class="cleaner" id="cleaner-card">
 				<div class="cleaner-top"><span class="status-dot" id="status-dot"></span><span id="scanner-status">Ready to scan</span><span class="local-note"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="8" height="6" rx="1"/><path d="M4 5V3.5a2 2 0 0 1 4 0V5"/></svg> Processed locally</span></div>
@@ -54,12 +101,66 @@ import Layout from '../layouts/Layout.astro';
 			<div class="trust-row"><span>✓ No upload required</span><span>✓ Processed only in this browser tab</span><span>✓ New file generated locally</span></div>
 		</section>
 
-		<section class="steps" id="how-it-works"><p class="eyebrow"><span></span> HOW IT WORKS</p><h2>Your private cleanup crew.</h2><div class="step-grid"><article><b>01</b><h3>Inspect</h3><p>We read available EXIF, IPTC, XMP, GPS, camera, document-information, and Office document property fields.</p></article><article><b>02</b><h3>Clean</h3><p>We create a fresh image, PDF, or Office document locally without the original metadata containers.</p></article><article><b>03</b><h3>Verify</h3><p>We inspect the generated file again before making it available for download.</p></article></div></section>
+		<section class="steps" id="how-it-works"><p class="eyebrow"><span></span> HOW IT WORKS</p><h2>How Our Metadata Remover Works</h2><div class="step-grid"><article><b>01</b><h3>Inspect EXIF Data</h3><p>Our EXIF data viewer reads all available EXIF, IPTC, XMP, GPS, camera, document-information, and Office document property fields from your file.</p></article><article><b>02</b><h3>Remove Metadata</h3><p>Our EXIF remover creates a fresh, clean copy of your image, video, PDF, or Office document locally — stripping all metadata containers completely.</p></article><article><b>03</b><h3>Verify &amp; Download</h3><p>We re-inspect the generated file to confirm all EXIF metadata has been removed before making the clean file available for download.</p></article></div></section>
 
-		<section class="privacy-band" id="privacy"><div><p class="eyebrow"><span></span> YOUR FILES, YOUR DEVICE</p><h2>Privacy that doesn’t need a pinky promise.</h2></div><p>MetaClean runs in your browser. We never need to see, store, or process your files on a server. Close this tab and everything is gone.</p><div class="privacy-art" aria-hidden="true"><div class="orb"></div><div class="orbit a"></div><div class="orbit b"></div><div class="lock">⌑</div></div></section>
+		<section class="privacy-band" id="privacy"><div><p class="eyebrow"><span></span> YOUR FILES, YOUR DEVICE</p><h2>A Truly Private Online EXIF Remover</h2></div><p>Unlike other online EXIF remover tools, MetaClean runs entirely in your browser. We never upload, store, or process your files on a server. Your images, videos, and documents stay on your device at all times. Close this tab and everything is gone.</p><div class="privacy-art" aria-hidden="true"><div class="orb"></div><div class="orbit a"></div><div class="orbit b"></div><div class="lock">⌑</div></div></section>
 
-		<section class="formats" id="formats"><p class="eyebrow"><span></span> SUPPORTED FORMATS</p><h2>Images, audio, video &amp; more.</h2><div class="format-grid"><div><strong>JPG</strong><span>Photos</span></div><div><strong>PNG</strong><span>Images</span></div><div><strong>WEBP</strong><span>Images</span></div><div><strong>TIFF</strong><span>Images</span></div><div><strong>HEIC</strong><span>Images</span></div><div><strong>MP3</strong><span>Audio</span></div><div><strong>WAV</strong><span>Audio</span></div><div><strong>M4A</strong><span>Audio</span></div><div><strong>FLAC</strong><span>Audio</span></div><div><strong>OGG</strong><span>Audio</span></div><div><strong>MP4</strong><span>Video</span></div><div><strong>MOV</strong><span>Video</span></div><div><strong>MKV</strong><span>Video</span></div><div><strong>AVI</strong><span>Video</span></div><div><strong>WEBM</strong><span>Video</span></div><div><strong>PDF</strong><span>Documents</span></div><div><strong>DOCX</strong><span>Word</span></div><div><strong>XLSX</strong><span>Excel</span></div><div><strong>PPTX</strong><span>PowerPoint</span></div></div></section>
-		<footer><a class="brand" href="/"><span class="brand-mark">✦</span> MetaClean</a><p>Less data. More you.</p><span>© 2026 MetaClean</span></footer>
+		<section class="formats" id="formats"><p class="eyebrow"><span></span> SUPPORTED FORMATS</p><h2>Remove Metadata from Images, Videos, Audio &amp; Documents</h2><div class="format-grid"><div><strong>JPG</strong><span>Photos</span></div><div><strong>PNG</strong><span>Images</span></div><div><strong>WEBP</strong><span>Images</span></div><div><strong>TIFF</strong><span>Images</span></div><div><strong>HEIC</strong><span>Images</span></div><div><strong>MP3</strong><span>Audio</span></div><div><strong>WAV</strong><span>Audio</span></div><div><strong>M4A</strong><span>Audio</span></div><div><strong>FLAC</strong><span>Audio</span></div><div><strong>OGG</strong><span>Audio</span></div><div><strong>MP4</strong><span>Video</span></div><div><strong>MOV</strong><span>Video</span></div><div><strong>MKV</strong><span>Video</span></div><div><strong>AVI</strong><span>Video</span></div><div><strong>WEBM</strong><span>Video</span></div><div><strong>PDF</strong><span>Documents</span></div><div><strong>DOCX</strong><span>Word</span></div><div><strong>XLSX</strong><span>Excel</span></div><div><strong>PPTX</strong><span>PowerPoint</span></div></div></section>
+		<section class="seo-about" id="about">
+		<p class="eyebrow"><span></span> ABOUT METADATA</p>
+		<h2>What Is Metadata &amp; Why Remove It?</h2>
+		<p class="seo-about__intro">Every photo, video, PDF, and document you create contains hidden <strong>metadata</strong> — details like GPS coordinates, device model, timestamps, and author name. A <strong>metadata remover</strong> strips this data before you share files, helping protect your privacy.</p>
+
+		<div class="seo-info-grid">
+			<article class="seo-info-card">
+				<h3>EXIF Data in Images</h3>
+				<p>Digital cameras and smartphones embed <strong>EXIF data</strong> — camera make, lens settings, capture date, and often precise GPS coordinates. Sharing photos with this data intact on social media or forums can unintentionally reveal your location and habits to anyone who inspects the file.</p>
+			</article>
+			<article class="seo-info-card">
+				<h3>Metadata in Documents &amp; Media</h3>
+				<p>PDFs store author names, creation dates, and software versions. Office files (DOCX, XLSX, PPTX) contain revision history, company names, and editor details. Video and audio files can include encoder info, GPS tags, and embedded artwork — all removed by MetaClean's <strong>metadata remover</strong>.</p>
+			</article>
+			<article class="seo-info-card">
+				<h3>Browser-Based &amp; Private</h3>
+				<p>MetaClean processes files entirely in your browser using client-side JavaScript and WebAssembly. Nothing is uploaded to a server — your images, videos, and documents never leave your device. Close the tab and every trace is gone.</p>
+			</article>
+			<article class="seo-info-card">
+				<h3>Broad Format Support</h3>
+				<p>Use MetaClean as an <strong>image metadata remover</strong> for JPG, PNG, WebP, TIFF, and HEIC. As a <strong>video metadata remover</strong> for MP4, MOV, MKV, AVI, and WebM — without re-encoding. As a <strong>PDF metadata remover</strong> or audio tag stripper for MP3, FLAC, and more.</p>
+			</article>
+		</div>
+	</section>
+
+	<section class="seo-faq" id="faq">
+		<p class="eyebrow"><span></span> FREQUENTLY ASKED QUESTIONS</p>
+		<h2>Common Questions About Metadata Removal</h2>
+		<div class="faq-list">
+			<details class="faq-item" name="faq">
+				<summary>What is EXIF data?</summary>
+				<div class="faq-answer"><p><strong>EXIF</strong> EXIF (Exchangeable Image File Format) is metadata embedded in digital image files that stores technical information about the photo. It can include details such as the camera make and model, shutter speed, aperture, ISO, date and time the photo was taken, and, on devices with location services enabled, GPS coordinates. MetaClean's built-in EXIF data viewer lets you see the metadata embedded in your image before removing it.</p></div>
+			</details>
+			<details class="faq-item" name="faq">
+				<summary>How does MetaClean remove metadata?</summary>
+				<div class="faq-answer"><p>Drop or select a file, and MetaClean scans it for available metadata such as EXIF, IPTC, XMP, GPS information, document properties, and audio tags. When you click “Remove metadata,” a cleaned copy is generated directly in your browser. MetaClean then re-scans the processed file to verify that the metadata fields it can remove have been stripped before providing the cleaned file for download.</p></div>
+			</details>
+			<details class="faq-item" name="faq">
+				<summary>Is MetaClean really free?</summary>
+				<div class="faq-answer"><p>Yes. MetaClean is completely free with no sign-up, no watermarks, and no file limits beyond the 250 MB browser processing cap. There are no premium tiers or hidden fees.</p></div>
+			</details>
+			<details class="faq-item" name="faq">
+				<summary>Are my files uploaded to a server?</summary>
+				<div class="faq-answer"><p>No. MetaClean runs entirely in your browser tab. Your files are never uploaded, stored, or transmitted. All processing happens locally on your device using JavaScript and WebAssembly.</p></div>
+			</details>
+			<details class="faq-item" name="faq">
+				<summary>Does removing metadata affect file quality?</summary>
+				<div class="faq-answer"><p>For images, a canvas re-draw is used so there may be minor quality differences at the pixel level. For video and audio, MetaClean uses stream-copy mode — the media bitstream is passed through unchanged with no re-encoding, so quality is preserved exactly.</p></div>
+			</details>
+		</div>
+	</section>
+
+	<script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)}></script>
+
+		<footer><a class="brand" href="/" aria-label="MetaClean home"><span class="brand-mark">✦</span> MetaClean</a><p>Free Online Metadata Remover — Remove EXIF Data Privately</p><span>© 2026 MetaClean</span></footer>
 	</main>
 
 	<script>
@@ -79,6 +180,20 @@ import Layout from '../layouts/Layout.astro';
 		const metaList = document.querySelector('#meta-list');
 		const status = document.querySelector('#scanner-status');
 		const cleanButton = document.querySelector('#clean-button');
+
+		// ── FAQ Accordion Exclusive Toggle ─────────────────────────────────────────
+		const faqItems = document.querySelectorAll('.faq-item') as NodeListOf<HTMLDetailsElement>;
+		faqItems.forEach((item) => {
+			item.addEventListener('toggle', () => {
+				if (item.open) {
+					faqItems.forEach((otherItem) => {
+						if (otherItem !== item && otherItem.open) {
+							otherItem.open = false;
+						}
+					});
+				}
+			});
+		});
 
 		let selectedFile, cleanedBytes, cleanedType, selectedKind;
 		let metadata = [];
@@ -1320,6 +1435,133 @@ main { overflow: visible; }
 .format-grid strong { font: 13px ui-monospace, monospace; color: var(--fg); }
 .format-grid span { font-size: 12px; color: var(--fg-muted); }
 
+/* ── SEO About & Info Grid ─────────────────────────────────────────────────── */
+.seo-about {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 100px 28px 60px;
+  border-top: 1px solid var(--border-section);
+}
+.seo-about > .eyebrow {
+  justify-content: flex-start;
+}
+.seo-about h2 {
+  font-size: 42px;
+  letter-spacing: -.055em;
+  line-height: 1.05;
+  margin: 0 0 20px;
+  color: var(--fg);
+}
+.seo-about__intro {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--fg-muted);
+  max-width: 780px;
+  margin: 0 0 48px;
+}
+.seo-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.seo-info-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px 26px;
+  transition: border-color .2s, transform .2s;
+}
+.seo-info-card:hover {
+  border-color: var(--fg-muted);
+}
+.seo-info-card h3 {
+  font-size: 18px;
+  letter-spacing: -.03em;
+  margin: 0 0 10px;
+  color: var(--fg);
+  font-weight: 600;
+}
+.seo-info-card p {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.seo-info-card strong {
+  color: var(--fg);
+}
+
+/* ── SEO FAQ Section ───────────────────────────────────────────────────────── */
+.seo-faq {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 40px 28px 100px;
+}
+.seo-faq > .eyebrow {
+  justify-content: flex-start;
+}
+.seo-faq h2 {
+  font-size: 42px;
+  letter-spacing: -.055em;
+  line-height: 1.05;
+  margin: 0 0 40px;
+  color: var(--fg);
+}
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.faq-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.faq-item[open] {
+  border-color: var(--fg-muted);
+}
+.faq-item summary {
+  padding: 20px 24px;
+  font-size: 16.5px;
+  font-weight: 580;
+  color: var(--fg);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  letter-spacing: -.02em;
+  user-select: none;
+}
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item summary::after {
+  content: "+";
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--fg-muted);
+  transition: transform .2s ease;
+  line-height: 1;
+}
+.faq-item[open] summary::after {
+  content: "−";
+}
+.faq-answer {
+  padding: 0 24px 22px;
+}
+.faq-answer p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--fg-muted);
+}
+.faq-answer strong {
+  color: var(--fg);
+}
+
 /* ── Footer ────────────────────────────────────────────────────────────────── */
 footer { max-width: 1200px; border-top: 1px solid var(--border-light); margin: auto; padding: 29px 28px 35px; display: flex; align-items: center; gap: 22px; color: var(--fg-muted); font-size: 12px; }
 footer p { margin: 0; }
@@ -1351,6 +1593,15 @@ footer > span { margin-left: auto; }
   .privacy-art { right: -32px; bottom: -48px; top: auto; transform: none; opacity: .65; }
   .format-grid { grid-template-columns: repeat(3, 1fr); }
   .format-grid div { border-bottom: 1px solid var(--border-section); }
+  .seo-about, .seo-faq { padding-left: 24px; padding-right: 24px; }
+  .seo-about { padding-top: 70px; padding-bottom: 30px; }
+  .seo-faq { padding-top: 30px; padding-bottom: 70px; }
+  .seo-about h2, .seo-faq h2 { font-size: 35px; }
+  .seo-about__intro { font-size: 15.5px; margin-bottom: 32px; }
+  .seo-info-grid { grid-template-columns: 1fr; gap: 16px; }
+  .seo-info-card { padding: 22px 20px; }
+  .faq-item summary { font-size: 15.5px; padding: 16px 18px; }
+  .faq-answer { padding: 0 18px 18px; }
   footer { flex-wrap: wrap; }
   .meta-item { gap: 7px; }
   .comparison { gap: 13px; }
