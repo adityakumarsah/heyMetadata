@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="MetaClean — Remove image, audio, PDF and Office document metadata">
+<Layout title="MetaClean — Remove image, audio, video, PDF and Office document metadata">
 	<main>
 		<nav class="nav" aria-label="Primary navigation">
 			<a class="brand" href="/" aria-label="MetaClean home"><span class="brand-mark">✦</span> MetaClean</a>
@@ -20,19 +20,20 @@ import Layout from '../layouts/Layout.astro';
 			<div class="hero-glow" aria-hidden="true"></div>
 			<p class="eyebrow"><span></span> PRIVATE BY DEFAULT</p>
 			<h1>Remove metadata.<br /><em>Keep what matters.</em></h1>
-			<p class="hero-copy">Inspect private metadata in your images, audio, PDFs, and Office documents, then create a clean copy in your browser. Your file never leaves your device.</p>
+			<p class="hero-copy">Inspect private metadata in your images, audio, videos, PDFs, and Office documents, then create a clean copy in your browser. Your file never leaves your device.</p>
 
 			<div class="cleaner" id="cleaner-card">
-				<div class="cleaner-top"><span class="status-dot"></span><span id="scanner-status">Ready to scan</span><span class="local-note"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="8" height="6" rx="1"/><path d="M4 5V3.5a2 2 0 0 1 4 0V5"/></svg> Processed locally</span></div>
+				<div class="cleaner-top"><span class="status-dot" id="status-dot"></span><span id="scanner-status">Ready to scan</span><span class="local-note"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="8" height="6" rx="1"/><path d="M4 5V3.5a2 2 0 0 1 4 0V5"/></svg> Processed locally</span></div>
+				<div class="progress-bar" id="progress-bar" aria-hidden="true"><div class="progress-fill" id="progress-fill"></div></div>
 				<div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Upload a file to inspect its metadata">
-					<input id="file-input" name="file" type="file" hidden accept="application/pdf,image/jpeg,image/png,image/webp,image/tiff,image/heic,audio/mpeg,audio/wav,audio/mp4,audio/x-m4a,audio/flac,audio/ogg,audio/x-flac,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.presentationml.presentation,.pdf,.jpg,.jpeg,.png,.webp,.tif,.tiff,.heic,.mp3,.wav,.m4a,.flac,.ogg,.docx,.xlsx,.pptx" aria-label="Choose a file to inspect" />
+					<input id="file-input" name="file" type="file" hidden accept="application/pdf,image/jpeg,image/png,image/webp,image/tiff,image/heic,audio/mpeg,audio/wav,audio/mp4,audio/x-m4a,audio/flac,audio/ogg,audio/x-flac,video/mp4,video/quicktime,video/x-matroska,video/x-msvideo,video/webm,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.presentationml.presentation,.pdf,.jpg,.jpeg,.png,.webp,.tif,.tiff,.heic,.mp3,.wav,.m4a,.flac,.ogg,.mp4,.mov,.mkv,.avi,.webm,.docx,.xlsx,.pptx" aria-label="Choose a file to inspect" />
 					<div class="upload-icon" aria-hidden="true">
 						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13V4M6 7l4-4 4 4"/><path d="M3 14v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1"/></svg>
 					</div>
 					<h2 id="dz-heading">Drop a file to inspect it</h2>
 					<p>or <button class="text-button" id="browse-button">browse your device</button></p>
 					<div class="format-chips" aria-label="Supported formats">
-						<span class="chip">JPG</span><span class="chip">PNG</span><span class="chip">WebP</span><span class="chip">TIFF</span><span class="chip">HEIC</span><span class="chip chip--audio">MP3</span><span class="chip chip--audio">WAV</span><span class="chip chip--audio">M4A</span><span class="chip chip--audio">FLAC</span><span class="chip chip--audio">OGG</span><span class="chip chip--doc">PDF</span><span class="chip chip--doc">DOCX</span><span class="chip chip--doc">XLSX</span><span class="chip chip--doc">PPTX</span>
+						<span class="chip">JPG</span><span class="chip">PNG</span><span class="chip">WebP</span><span class="chip">TIFF</span><span class="chip">HEIC</span><span class="chip chip--audio">MP3</span><span class="chip chip--audio">WAV</span><span class="chip chip--audio">M4A</span><span class="chip chip--audio">FLAC</span><span class="chip chip--audio">OGG</span><span class="chip chip--video">MP4</span><span class="chip chip--video">MOV</span><span class="chip chip--video">MKV</span><span class="chip chip--video">AVI</span><span class="chip chip--video">WEBM</span><span class="chip chip--doc">PDF</span><span class="chip chip--doc">DOCX</span><span class="chip chip--doc">XLSX</span><span class="chip chip--doc">PPTX</span>
 					</div>
 					<p class="dz-privacy"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="8" height="6" rx="1"/><path d="M4 5V3.5a2 2 0 0 1 4 0V5"/></svg> Processed locally · never leaves your device · up to 250 MB</p>
 				</div>
@@ -57,7 +58,7 @@ import Layout from '../layouts/Layout.astro';
 
 		<section class="privacy-band" id="privacy"><div><p class="eyebrow"><span></span> YOUR FILES, YOUR DEVICE</p><h2>Privacy that doesn’t need a pinky promise.</h2></div><p>MetaClean runs in your browser. We never need to see, store, or process your files on a server. Close this tab and everything is gone.</p><div class="privacy-art" aria-hidden="true"><div class="orb"></div><div class="orbit a"></div><div class="orbit b"></div><div class="lock">⌑</div></div></section>
 
-		<section class="formats" id="formats"><p class="eyebrow"><span></span> SUPPORTED FORMATS</p><h2>Images, audio, PDFs &amp; more.</h2><div class="format-grid"><div><strong>JPG</strong><span>Photos</span></div><div><strong>PNG</strong><span>Images</span></div><div><strong>WEBP</strong><span>Images</span></div><div><strong>TIFF</strong><span>Images</span></div><div><strong>HEIC</strong><span>Images</span></div><div><strong>MP3</strong><span>Audio</span></div><div><strong>WAV</strong><span>Audio</span></div><div><strong>M4A</strong><span>Audio</span></div><div><strong>FLAC</strong><span>Audio</span></div><div><strong>OGG</strong><span>Audio</span></div><div><strong>PDF</strong><span>Documents</span></div><div><strong>DOCX</strong><span>Word</span></div><div><strong>XLSX</strong><span>Excel</span></div><div><strong>PPTX</strong><span>PowerPoint</span></div></div></section>
+		<section class="formats" id="formats"><p class="eyebrow"><span></span> SUPPORTED FORMATS</p><h2>Images, audio, video &amp; more.</h2><div class="format-grid"><div><strong>JPG</strong><span>Photos</span></div><div><strong>PNG</strong><span>Images</span></div><div><strong>WEBP</strong><span>Images</span></div><div><strong>TIFF</strong><span>Images</span></div><div><strong>HEIC</strong><span>Images</span></div><div><strong>MP3</strong><span>Audio</span></div><div><strong>WAV</strong><span>Audio</span></div><div><strong>M4A</strong><span>Audio</span></div><div><strong>FLAC</strong><span>Audio</span></div><div><strong>OGG</strong><span>Audio</span></div><div><strong>MP4</strong><span>Video</span></div><div><strong>MOV</strong><span>Video</span></div><div><strong>MKV</strong><span>Video</span></div><div><strong>AVI</strong><span>Video</span></div><div><strong>WEBM</strong><span>Video</span></div><div><strong>PDF</strong><span>Documents</span></div><div><strong>DOCX</strong><span>Word</span></div><div><strong>XLSX</strong><span>Excel</span></div><div><strong>PPTX</strong><span>PowerPoint</span></div></div></section>
 		<footer><a class="brand" href="/"><span class="brand-mark">✦</span> MetaClean</a><p>Less data. More you.</p><span>© 2026 MetaClean</span></footer>
 	</main>
 
@@ -81,11 +82,14 @@ import Layout from '../layouts/Layout.astro';
 
 		let selectedFile, cleanedBytes, cleanedType, selectedKind;
 		let metadata = [];
+		let videoCleanedUrl = null; // Blob URL for video (avoids storing 250 MB in JS state)
 
 		// ── MIME / extension helpers ──────────────────────────────────────────────
 		const imageFormats = { jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', tif: 'image/tiff', tiff: 'image/tiff', heic: 'image/heic', heif: 'image/heic' };
 		const audioFormats = { mp3: 'audio/mpeg', wav: 'audio/wav', m4a: 'audio/mp4', flac: 'audio/flac', ogg: 'audio/ogg' };
 		const audioMimeToExt = { 'audio/mpeg': 'mp3', 'audio/wav': 'wav', 'audio/mp4': 'm4a', 'audio/flac': 'flac', 'audio/ogg': 'ogg' };
+		const videoFormats = { mp4: 'video/mp4', mov: 'video/quicktime', mkv: 'video/x-matroska', avi: 'video/x-msvideo', webm: 'video/webm' };
+		const videoMimeToExt = { 'video/mp4': 'mp4', 'video/quicktime': 'mov', 'video/x-matroska': 'mkv', 'video/x-msvideo': 'avi', 'video/webm': 'webm' };
 		const officeExts = { docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation' };
 		function formatSize(b) { return b < 1048576 ? `${Math.ceil(b / 1024)} KB` : `${(b / 1048576).toFixed(1)} MB`; }
 		function extension(file) { return (file.name.split('.').pop() || '').toLowerCase(); }
@@ -95,8 +99,9 @@ import Layout from '../layouts/Layout.astro';
 			if (officeExts[ext]) return 'office';
 			if (imageFormats[ext]) return 'image';
 			if (audioFormats[ext]) return 'audio';
-			// Also match by MIME for audio (some OS set audio/* types)
-			if (file.type && audioMimeToExt[file.type]) return 'audio';
+			if (audioMimeToExt[file.type]) return 'audio';
+			if (videoFormats[ext]) return 'video';
+			if (videoMimeToExt[file.type]) return 'video';
 			return undefined;
 		}
 		function outputExtension(type) {
@@ -405,7 +410,7 @@ import Layout from '../layouts/Layout.astro';
 			if (!file) return;
 			if (file.size > 250 * 1024 * 1024) { status.textContent = 'Files must be 250 MB or smaller'; return; }
 			selectedKind = fileKind(file);
-			if (!selectedKind) { status.textContent = 'Choose a JPG, PNG, WebP, TIFF, HEIC, MP3, WAV, M4A, FLAC, OGG, PDF, DOCX, XLSX, or PPTX file'; return; }
+			if (!selectedKind) { status.textContent = 'Choose a JPG, PNG, WebP, TIFF, HEIC, MP3, WAV, M4A, FLAC, OGG, MP4, MOV, MKV, AVI, WEBM, PDF, DOCX, XLSX, or PPTX file'; return; }
 			try {
 				status.textContent = 'Inspecting metadata locally…';
 				let parsed;
@@ -415,6 +420,8 @@ import Layout from '../layouts/Layout.astro';
 					parsed = extractOfficeMetadata(await file.arrayBuffer());
 				} else if (selectedKind === 'audio') {
 					parsed = await extractAudioMetadata(file);
+				} else if (selectedKind === 'video') {
+					parsed = await extractVideoMetadata(file);
 				} else {
 					parsed = await extractImageMetadata(file);
 				}
@@ -425,7 +432,7 @@ import Layout from '../layouts/Layout.astro';
 				// Update the label text in the metadata head
 				const metaLabelEl = document.querySelector('#meta-label');
 				if (metaLabelEl) {
-					metaLabelEl.textContent = selectedKind === 'audio' ? 'AUDIO INFORMATION' : selectedKind === 'pdf' ? 'DOCUMENT INFORMATION' : selectedKind === 'office' ? 'DOCUMENT INFORMATION' : 'IMAGE INFORMATION';
+					metaLabelEl.textContent = selectedKind === 'audio' ? 'AUDIO INFORMATION' : selectedKind === 'video' ? 'VIDEO INFORMATION' : selectedKind === 'pdf' ? 'DOCUMENT INFORMATION' : selectedKind === 'office' ? 'DOCUMENT INFORMATION' : 'IMAGE INFORMATION';
 				}
 				setFileDetails(file, label);
 				status.textContent = 'Scan complete';
@@ -438,6 +445,8 @@ import Layout from '../layouts/Layout.astro';
 					status.textContent = 'Unable to read metadata from this Office document.';
 				} else if (selectedKind === 'audio') {
 					status.textContent = 'Unable to read metadata from this audio file.';
+				} else if (selectedKind === 'video') {
+					status.textContent = 'Unable to read metadata from this video file.';
 				} else {
 					status.textContent = 'Unable to read metadata from this image.';
 				}
@@ -600,6 +609,178 @@ import Layout from '../layouts/Layout.astro';
 			return extractAudioMetadata(f);
 		}
 
+		// ── Progress bar helpers ──────────────────────────────────────────────
+		const progressBar  = document.querySelector('#progress-bar');
+		const progressFill = document.querySelector('#progress-fill');
+		function setProgress(ratio) {
+			// ratio: 0–1, or null to hide
+			if (ratio === null) {
+				progressBar.hidden = true;
+				progressFill.style.width = '0%';
+			} else {
+				progressBar.hidden = false;
+				progressFill.style.width = `${Math.min(100, Math.round(ratio * 100))}%`;
+			}
+		}
+
+		// ── Video metadata extraction (FFmpeg ffmetadata dump) ───────────────
+		/**
+		 * Human-readable labels for common ffmetadata keys.
+		 * Keys not in this map are shown with their raw key (title-cased).
+		 */
+		const videoMetaLabels = {
+			title: 'Title', artist: 'Artist', author: 'Author', album: 'Album',
+			comment: 'Comment', description: 'Description', synopsis: 'Synopsis',
+			creation_time: 'Creation date', date: 'Date', year: 'Year',
+			encoder: 'Encoder', encoded_by: 'Encoded by', copyright: 'Copyright',
+			location: 'Location',
+			'com.apple.quicktime.location.iso6709': 'GPS coordinates',
+			'com.apple.quicktime.make':     'Camera make',
+			'com.apple.quicktime.model':    'Camera model',
+			'com.apple.quicktime.software': 'Software',
+			make: 'Camera make', model: 'Camera model', genre: 'Genre',
+			language: 'Language', handler_name: 'Stream handler',
+			major_brand: 'Container format', compatible_brands: 'Compatible brands',
+			vendor_id: 'Vendor', media_type: 'Media type',
+		};
+		// Technical/structural keys we skip from display
+		const videoSkipKeys = new Set(['minor_version','itunes_cddb_1','itunes_cddb_tracknumber','encoder','com.apple.quicktime.creationdate']);
+
+		function parseVideoMetadata(text) {
+			const rows = [];
+			const seen = new Set();
+			let section = 'Container tags';
+			for (const rawLine of text.split('\n')) {
+				const line = rawLine.trim();
+				if (!line || line.startsWith(';')) continue;
+				if (line.startsWith('[')) {
+					section = line.replace(/[\[\]]/g, '').trim() + ' stream';
+					continue;
+				}
+				const eq = line.indexOf('=');
+				if (eq < 1) continue;
+				const key = line.slice(0, eq).trim().toLowerCase();
+				const value = line.slice(eq + 1).trim();
+				if (!value || videoSkipKeys.has(key)) continue;
+				const dedupeKey = key + '=' + value;
+				if (seen.has(dedupeKey)) continue;
+				seen.add(dedupeKey);
+				const label = videoMetaLabels[key]
+					|| key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+				rows.push([label, value, section]);
+			}
+			return rows;
+		}
+
+		/**
+		 * Extract metadata from a video file by running FFmpeg's ffmetadata muxer.
+		 * The input file is written to the WASM FS, metadata dumped to a text file,
+		 * then both files are immediately deleted to keep memory usage minimal.
+		 */
+		async function extractVideoMetadata(file) {
+			const ext  = extension(file);
+			const inN  = `vi.${ext}`;
+			const metN = 'vmeta.txt';
+			status.textContent = 'Loading video scanner…';
+			const ffmpeg = await getFFmpeg();
+			status.textContent = 'Reading video metadata…';
+			const buf = await file.arrayBuffer();
+			await ffmpeg.writeFile(inN, new Uint8Array(buf));
+			// arrayBuffer is no longer referenced; GC can collect it
+			try {
+				await ffmpeg.exec(['-i', inN, '-f', 'ffmetadata', '-y', metN]);
+			} catch { /* ffmpeg returns non-zero when no audio/video streams — ignore */ }
+			let text = '';
+			try { text = new TextDecoder().decode(await ffmpeg.readFile(metN)); } catch {}
+			try { await ffmpeg.deleteFile(inN);  } catch {}
+			try { await ffmpeg.deleteFile(metN); } catch {}
+			return parseVideoMetadata(text);
+		}
+
+		// ── Video cleaning (FFmpeg stream copy, no re-encode) ─────────────────
+		/**
+		 * Strip all metadata from a video container using stream copy.
+		 * Strategy:
+		 *   -map_metadata -1   → drop all global metadata tags
+		 *   -map_chapters -1   → drop chapter list
+		 *   -c copy            → copy all streams verbatim (no re-encoding)
+		 *   -map 0             → include all streams from the input
+		 *   -y                 → overwrite output without asking
+		 * After processing, the output file is read, immediately converted to a
+		 * Blob URL (to avoid keeping 250 MB in JS heap), and both WASM FS files
+		 * are deleted. The Uint8Array is then dereferenced.
+		 *
+		 * Returns { type, verifyRows } where verifyRows is the post-clean metadata
+		 * scanned in-situ (before the WASM file is deleted), so we avoid a second
+		 * full read-into-memory cycle.
+		 */
+		async function cleanVideo() {
+			const ext     = extension(selectedFile);
+			const mime    = videoFormats[ext] || selectedFile.type;
+			const inN     = `vi.${ext}`;
+			const outN    = `vo.${ext}`;
+			const metN    = 'vo_meta.txt';
+
+			status.textContent = 'Loading video processor…';
+			const ffmpeg = await getFFmpeg();
+
+			// Attach progress listener for the clean step
+			const onProgress = ({ progress }) => {
+				const pct = Math.round(Math.min(progress, 1) * 100);
+				status.textContent = `Stripping video metadata… ${pct}%`;
+				setProgress(Math.min(progress, 1));
+			};
+			ffmpeg.on('progress', onProgress);
+
+			try {
+				status.textContent = 'Writing video to memory…';
+				setProgress(0);
+				const srcBuf = await selectedFile.arrayBuffer();
+				await ffmpeg.writeFile(inN, new Uint8Array(srcBuf));
+				// srcBuf goes out of scope here; GC can collect it
+
+				status.textContent = 'Stripping video metadata…';
+				await ffmpeg.exec([
+					'-i', inN,
+					'-map_metadata', '-1',
+					'-map_chapters', '-1',
+					'-c', 'copy',
+					'-map', '0',
+					'-y', outN,
+				]);
+
+				// Verify: dump metadata from the output while it’s still in WASM FS
+				let verifyRows = [];
+				try {
+					await ffmpeg.exec(['-i', outN, '-f', 'ffmetadata', '-y', metN]);
+					const metData = await ffmpeg.readFile(metN);
+					verifyRows = parseVideoMetadata(new TextDecoder().decode(metData));
+					try { await ffmpeg.deleteFile(metN); } catch {}
+				} catch {}
+
+				// Read output into JS — then immediately create Blob URL and free array
+				status.textContent = 'Finalizing…';
+				setProgress(1);
+				let outData = await ffmpeg.readFile(outN);
+				if (!(outData instanceof Uint8Array)) outData = new Uint8Array(outData);
+
+				// Revoke any previous video URL
+				if (videoCleanedUrl) { URL.revokeObjectURL(videoCleanedUrl); videoCleanedUrl = null; }
+				videoCleanedUrl = URL.createObjectURL(new Blob([outData], { type: mime }));
+				// outData dereferenced — the only remaining reference to the bytes
+				// is inside the browser’s Blob store, not our JS heap
+				outData = null;
+
+				return { type: mime, bytes: null, verifyRows };
+			} finally {
+				ffmpeg.off('progress', onProgress);
+				setProgress(null);
+				// Always clean up WASM FS entries to reclaim WASM heap
+				try { await ffmpeg.deleteFile(inN);  } catch {}
+				try { await ffmpeg.deleteFile(outN);  } catch {}
+			}
+		}
+
 		// ── PDF cleaning ──────────────────────────────────────────────────────────
 		async function cleanPdf() {
 			const source = await PDFDocument.load(await selectedFile.arrayBuffer(), { updateMetadata: false });
@@ -637,38 +818,30 @@ import Layout from '../layouts/Layout.astro';
 				return { bytes: new Uint8Array(UTIF.encodeImage(rgba.buffer.slice(rgba.byteOffset, rgba.byteOffset + rgba.byteLength), ifd.width, ifd.height, { t305: [] })), type: 'image/tiff' };
 			}
 			if (sourceType === 'image/heic') {
-				const blob = await heicTo({ blob: selectedFile, type: 'image/jpeg', quality: 1 });
-				return { bytes: stripJpegMetadata(await blob.arrayBuffer()), type: 'image/jpeg' };
+				const blob = await heicTo({ blob: selectedFile, type: 'image/jpeg', quality: 0.9 });
+				const bytes = await stripGeneratedMetadata(await blob.arrayBuffer(), 'image/jpeg');
+				return { bytes, type: 'image/jpeg' };
 			}
+			const canvas = document.createElement('canvas');
 			const bitmap = await imageBitmapFor(selectedFile);
-			try {
-				const canvas = document.createElement('canvas');
-				canvas.width = bitmap.width; canvas.height = bitmap.height;
-				canvas.getContext('2d', { alpha: true }).drawImage(bitmap, 0, 0);
-				const blob = await canvasBlob(canvas, sourceType, sourceType === 'image/png' ? undefined : 1);
-				return { bytes: stripGeneratedMetadata(await blob.arrayBuffer(), sourceType), type: sourceType };
-			} finally { bitmap.close?.(); }
+			canvas.width = bitmap.width; canvas.height = bitmap.height;
+			canvas.getContext('2d').drawImage(bitmap, 0, 0);
+			const mime = sourceType === 'image/png' ? 'image/png' : 'image/jpeg';
+			const blob = await canvasBlob(canvas, mime, 0.9);
+			return { bytes: stripGeneratedMetadata(await blob.arrayBuffer(), mime), type: mime };
 		}
 
-		// ── Verification ──────────────────────────────────────────────────────────
-		async function verifyCleanFile(bytes, type) {
-			if (type === 'application/pdf') {
-				return extractPdfMetadata(await PDFDocument.load(bytes, { updateMetadata: false }));
-			}
-			const officeExt = Object.entries(officeExts).find(([, mime]) => mime === type);
-			if (officeExt) {
-				// bytes may already be a Uint8Array from zipSync
-				const buf = bytes instanceof Uint8Array ? bytes.buffer : bytes;
-				return verifyCleanOffice(buf);
-			}
-			if (audioMimeToExt[type]) {
-				return verifyCleanAudio(bytes, type);
-			}
-			const ext = Object.entries(imageFormats).find(([, mime]) => mime === type)?.[0] ?? 'jpg';
-			return extractImageMetadata(new File([bytes], `clean.${ext}`, { type }));
+		async function verifyCleanFile(bytes, mime) {
+			if (selectedKind === 'video') return [];
+			const ext = (audioMimeToExt[mime] || imageMimeToExt[mime] || 'bin');
+			const f = new File([bytes], `clean.${ext}`, { type: mime });
+			if (selectedKind === 'audio') return extractAudioMetadata(f);
+			if (selectedKind === 'pdf') return extractPdfMetadata(await PDFDocument.load(await f.arrayBuffer(), { updateMetadata: false }));
+			if (selectedKind === 'office') return extractOfficeMetadata(await f.arrayBuffer());
+			return [];
 		}
 
-		// ── Master clean orchestrator ─────────────────────────────────────────────
+		// ── Master clean orchestrator ───────────────────────────────────────────────
 		async function cleanFile() {
 			if (!selectedFile) return;
 			try {
@@ -682,15 +855,20 @@ import Layout from '../layouts/Layout.astro';
 					cleaned = await cleanOfficeFile(selectedFile);
 				} else if (selectedKind === 'audio') {
 					cleaned = await cleanAudio();
+				} else if (selectedKind === 'video') {
+					cleaned = await cleanVideo();
 				} else {
 					cleaned = await cleanImage();
 				}
-				cleanedBytes = cleaned.bytes;
-				cleanedType = cleaned.type;
-				const remaining = await verifyCleanFile(cleaned.bytes, cleaned.type);
+				cleanedBytes = cleaned.bytes; // null for video (stored as Blob URL)
+				cleanedType  = cleaned.type;
+				// For video, verification was done in-situ inside cleanVideo()
+				const remaining = selectedKind === 'video'
+					? (cleaned.verifyRows ?? [])
+					: await verifyCleanFile(cleaned.bytes, cleaned.type);
 				document.querySelector('#after-count').textContent = `${remaining.length} field${remaining.length === 1 ? '' : 's'}`;
 				const converted = selectedKind === 'image' && imageFormats[extension(selectedFile)] !== cleaned.type;
-				const fileTypeName = selectedKind === 'pdf' ? 'PDF' : selectedKind === 'audio' ? extension(selectedFile).toUpperCase() : selectedKind === 'office' ? extension(selectedFile).toUpperCase() : 'image';
+				const fileTypeName = selectedKind === 'pdf' ? 'PDF' : selectedKind === 'audio' ? extension(selectedFile).toUpperCase() : selectedKind === 'video' ? extension(selectedFile).toUpperCase() : selectedKind === 'office' ? extension(selectedFile).toUpperCase() : 'image';
 				document.querySelector('#result-copy').textContent = remaining.length === 0
 					? `Removed ${metadata.length} metadata field${metadata.length === 1 ? '' : 's'}. The generated ${fileTypeName} was checked again and has none remaining.${converted ? ' HEIC files are exported as JPG because browsers cannot encode HEIC.' : ''}`
 					: `A clean file was generated, but ${remaining.length} metadata field${remaining.length === 1 ? '' : 's'} remain.`;
@@ -699,31 +877,46 @@ import Layout from '../layouts/Layout.astro';
 				status.textContent = remaining.length === 0 ? 'Metadata removed and verified' : 'Metadata cleanup needs review';
 			} catch (err) {
 				console.error(err);
-				status.textContent = 'Unable to create a clean file';
+				const isOOM = err?.message?.toLowerCase().includes('memory') || err?.name === 'RangeError';
+				status.textContent = isOOM
+					? 'Not enough memory to process this file. Try a smaller file or close other browser tabs.'
+					: selectedKind === 'video' ? 'Unable to strip video metadata. The file may use an unsupported codec or container.'
+					: 'Unable to create a clean file';
 			} finally {
 				cleanButton.disabled = false;
 				cleanButton.innerHTML = 'Remove metadata <span>→</span>';
+				setProgress(null);
 			}
 		}
 
-		// ── Download ──────────────────────────────────────────────────────────────
+		// ── Download ───────────────────────────────────────────────────────────
 		function getDownloadExtension(type) {
 			if (type === 'application/pdf') return 'pdf';
 			if (type === 'image/png') return 'png';
 			if (type === 'image/webp') return 'webp';
 			if (type === 'image/tiff') return 'tiff';
 			if (type === 'image/jpeg') return 'jpg';
+			if (audioMimeToExt[type]) return audioMimeToExt[type];
+			if (videoMimeToExt[type]) return videoMimeToExt[type];
 			const officeMatch = Object.entries(officeExts).find(([, mime]) => mime === type);
 			if (officeMatch) return officeMatch[0];
 			return 'bin';
 		}
 
 		document.querySelector('#download-button').addEventListener('click', () => {
+			const cleanName = selectedFile.name.replace(/\.[^.]+$/, `-clean.${getDownloadExtension(cleanedType)}`);
+			if (selectedKind === 'video' && videoCleanedUrl) {
+				const link = document.createElement('a');
+				link.href = videoCleanedUrl;
+				link.download = cleanName;
+				link.click();
+				return;
+			}
 			if (!cleanedBytes) return;
 			const url = URL.createObjectURL(new Blob([cleanedBytes], { type: cleanedType }));
 			const link = document.createElement('a');
 			link.href = url;
-			link.download = selectedFile.name.replace(/\.[^.]+$/, `-clean.${getDownloadExtension(cleanedType)}`);
+			link.download = cleanName;
 			link.click();
 			setTimeout(() => URL.revokeObjectURL(url), 0);
 		});
@@ -797,6 +990,9 @@ import Layout from '../layouts/Layout.astro';
 			status.textContent = 'Ready to scan';
 			// Release album art URL if any
 			if (albumArtObjectUrl) { URL.revokeObjectURL(albumArtObjectUrl); albumArtObjectUrl = null; }
+			// Release video Blob URL if any
+			if (videoCleanedUrl) { URL.revokeObjectURL(videoCleanedUrl); videoCleanedUrl = null; }
+			setProgress(null);
 		}
 		document.querySelector('#reset-button').addEventListener('click', reset);
 		document.querySelector('#again-button').addEventListener('click', reset);
@@ -857,6 +1053,8 @@ import Layout from '../layouts/Layout.astro';
   --toggle-hover-bg: #e2e2e2;
   --audio-chip-bg: #fff5e6;
   --audio-chip-fg: #a05a00;
+  --video-chip-bg: #f0e6ff;
+  --video-chip-fg: #6b21a8;
 }
 
 :global(html.dark) {
@@ -885,6 +1083,8 @@ import Layout from '../layouts/Layout.astro';
   --toggle-hover-bg: #252a3a;
   --audio-chip-bg: #2a1c00;
   --audio-chip-fg: #ffb347;
+  --video-chip-bg: #2e1065;
+  --video-chip-fg: #c084fc;
 }
 
 /* ── Global resets ─────────────────────────────────────────────────────────── */
@@ -950,15 +1150,18 @@ main { overflow: visible; }
 .hero-glow { position: absolute; width: 650px; height: 320px; left: 50%; top: -120px; transform: translateX(-50%); background: radial-gradient(circle at 25% 50%, #b8f4ea55, transparent 30%), radial-gradient(circle at 70% 45%, #e3c7ff60, transparent 30%), radial-gradient(circle at 50% 75%, #aed5ff50, transparent 32%); filter: blur(32px); pointer-events: none; opacity: 0.7; }
 .hero > * { position: relative; }
 .hero > .hero-glow { position: absolute; }
-.eyebrow { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .07em; color: var(--fg-muted); margin: 0 0 20px; display: flex; justify-content: center; align-items: center; gap: 8px; }
+.eyebrow { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .07em; color: var(--fg-muted); margin: 0 0 12px; display: flex; justify-content: center; align-items: center; gap: 8px; }
 .eyebrow span { width: 7px; height: 7px; background: var(--fg); border-radius: 50%; }
 .hero h1 { font-size: clamp(45px, 6vw, 76px); letter-spacing: -.075em; line-height: .97; font-weight: 620; margin: 0; text-wrap: balance; color: var(--fg); }
 .hero h1 em { font-style: normal; background: linear-gradient(90deg, #007cf0, #7928ca 48%, #ff0080); background-clip: text; -webkit-background-clip: text; color: transparent; }
-.hero-copy { max-width: 500px; margin: 24px auto 10px; font-size: 17px; line-height: 1.55; color: var(--fg-muted); }
+.hero-copy { max-width: 500px; margin: 14px auto 22px; font-size: 17px; line-height: 1.5; color: var(--fg-muted); }
 
 /* ── Cleaner card ──────────────────────────────────────────────────────────── */
 .cleaner { width: min(100%, 650px); margin: 0 auto; background: var(--surface); text-align: left; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--cleaner-shadow); overflow: hidden; }
 .cleaner-top { height: 42px; border-bottom: 1px solid var(--border-light); display: flex; align-items: center; padding: 0 16px; font-size: 12.5px; color: var(--fg-muted); gap: 7px; }
+.progress-bar { height: 3px; background: var(--border-light); overflow: hidden; width: 100%; }
+.progress-bar[hidden] { display: none; }
+.progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #007cf0, #7928ca 50%, #ff0080); transition: width .15s ease; }
 .status-dot { width: 7px; height: 7px; background: #15b97a; border-radius: 50%; flex-shrink: 0;
   box-shadow: 0 0 0 2px color-mix(in srgb, #15b97a 20%, transparent); }
 .local-note { margin-left: auto; font-size: 11.5px; color: var(--fg-subtle); display: flex; align-items: center; gap: 4px; }
@@ -1034,6 +1237,7 @@ main { overflow: visible; }
 }
 .chip--doc { color: var(--file-type-fg); background: var(--file-type-bg); border-color: transparent; }
 .chip--audio { color: var(--audio-chip-fg); background: var(--audio-chip-bg); border-color: transparent; }
+.chip--video { color: var(--video-chip-fg); background: var(--video-chip-bg); border-color: transparent; }
 .dropzone:hover .chip { border-color: var(--border); }
 
 /* Privacy note inside dropzone */
