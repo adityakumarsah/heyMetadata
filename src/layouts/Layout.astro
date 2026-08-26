@@ -13,8 +13,8 @@ const {
   title = 'Metadata Remover — Remove EXIF Data from Images, Videos & PDFs Online | HeyMetadata',
   description = 'Free online metadata remover tool. Remove EXIF data from images, strip metadata from videos and PDFs. Works in your browser — your files never leave your device. Supports JPG, PNG, WebP, MP4, MOV, PDF and more.',
   keywords = 'metadata remover, image metadata remover, metadata remover video, pdf metadata remover, photo metadata remover, remove EXIF data, online EXIF remover, exif data viewer, exif remover, exif metadata, metadata, exif, remove metadata online, strip metadata, privacy tool',
-  canonicalUrl = 'https://removemetadata.com',
-  ogImage = 'https://removemetadata.com/og-image.jpg',
+  canonicalUrl = 'https://heymetadata.com',
+  ogImage = 'https://heymetadata.com/og-image.jpg',
   ogType = 'website',
   twitterCard = 'summary_large_image',
 } = Astro.props;
@@ -22,9 +22,26 @@ const {
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CPZ75J4PPR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CPZ75J4PPR');
+  </script>
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#ffffff" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="HeyMeta" />
+  <link rel="manifest" href="/site.webmanifest" />
 
   <!-- Primary SEO Meta Tags -->
   <title>{title}</title>
@@ -64,7 +81,7 @@ const {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "HeyMetadata — Metadata Remover",
-    "url": "https://removemetadata.com",
+    "url": "https://heymetadata.com",
     "description": "Free online metadata remover tool. Remove EXIF data from images, strip metadata from videos, audio, and PDFs entirely in your browser. Your files never leave your device.",
     "applicationCategory": "UtilityApplication",
     "operatingSystem": "Any (Web Browser)",

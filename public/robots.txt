@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://heymetadata.com/sitemap-index.xml

@@ -9,9 +9,12 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "deploy": "astro build && wrangler pages deploy dist --project-name removemetadata --branch main",
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^14.2.5",
+    "@astrojs/sitemap": "^3.7.3",
     "astro": "^7.1.6",
     "exifreader": "^4.41.3",
     "fflate": "^0.8.3",
@@ -22,6 +25,7 @@
   },
   "devDependencies": {
     "@xmldom/xmldom": "^0.9.10",
-    "exiftool-vendored": "^37.1.0"
+    "exiftool-vendored": "^37.1.0",
+    "wrangler": "^4.126.0"
   }
 }

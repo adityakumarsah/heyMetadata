@@ -1,9 +1,11 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://removemetadata.com',
+  site: 'https://heymetadata.com',
+  integrations: [sitemap()],
   vite: {
     server: {
       headers: {
