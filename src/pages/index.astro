@@ -668,6 +668,7 @@ const faqSchema = {
 			const BASE = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/esm';
 			_ffmpeg = new FFmpeg();
 			await _ffmpeg.load({
+				classWorkerURL: new URL('/ffmpeg/worker.js', window.location.origin).href,
 				coreURL: await toBlobURL(`${BASE}/ffmpeg-core.js`, 'text/javascript'),
 				wasmURL: await toBlobURL(`${BASE}/ffmpeg-core.wasm`, 'application/wasm'),
 			});
@@ -759,37 +760,95 @@ const faqSchema = {
 			major_brand: 'Container format', compatible_brands: 'Compatible brands',
 			vendor_id: 'Vendor', media_type: 'Media type',
 		};
-		// Technical/structural keys we skip from display
-		const videoSkipKeys = new Set(['minor_version','itunes_cddb_1','itunes_cddb_tracknumber','encoder','com.apple.quicktime.creationdate']);
+		// Technical/structural container keys skipped from privacy metadata inspection and verification counts
+		const videoSkipKeys = new Set([
+			'minor_version', 'itunes_cddb_1', 'itunes_cddb_tracknumber',
+			'encoder', 'major_brand', 'compatible_brands',
+			'vendor_id', 'language', 'handler_type'
+		]);
 
-		function parseVideoMetadata(text) {
+		const genericHandlers = new Set([
+			'videohandler', 'soundhandler', 'datahandler', 'hint',
+			'core media video', 'core media audio', 'subtitlehandler',
+			'subp', 'meta', 'appl', 'generic', 'handler', 'sound'
+		]);
+
+		function isGenericHandler(val) {
+			const normalized = val.toLowerCase().replace(/[\s_-]+/g, ' ').trim();
+			return genericHandlers.has(normalized);
+		}
+
+		function parseVideoMetadata(ffmetaText, logLines = []) {
 			const rows = [];
 			const seen = new Set();
-			let section = 'Container tags';
-			for (const rawLine of text.split('\n')) {
-				const line = rawLine.trim();
-				if (!line || line.startsWith(';')) continue;
-				if (line.startsWith('[')) {
-					section = line.replace(/[\[\]]/g, '').trim() + ' stream';
-					continue;
-				}
-				const eq = line.indexOf('=');
-				if (eq < 1) continue;
-				const key = line.slice(0, eq).trim().toLowerCase();
-				const value = line.slice(eq + 1).trim();
-				if (!value || videoSkipKeys.has(key)) continue;
+
+			function addRow(rawKey, rawValue, section) {
+				const key = rawKey.trim().toLowerCase();
+				const value = rawValue.trim();
+				if (!value || videoSkipKeys.has(key)) return;
+				if (key === 'handler_name' && isGenericHandler(value)) return;
 				const dedupeKey = key + '=' + value;
-				if (seen.has(dedupeKey)) continue;
+				if (seen.has(dedupeKey)) return;
 				seen.add(dedupeKey);
 				const label = videoMetaLabels[key]
 					|| key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
 				rows.push([label, value, section]);
 			}
+
+			// 1. Parse vmeta.txt (global container metadata)
+			let section = 'Container tags';
+			for (const rawLine of (ffmetaText || '').split('\n')) {
+				const line = rawLine.trim();
+				if (!line || line.startsWith(';')) continue;
+				if (line.startsWith('[')) {
+					section = 'Stream tags';
+					continue;
+				}
+				const eq = line.indexOf('=');
+				if (eq < 1) continue;
+				addRow(line.slice(0, eq), line.slice(eq + 1), section);
+			}
+
+			// 2. Parse FFmpeg probe logs (stream-level & container tags)
+			let currentSection = 'Container tags';
+			let inMetadataBlock = false;
+
+			for (const rawLine of logLines) {
+				const line = String(rawLine);
+				if (/^\s*Input #\d+/.test(line)) {
+					currentSection = 'Container tags';
+					inMetadataBlock = false;
+					continue;
+				}
+				const streamMatch = line.match(/^\s*Stream #\d+:(\d+)(?:\[0x[0-9a-fA-F]+\])?(?:\(([a-zA-Z0-9_-]+)\))?:\s*([A-Za-z]+):/);
+				if (streamMatch) {
+					const streamType = streamMatch[3] || 'Stream';
+					currentSection = `${streamType} stream tags`;
+					inMetadataBlock = false;
+					continue;
+				}
+				if (/^\s*Metadata:\s*$/.test(line)) {
+					inMetadataBlock = true;
+					continue;
+				}
+				if (inMetadataBlock) {
+					if (/^\s*(Duration:|Stream #|Side data|Chapters:|Program|Output #|Stream mapping:)/.test(line)) {
+						inMetadataBlock = false;
+						continue;
+					}
+					const match = line.match(/^\s{4,}([a-zA-Z0-9_.:-]+)\s*:\s*(.+)$/);
+					if (match) {
+						addRow(match[1], match[2], currentSection);
+					}
+				}
+			}
+
 			return rows;
 		}
 
 		/**
-		 * Extract metadata from a video file by running FFmpeg's ffmetadata muxer.
+		 * Extract metadata from a video file by running FFmpeg's ffmetadata muxer
+		 * and capturing demuxer probe logs for stream-level tags.
 		 * The input file is written to the WASM FS, metadata dumped to a text file,
 		 * then both files are immediately deleted to keep memory usage minimal.
 		 */
@@ -803,14 +862,22 @@ const faqSchema = {
 			const buf = await file.arrayBuffer();
 			await ffmpeg.writeFile(inN, new Uint8Array(buf));
 			// arrayBuffer is no longer referenced; GC can collect it
+			const logLines = [];
+			const onLog = ({ type, message }) => {
+				if (message) logLines.push(message);
+			};
+			ffmpeg.on('log', onLog);
 			try {
 				await ffmpeg.exec(['-i', inN, '-f', 'ffmetadata', '-y', metN]);
 			} catch { /* ffmpeg returns non-zero when no audio/video streams — ignore */ }
+			finally {
+				ffmpeg.off('log', onLog);
+			}
 			let text = '';
 			try { text = new TextDecoder().decode(await ffmpeg.readFile(metN)); } catch {}
 			try { await ffmpeg.deleteFile(inN);  } catch {}
 			try { await ffmpeg.deleteFile(metN); } catch {}
-			return parseVideoMetadata(text);
+			return parseVideoMetadata(text, logLines);
 		}
 
 		// ── Video cleaning (FFmpeg stream copy, no re-encode) ─────────────────
@@ -867,12 +934,18 @@ const faqSchema = {
 
 				// Verify: dump metadata from the output while it’s still in WASM FS
 				let verifyRows = [];
+				const verifyLogs = [];
+				const onVerifyLog = ({ message }) => { if (message) verifyLogs.push(message); };
+				ffmpeg.on('log', onVerifyLog);
 				try {
 					await ffmpeg.exec(['-i', outN, '-f', 'ffmetadata', '-y', metN]);
 					const metData = await ffmpeg.readFile(metN);
-					verifyRows = parseVideoMetadata(new TextDecoder().decode(metData));
+					verifyRows = parseVideoMetadata(new TextDecoder().decode(metData), verifyLogs);
 					try { await ffmpeg.deleteFile(metN); } catch {}
 				} catch {}
+				finally {
+					ffmpeg.off('log', onVerifyLog);
+				}
 
 				// Read output into JS — then immediately create Blob URL and free array
 				status.textContent = 'Finalizing…';
