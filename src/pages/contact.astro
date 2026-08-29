@@ -69,60 +69,22 @@ const contactSchema = {
       </header>
 
       <div class="contact-grid">
-        <section class="contact-form-card">
-          <h2>Send a Message</h2>
-          <form id="contact-form" class="contact-form">
-            <div class="form-group">
-              <label for="contact-name">Your Name</label>
-              <input type="text" id="contact-name" name="name" placeholder="Alex Morgan" required />
+        <section class="contact-card">
+          <h2>Contact us</h2>
+          <div class="contact-channels">
+            <div class="contact-channel">
+              <p>For support, bug reports, or feature suggestions, email us at:</p>
+              <a class="email-address" href="mailto:support@heymetadata.com">support@heymetadata.com</a>
             </div>
 
-            <div class="form-group">
-              <label for="contact-email">Email Address</label>
-              <input type="email" id="contact-email" name="email" placeholder="alex@example.com" required />
+            <div class="contact-channel">
+              <p>For privacy-related inquiries:</p>
+              <a class="email-address" href="mailto:privacy@heymetadata.com">privacy@heymetadata.com</a>
             </div>
-
-            <div class="form-group">
-              <label for="contact-subject">Inquiry Type</label>
-              <select id="contact-subject" name="subject" required>
-                <option value="general">General Support</option>
-                <option value="bug">Report a Bug</option>
-                <option value="feature">Feature Request</option>
-                <option value="privacy">Privacy Question</option>
-                <option value="partnership">Partnership &amp; Business</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="contact-message">Message</label>
-              <textarea id="contact-message" name="message" rows="5" placeholder="How can we help you?" required></textarea>
-            </div>
-
-            <button type="submit" class="submit-button">Send Message <span>↗</span></button>
-          </form>
-
-          <div id="form-success" class="form-success" hidden>
-            <div class="success-icon">✓</div>
-            <h3>Thank You!</h3>
-            <p>Your message has been sent successfully. We appreciate your feedback and will respond shortly.</p>
-            <button type="button" id="form-reset" class="reset-button">Send another message</button>
           </div>
         </section>
 
         <aside class="contact-sidebar">
-          <div class="info-card">
-            <h3>Direct Contact</h3>
-            <p>For urgent inquiries or direct communication, you can email us directly:</p>
-            <div class="email-link">
-              <span>📧 Support:</span>
-              <a href="mailto:support@heymetadata.com">support@heymetadata.com</a>
-            </div>
-            <div class="email-link">
-              <span>🔒 Privacy:</span>
-              <a href="mailto:privacy@heymetadata.com">privacy@heymetadata.com</a>
-            </div>
-          </div>
-
           <div class="info-card">
             <h3>Quick Answers</h3>
             <ul class="quick-faq">
@@ -175,25 +137,6 @@ const contactSchema = {
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       applyTheme(stored === 'dark' || (stored === null && prefersDark));
       btn.addEventListener('click', () => applyTheme(!html.classList.contains('dark')));
-
-      // Contact form submission handling
-      const form = document.querySelector('#contact-form') as HTMLFormElement | null;
-      const successBox = document.querySelector('#form-success') as HTMLElement | null;
-      const resetBtn = document.querySelector('#form-reset') as HTMLButtonElement | null;
-
-      if (form && successBox && resetBtn) {
-        form.addEventListener('submit', (e) => {
-          e.preventDefault();
-          form.hidden = true;
-          successBox.hidden = false;
-        });
-
-        resetBtn.addEventListener('click', () => {
-          form.reset();
-          form.hidden = false;
-          successBox.hidden = true;
-        });
-      }
     })();
   </script>
 </Layout>
@@ -331,101 +274,40 @@ main { overflow: visible; }
   gap: 32px;
 }
 
-.contact-form-card {
+.contact-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 32px;
 }
-.contact-form-card h2 {
+.contact-card h2 {
   font-size: 22px;
   margin: 0 0 24px;
   color: var(--fg);
 }
 
-.contact-form {
+.contact-channels {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.form-group label {
-  font-size: 14px;
-  font-weight: 550;
-  color: var(--fg);
-}
-.form-group input,
-.form-group select,
-.form-group textarea {
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 11px 14px;
-  font-size: 14.5px;
-  color: var(--fg);
-  outline: none;
-  transition: border-color .15s;
-}
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  border-color: var(--fg-subtle);
-}
-
-.submit-button {
-  background: var(--fg);
-  color: var(--surface);
-  border: none;
+.contact-channel p {
   font-size: 15px;
-  font-weight: 550;
-  padding: 12px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: opacity .15s;
-  align-self: flex-start;
-}
-.submit-button:hover {
-  opacity: .9;
-}
-
-.form-success {
-  text-align: center;
-  padding: 32px 16px;
-}
-.success-icon {
-  width: 48px;
-  height: 48px;
-  background: var(--success-bg);
-  color: var(--success-fg);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 24px;
-  font-weight: bold;
-  margin: 0 auto 16px;
-}
-.form-success h3 {
-  font-size: 22px;
-  margin: 0 0 8px;
-  color: var(--fg);
-}
-.form-success p {
-  font-size: 15px;
+  line-height: 1.6;
   color: var(--fg-muted);
-  margin: 0 0 20px;
+  margin: 0 0 8px;
 }
-.reset-button {
-  background: var(--surface-2);
-  border: 1px solid var(--border);
+.email-address {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 550;
   color: var(--fg);
-  padding: 9px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity .15s;
+}
+.email-address:hover {
+  opacity: .8;
 }
 
 .contact-sidebar {
