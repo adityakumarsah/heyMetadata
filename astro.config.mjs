@@ -7,6 +7,10 @@ export default defineConfig({
   site: 'https://heymetadata.com',
   integrations: [sitemap()],
   vite: {
+    optimizeDeps: {
+      exclude: ['@jsquash/avif'],
+    },
+    assetsInclude: ['**/*.wasm'],
     server: {
       headers: {
         'Cross-Origin-Opener-Policy': 'same-origin',
