@@ -127,7 +127,7 @@ const breadcrumbSchema = {
       <p>Free Online Metadata Remover — Remove EXIF Data Privately</p>
       <div class="footer-links">
         <a href="/">Metadata Remover</a>
-        <a href="/convert">Image Converter</a>
+        <a href="/convert">Convert</a>
         <a href="/about">About Us</a>
         <a href="/privacy">Privacy Policy</a>
         <a href="/terms">Terms &amp; Conditions</a>
@@ -351,10 +351,10 @@ main { overflow: visible; }
   color: var(--fg);
 }
 
-footer { max-width: 1200px; border-top: 1px solid var(--border-light); margin: auto; padding: 29px 28px 35px; display: flex; align-items: center; gap: 22px; color: var(--fg-muted); font-size: 12px; }
+footer { max-width: 1200px; border-top: 1px solid var(--border-light); margin: auto; padding: 29px 28px 35px; display: flex; align-items: center; gap: 22px; color: var(--fg-muted); font-size: 12px; flex-wrap: wrap; }
 footer p { margin: 0; }
-.footer-links { display: flex; gap: 16px; align-items: center; }
-.footer-links a { color: var(--fg-muted); text-decoration: none; transition: color .15s; }
+.footer-links { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.footer-links a { color: var(--fg-muted); text-decoration: none; transition: color .15s; white-space: nowrap; }
 .footer-links a:hover { color: var(--fg); text-decoration: underline; }
 footer > span { margin-left: auto; }
 
