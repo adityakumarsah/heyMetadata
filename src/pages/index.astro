@@ -238,10 +238,153 @@ const faqSchema = {
 		function extractPdfMetadata(pdf) { return pdfFields.map(([n, m]) => [n, valueFor(pdf, m), 'Document info']).filter(([, v]) => v !== undefined && v !== ''); }
 
 		// ── Image metadata ────────────────────────────────────────────────────────
-		function displayValue(v) { if (v instanceof Date) return v.toLocaleString(); if (Array.isArray(v)) return v.map(displayValue).join(', '); if (v instanceof Uint8Array) return `${v.byteLength} bytes`; if (v && typeof v === 'object') return JSON.stringify(v); return String(v); }
-		const metadataGroups = { exif: 'EXIF', gps: 'GPS', iptc: 'IPTC', xmp: 'XMP', makerNotes: 'Camera notes', photoshop: 'Photoshop', pngText: 'PNG text' };
-		const imageStructureTags = new Set(['ImageWidth','ImageLength','BitsPerSample','Compression','PhotometricInterpretation','StripOffsets','SamplesPerPixel','RowsPerStrip','StripByteCounts','PlanarConfiguration','TileWidth','TileLength','TileOffsets','TileByteCounts','Predictor','ExtraSamples','SampleFormat','XResolution','YResolution','XPosition','YPosition','ResolutionUnit','Software']);
-		async function extractImageMetadata(file) { const parsed = await ExifReader.load(file, { expanded: true, includeUnknown: true }); return Object.entries(parsed || {}).filter(([g]) => metadataGroups[g]).flatMap(([g, v]) => Object.entries(v || {}).filter(([n]) => g !== 'exif' || !imageStructureTags.has(n)).map(([n, tag]) => [n, displayValue(tag.description ?? tag.value ?? tag), metadataGroups[g]])); }
+		function displayValue(v) {
+			if (v === null || v === undefined) return '';
+			if (v instanceof Date) return v.toLocaleString();
+			if (Array.isArray(v)) return v.map(displayValue).filter(Boolean).join(', ');
+			if (v instanceof Uint8Array) return `${v.byteLength} bytes`;
+			if (v && typeof v === 'object') return v.description ?? (typeof v.value === 'object' ? JSON.stringify(v.value) : v.value) ?? JSON.stringify(v);
+			return String(v);
+		}
+		const imageStructureTags = new Set([
+			'ImageWidth', 'ImageLength', 'BitsPerSample', 'Compression',
+			'PhotometricInterpretation', 'StripOffsets', 'SamplesPerPixel',
+			'RowsPerStrip', 'StripByteCounts', 'PlanarConfiguration',
+			'TileWidth', 'TileLength', 'TileOffsets', 'TileByteCounts',
+			'Predictor', 'ExtraSamples', 'SampleFormat', 'XResolution',
+			'YResolution', 'XPosition', 'YPosition', 'ResolutionUnit',
+			'JPEGInterchangeFormat', 'JPEGInterchangeFormatLength',
+			'Exif IFD Pointer', 'GPS Info IFD Pointer', 'Interoperability IFD Pointer',
+			'Thumbnail'
+		]);
+		const pngStructureTags = new Set([
+			'Image Width', 'Image Height', 'Bit Depth', 'Color Type',
+			'Compression', 'Filter', 'Interlace', 'Pixel Units',
+			'Pixels Per Unit X', 'Pixels Per Unit Y'
+		]);
+		function detectBinaryIcc(bytes) {
+			const u8 = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
+			// JPEG APP2 ICC_PROFILE
+			if (u8[0] === 0xff && u8[1] === 0xd8) {
+				let off = 2;
+				while (off + 4 < u8.length) {
+					if (u8[off] !== 0xff) { off++; continue; }
+					while (u8[off] === 0xff) off++;
+					const marker = u8[off++];
+					if (marker === 0xda || marker === 0xd9) break;
+					const len = (u8[off] << 8) | u8[off + 1];
+					if (len < 2 || off + len > u8.length) break;
+					if (marker === 0xe2 && len >= 14) {
+						const sig = String.fromCharCode(...u8.slice(off + 2, off + 14));
+						if (sig === 'ICC_PROFILE\0') return true;
+					}
+					off += len;
+				}
+			}
+			// PNG iCCP chunk
+			if (u8[0] === 0x89 && u8[1] === 0x50 && u8[2] === 0x4e && u8[3] === 0x47) {
+				let off = 8;
+				while (off + 8 <= u8.length) {
+					const len = new DataView(u8.buffer, u8.byteOffset + off).getUint32(0, false);
+					const name = String.fromCharCode(...u8.slice(off + 4, off + 8));
+					if (name === 'iCCP') return true;
+					off += 8 + len + 4;
+				}
+			}
+			// WebP ICCP chunk
+			if (u8[0] === 0x52 && u8[1] === 0x49 && u8[2] === 0x46 && u8[3] === 0x46) {
+				let off = 12;
+				while (off + 8 <= u8.length) {
+					const len = new DataView(u8.buffer, u8.byteOffset + off + 4).getUint32(0, true);
+					const name = String.fromCharCode(...u8.slice(off, off + 4));
+					if (name === 'ICCP') return true;
+					off += 8 + len + (len % 2);
+				}
+			}
+			return false;
+		}
+		async function extractImageMetadata(file) {
+			let parsed;
+			try {
+				parsed = await ExifReader.load(file, { expanded: true, includeUnknown: true, async: true });
+			} catch (err) {
+				if (!err || (err.name !== 'MetadataMissingError' && !err.message?.includes('No metadata'))) {
+					throw err;
+				}
+			}
+
+			const rows = [];
+
+			if (parsed) {
+				// 1. Standard metadata groups
+				const groupLabels = {
+					exif: 'EXIF',
+					iptc: 'IPTC',
+					xmp: 'XMP',
+					makerNotes: 'Camera notes',
+					photoshop: 'Photoshop',
+					pngText: 'PNG text'
+				};
+
+				for (const [groupKey, defaultLabel] of Object.entries(groupLabels)) {
+					const groupObj = parsed[groupKey];
+					if (groupObj && typeof groupObj === 'object') {
+						for (const [tagName, tag] of Object.entries(groupObj)) {
+							if (groupKey === 'exif' && imageStructureTags.has(tagName)) continue;
+							if (groupKey === 'xmp' && tagName === '_raw') continue;
+							const val = displayValue(tag.description ?? tag.value ?? tag);
+							if (val !== undefined && val !== '') {
+								const label = (groupKey === 'exif' && tagName.startsWith('GPS')) ? 'GPS' : defaultLabel;
+								rows.push([tagName, val, label]);
+							}
+						}
+					}
+				}
+
+				// 2. PNG non-text metadata (e.g. Modify Date from tIME chunk)
+				if (parsed.png && typeof parsed.png === 'object') {
+					for (const [tagName, tag] of Object.entries(parsed.png)) {
+						if (pngStructureTags.has(tagName)) continue;
+						if (parsed.pngText && tagName in parsed.pngText) continue;
+						const val = displayValue(tag.description ?? tag.value ?? tag);
+						if (val !== undefined && val !== '') {
+							rows.push([tagName, val, 'PNG']);
+						}
+					}
+				}
+
+				// 3. ICC Color Profile (represented as a single meaningful entry)
+				if (parsed.icc && typeof parsed.icc === 'object' && Object.keys(parsed.icc).length > 0) {
+					const desc = parsed.icc['ICC Description']?.description ||
+					             parsed.icc['ICC Description']?.value ||
+					             parsed.icc['Profile Description']?.description ||
+					             parsed.icc['Profile Description']?.value ||
+					             (parsed.icc['Color Space'] ? `Present (${parsed.icc['Color Space'].description?.trim() || parsed.icc['Color Space'].value})` : 'Present');
+					rows.push(['Color Profile', typeof desc === 'string' ? desc : 'Present', 'Color profile']);
+				}
+
+				// 4. Thumbnail (represented as a single meaningful entry)
+				if (parsed.Thumbnail || (parsed.thumbnail && Object.keys(parsed.thumbnail).length > 0)) {
+					rows.push(['Thumbnail', 'Present', 'Thumbnail']);
+				}
+			}
+
+			// 5. Fallback binary ICC detection if not already captured
+			const hasIcc = rows.some(r => r[0] === 'Color Profile');
+			if (!hasIcc) {
+				try {
+					let buf;
+					if (file instanceof ArrayBuffer) buf = file;
+					else if (file instanceof Uint8Array) buf = file;
+					else if (file && typeof file.arrayBuffer === 'function') buf = await file.arrayBuffer();
+					if (buf && detectBinaryIcc(buf)) {
+						rows.push(['Color Profile', 'Present', 'Color profile']);
+					}
+				} catch {}
+			}
+
+			return rows;
+		}
 
 		// ── Office Open XML (DOCX / XLSX / PPTX) metadata ────────────────────────
 		//
@@ -995,7 +1138,7 @@ const faqSchema = {
 		function canvasBlob(canvas, type, quality) { return new Promise((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error('Image encoder is unavailable')), type, quality)); }
 		function joinBytes(chunks) { const length = chunks.reduce((t, c) => t + c.length, 0); const out = new Uint8Array(length); let off = 0; chunks.forEach((c) => { out.set(c, off); off += c.length; }); return out; }
 		function stripJpegMetadata(source) { const bytes = new Uint8Array(source); if (bytes[0] !== 0xff || bytes[1] !== 0xd8) return bytes; const chunks = [bytes.slice(0, 2)]; let offset = 2; while (offset < bytes.length) { const start = offset; if (bytes[offset++] !== 0xff) return joinBytes([...chunks, bytes.slice(start)]); while (bytes[offset] === 0xff) offset++; const marker = bytes[offset++]; if (marker === 0xda || marker === 0xd9) return joinBytes([...chunks, bytes.slice(start)]); if (marker >= 0xd0 && marker <= 0xd7) { chunks.push(bytes.slice(start, offset)); continue; } const size = (bytes[offset] << 8) | bytes[offset + 1]; if (size < 2 || offset + size > bytes.length) return bytes; if (![0xe1, 0xe2, 0xed, 0xfe].includes(marker)) chunks.push(bytes.slice(start, offset + size)); offset += size; } return joinBytes(chunks); }
-		function stripChunkMetadata(source, type) { const bytes = new Uint8Array(source); const png = type === 'image/png'; const webp = type === 'image/webp'; if ((!png || String.fromCharCode(...bytes.slice(1, 4)) !== 'PNG') && (!webp || String.fromCharCode(...bytes.slice(0, 4)) !== 'RIFF')) return bytes; const chunks = [bytes.slice(0, png ? 8 : 12)]; let offset = png ? 8 : 12; while (offset + 8 <= bytes.length) { const sizeOff = png ? offset : offset + 4; const nameOff = png ? offset + 4 : offset; const size = new DataView(bytes.buffer, bytes.byteOffset + sizeOff).getUint32(0, !png); const name = String.fromCharCode(...bytes.slice(nameOff, nameOff + 4)); const end = offset + 8 + size + (png ? 4 : size % 2); if (end > bytes.length) return bytes; if (!(png ? ['eXIf','iCCP','tEXt','zTXt','iTXt'].includes(name) : ['EXIF','ICCP','XMP '].includes(name))) chunks.push(bytes.slice(offset, end)); offset = end; } const out = joinBytes(chunks); if (webp) new DataView(out.buffer).setUint32(4, out.length - 8, true); return out; }
+		function stripChunkMetadata(source, type) { const bytes = new Uint8Array(source); const png = type === 'image/png'; const webp = type === 'image/webp'; if ((!png || String.fromCharCode(...bytes.slice(1, 4)) !== 'PNG') && (!webp || String.fromCharCode(...bytes.slice(0, 4)) !== 'RIFF')) return bytes; const chunks = [bytes.slice(0, png ? 8 : 12)]; let offset = png ? 8 : 12; while (offset + 8 <= bytes.length) { const sizeOff = png ? offset : offset + 4; const nameOff = png ? offset + 4 : offset; const size = new DataView(bytes.buffer, bytes.byteOffset + sizeOff).getUint32(0, !png); const name = String.fromCharCode(...bytes.slice(nameOff, nameOff + 4)); const end = offset + 8 + size + (png ? 4 : size % 2); if (end > bytes.length) return bytes; if (!(png ? ['eXIf','iCCP','tEXt','zTXt','iTXt','tIME'].includes(name) : ['EXIF','ICCP','XMP '].includes(name))) chunks.push(bytes.slice(offset, end)); offset = end; } const out = joinBytes(chunks); if (webp) new DataView(out.buffer).setUint32(4, out.length - 8, true); return out; }
 		function stripGeneratedMetadata(bytes, type) { return type === 'image/jpeg' ? stripJpegMetadata(bytes) : (type === 'image/png' || type === 'image/webp') ? stripChunkMetadata(bytes, type) : bytes; }
 		async function cleanImage() {
 			const sourceType = imageFormats[extension(selectedFile)];
@@ -1027,6 +1170,7 @@ const faqSchema = {
 			if (selectedKind === 'audio') return extractAudioMetadata(f);
 			if (selectedKind === 'pdf') return extractPdfMetadata(await PDFDocument.load(await f.arrayBuffer(), { updateMetadata: false }));
 			if (selectedKind === 'office') return extractOfficeMetadata(await f.arrayBuffer());
+			if (selectedKind === 'image') return extractImageMetadata(f);
 			return [];
 		}
 
